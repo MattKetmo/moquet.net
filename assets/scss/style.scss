@@ -90,21 +90,27 @@ a {
     }
 }
 
+$icons: sprite-map("../images/icon-*.png");
 ul.social-icons {
     @include horizontal-list;
-
     margin-top: 5px;
 
+    li {
+        display: inline;
+    }
     a {
+        @include hide-text;
+        background-image: sprite-url($icons);
         display: block;
-        @include transition(all, 0.2s);
+        width: 32px;
+        height: 32px;
     }
 
     @each $media in github, twitter, symfony, google, linkedin {
         .#{$media} {
-            @include replace-text-with-dimensions('icon-#{$media}.png');
+            background-position: sprite-position($icons, 'icon-#{$media}');
             &:hover {
-                @include replace-text-with-dimensions('icon-#{$media}--hover.png');
+                background-position: sprite-position($icons, 'icon-#{$media}--hover');
             }
         }
     }

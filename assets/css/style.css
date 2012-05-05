@@ -173,113 +173,47 @@ ul.social-icons li:last-child {
 ul.social-icons li.last {
   padding-right: 0;
 }
+ul.social-icons li {
+  display: inline;
+}
 ul.social-icons a {
+  text-indent: 110%;
+  white-space: nowrap;
+  overflow: hidden;
+  background-image: url('/assets/images/../images-sf5b376ffb3.png');
   display: block;
-  -webkit-transition: all, 0.2s;
-  -moz-transition: all, 0.2s;
-  -ms-transition: all, 0.2s;
-  -o-transition: all, 0.2s;
-  transition: all, 0.2s;
+  width: 32px;
+  height: 32px;
 }
 ul.social-icons .github {
-  text-indent: 110%;
-  white-space: nowrap;
-  overflow: hidden;
-  background-image: url('/assets/images/icon-github.png?1336211554');
-  background-repeat: no-repeat;
-  background-position: 50% 50%;
-  width: 32px;
-  height: 32px;
+  background-position: 0 -128px;
 }
 ul.social-icons .github:hover {
-  text-indent: 110%;
-  white-space: nowrap;
-  overflow: hidden;
-  background-image: url('/assets/images/icon-github--hover.png?1336211588');
-  background-repeat: no-repeat;
-  background-position: 50% 50%;
-  width: 32px;
-  height: 32px;
+  background-position: 0 0;
 }
 ul.social-icons .twitter {
-  text-indent: 110%;
-  white-space: nowrap;
-  overflow: hidden;
-  background-image: url('/assets/images/icon-twitter.png?1336209538');
-  background-repeat: no-repeat;
-  background-position: 50% 50%;
-  width: 32px;
-  height: 32px;
+  background-position: 0 -96px;
 }
 ul.social-icons .twitter:hover {
-  text-indent: 110%;
-  white-space: nowrap;
-  overflow: hidden;
-  background-image: url('/assets/images/icon-twitter--hover.png?1336209630');
-  background-repeat: no-repeat;
-  background-position: 50% 50%;
-  width: 32px;
-  height: 32px;
+  background-position: 0 -192px;
 }
 ul.social-icons .symfony {
-  text-indent: 110%;
-  white-space: nowrap;
-  overflow: hidden;
-  background-image: url('/assets/images/icon-symfony.png?1336209878');
-  background-repeat: no-repeat;
-  background-position: 50% 50%;
-  width: 32px;
-  height: 32px;
+  background-position: 0 -64px;
 }
 ul.social-icons .symfony:hover {
-  text-indent: 110%;
-  white-space: nowrap;
-  overflow: hidden;
-  background-image: url('/assets/images/icon-symfony--hover.png?1336210014');
-  background-repeat: no-repeat;
-  background-position: 50% 50%;
-  width: 32px;
-  height: 32px;
+  background-position: 0 -224px;
 }
 ul.social-icons .google {
-  text-indent: 110%;
-  white-space: nowrap;
-  overflow: hidden;
-  background-image: url('/assets/images/icon-google.png?1336210938');
-  background-repeat: no-repeat;
-  background-position: 50% 50%;
-  width: 32px;
-  height: 32px;
+  background-position: 0 -32px;
 }
 ul.social-icons .google:hover {
-  text-indent: 110%;
-  white-space: nowrap;
-  overflow: hidden;
-  background-image: url('/assets/images/icon-google--hover.png?1336210964');
-  background-repeat: no-repeat;
-  background-position: 50% 50%;
-  width: 32px;
-  height: 32px;
+  background-position: 0 -160px;
 }
 ul.social-icons .linkedin {
-  text-indent: 110%;
-  white-space: nowrap;
-  overflow: hidden;
-  background-image: url('/assets/images/icon-linkedin.png?1336210388');
-  background-repeat: no-repeat;
-  background-position: 50% 50%;
-  width: 32px;
-  height: 32px;
+  background-position: 0 -256px;
 }
 ul.social-icons .linkedin:hover {
-  text-indent: 110%;
-  white-space: nowrap;
-  overflow: hidden;
-  background-image: url('/assets/images/icon-linkedin--hover.png?1336210432');
-  background-repeat: no-repeat;
-  background-position: 50% 50%;
-  width: 32px;
-  height: 32px;
+  background-position: 0 -288px;
 }
 
 .hint {
