@@ -1,0 +1,322 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+body {
+  line-height: 1;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+caption, th, td {
+  text-align: left;
+  font-weight: normal;
+  vertical-align: middle;
+}
+
+q, blockquote {
+  quotes: none;
+}
+q:before, q:after, blockquote:before, blockquote:after {
+  content: "";
+  content: none;
+}
+
+a img {
+  border: none;
+}
+
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary {
+  display: block;
+}
+
+@font-face {
+  font-family: "Junction";
+  src: url('/assets/fonts/junction.woff') format('woff');
+}
+
+@font-face {
+  font-family: "Quatro Ultra Slab";
+  src: url('/assets/fonts/Quatro Ultra Slab.otf') format('opentype');
+}
+
+body {
+  background: #f4f4f4 url('/assets/images/cubes.png?1336213390') repeat center;
+  color: #303030;
+}
+
+::selection, ::-moz-selection {
+  background: #ff6633;
+  text-shadow: none;
+}
+
+strong {
+  font-weight: bold;
+}
+
+a {
+  color: #303030;
+  text-decoration: none;
+}
+a:hover {
+  color: #0388A6;
+}
+
+.container {
+  width: 630px;
+  margin: 10% auto;
+  padding: 7% 0;
+}
+
+.clear {
+  clear: both;
+}
+
+.main {
+  width: 350px;
+  float: left;
+}
+.main .inner {
+  -webkit-box-shadow: #eeeeee 1px 0px 0px;
+  -moz-box-shadow: #eeeeee 1px 0px 0px;
+  box-shadow: #eeeeee 1px 0px 0px;
+  border-right: 1px solid #aaa;
+  padding-right: 15px;
+  heigth: 250px;
+}
+
+.secondary {
+  width: 280px;
+  float: right;
+}
+.secondary .inner {
+  padding-left: 15px;
+}
+
+.main {
+  font-family: "Quatro Ultra Slab", sans-serif;
+  text-align: right;
+}
+.main span {
+  display: block;
+}
+.main .firstname {
+  font-size: 3.5em;
+  line-height: .7em;
+}
+.main .lastname {
+  font-size: 4.5em;
+  line-height: .9em;
+}
+
+.secondary {
+  font-family: "Junction", sans-serif;
+  padding-top: 10px;
+}
+.secondary .pseudo {
+  font-size: 1.2em;
+  line-height: 1.6em;
+}
+.secondary .status {
+  font-size: .9em;
+  line-height: 1.5em;
+}
+
+ul.social-icons {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  *zoom: 1;
+  margin-top: 5px;
+}
+ul.social-icons li {
+  list-style-image: none;
+  list-style-type: none;
+  margin-left: 0;
+  white-space: nowrap;
+  display: inline;
+  float: left;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+ul.social-icons li:first-child, ul.social-icons li.first {
+  padding-left: 0;
+}
+ul.social-icons li:last-child {
+  padding-right: 0;
+}
+ul.social-icons li.last {
+  padding-right: 0;
+}
+ul.social-icons a {
+  display: block;
+  -webkit-transition: all, 0.2s;
+  -moz-transition: all, 0.2s;
+  -ms-transition: all, 0.2s;
+  -o-transition: all, 0.2s;
+  transition: all, 0.2s;
+}
+ul.social-icons .github {
+  text-indent: 110%;
+  white-space: nowrap;
+  overflow: hidden;
+  background-image: url('/assets/images/icon-github.png?1336211554');
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  width: 32px;
+  height: 32px;
+}
+ul.social-icons .github:hover {
+  text-indent: 110%;
+  white-space: nowrap;
+  overflow: hidden;
+  background-image: url('/assets/images/icon-github--hover.png?1336211588');
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  width: 32px;
+  height: 32px;
+}
+ul.social-icons .twitter {
+  text-indent: 110%;
+  white-space: nowrap;
+  overflow: hidden;
+  background-image: url('/assets/images/icon-twitter.png?1336209538');
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  width: 32px;
+  height: 32px;
+}
+ul.social-icons .twitter:hover {
+  text-indent: 110%;
+  white-space: nowrap;
+  overflow: hidden;
+  background-image: url('/assets/images/icon-twitter--hover.png?1336209630');
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  width: 32px;
+  height: 32px;
+}
+ul.social-icons .symfony {
+  text-indent: 110%;
+  white-space: nowrap;
+  overflow: hidden;
+  background-image: url('/assets/images/icon-symfony.png?1336209878');
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  width: 32px;
+  height: 32px;
+}
+ul.social-icons .symfony:hover {
+  text-indent: 110%;
+  white-space: nowrap;
+  overflow: hidden;
+  background-image: url('/assets/images/icon-symfony--hover.png?1336210014');
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  width: 32px;
+  height: 32px;
+}
+ul.social-icons .google {
+  text-indent: 110%;
+  white-space: nowrap;
+  overflow: hidden;
+  background-image: url('/assets/images/icon-google.png?1336210938');
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  width: 32px;
+  height: 32px;
+}
+ul.social-icons .google:hover {
+  text-indent: 110%;
+  white-space: nowrap;
+  overflow: hidden;
+  background-image: url('/assets/images/icon-google--hover.png?1336210964');
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  width: 32px;
+  height: 32px;
+}
+ul.social-icons .linkedin {
+  text-indent: 110%;
+  white-space: nowrap;
+  overflow: hidden;
+  background-image: url('/assets/images/icon-linkedin.png?1336210388');
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  width: 32px;
+  height: 32px;
+}
+ul.social-icons .linkedin:hover {
+  text-indent: 110%;
+  white-space: nowrap;
+  overflow: hidden;
+  background-image: url('/assets/images/icon-linkedin--hover.png?1336210432');
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  width: 32px;
+  height: 32px;
+}
+
+.hint {
+  color: #999;
+}
+
+@media screen and (max-width: 630px) {
+  .container {
+    width: 100%;
+    min-width: 330px;
+    margin: auto;
+    padding: 7% 0;
+  }
+
+  .main {
+    width: 100%;
+    float: none;
+    text-align: center;
+  }
+  .main .inner {
+    border: none;
+    padding-left: 15px;
+  }
+
+  .secondary {
+    width: 100%;
+    float: none;
+    text-align: center;
+    margin-top: 15px;
+  }
+  .secondary .inner {
+    border: none;
+    padding-left: 15px;
+  }
+
+  ul.social-icons {
+    margin: 15px auto;
+    width: 200px;
+  }
+}

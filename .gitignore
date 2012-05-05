@@ -1,0 +1,5 @@
+# Jekyll
+_site
+
+# Compass
+.sass-cache
