@@ -65,7 +65,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 }
 
 body {
-  background: #f4f4f4 url('/assets/images/cubes.png?1336213390') repeat center;
+  background: #f4f4f4 url('/assets/images/cubes.png?1339014984') repeat center;
   color: #303030;
 }
 
@@ -180,28 +180,28 @@ ul.social-icons a {
   text-indent: 110%;
   white-space: nowrap;
   overflow: hidden;
-  background-image: url('/assets/images/../images-sf5b376ffb3.png');
+  background-image: url('/assets/images/../images-s509fd739c4.png');
   display: block;
   width: 32px;
   height: 32px;
 }
 ul.social-icons .github {
-  background-position: 0 -128px;
+  background-position: 0 -96px;
 }
 ul.social-icons .github:hover {
   background-position: 0 0;
 }
 ul.social-icons .twitter {
-  background-position: 0 -96px;
+  background-position: 0 -128px;
 }
 ul.social-icons .twitter:hover {
-  background-position: 0 -192px;
+  background-position: 0 -256px;
 }
 ul.social-icons .symfony {
   background-position: 0 -64px;
 }
 ul.social-icons .symfony:hover {
-  background-position: 0 -224px;
+  background-position: 0 -192px;
 }
 ul.social-icons .google {
   background-position: 0 -32px;
@@ -210,7 +210,7 @@ ul.social-icons .google:hover {
   background-position: 0 -160px;
 }
 ul.social-icons .linkedin {
-  background-position: 0 -256px;
+  background-position: 0 -224px;
 }
 ul.social-icons .linkedin:hover {
   background-position: 0 -288px;
