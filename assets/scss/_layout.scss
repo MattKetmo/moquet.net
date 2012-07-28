@@ -172,3 +172,41 @@ ul.social-icons {
         }
     }
 }
+
+.blog-post {
+    font-family: $font-text;
+    padding-top: 20px;
+
+    // Post title
+    h1 {
+        font-family: $font-text;
+        font-weight: bold;
+        font-size: 1.3em;
+        margin-bottom: 20px;
+    }
+}
+
+.site-footer {
+    padding: 10px 0;
+    border-top: 1px solid #ccc;
+
+    .inner {
+        width: 350px;
+        margin: auto;
+    }
+    .pseudo, .social-icons {
+        line-height: 30px;
+    }
+
+    .pseudo {
+        // border-right: 1px solid #ccc;
+        font-family: $font-text;
+        font-size: 1.2em;
+        float: left;
+        padding-right: 10px;
+    }
+
+    .social-icons {
+        padding-left: 10px;
+    }
+}
