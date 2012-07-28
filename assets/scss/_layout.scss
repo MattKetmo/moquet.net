@@ -193,11 +193,15 @@ ul.social-icons {
             display: block;
         }
     }
+
+    .comments {
+        margin-top: 40px;
+    }
 }
 
 .site-footer {
     padding: 10px 0 30px;
-    border-top: 1px solid #ccc;
+    //border-top: 1px solid #ccc;
 
     .inner {
         width: 350px;

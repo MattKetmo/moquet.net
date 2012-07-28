@@ -383,10 +383,12 @@ ul.social-icons .linkedin:hover {
   text-align: center;
   display: block;
 }
+.blog-post .comments {
+  margin-top: 40px;
+}
 
 .site-footer {
   padding: 10px 0 30px;
-  border-top: 1px solid #ccc;
 }
 .site-footer .inner {
   width: 350px;
