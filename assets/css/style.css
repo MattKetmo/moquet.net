@@ -331,7 +331,6 @@ ul.social-icons .linkedin:hover {
 
 .site-footer {
   padding: 10px 0 30px;
-  border-top: 1px solid #ccc;
 }
 .site-footer .inner {
   width: 350px;
@@ -362,7 +361,7 @@ ul.social-icons .linkedin:hover {
   left: 50px;
   width: 100px;
   height: 100px;
-  background: url('/assets/images/logo-mattketmo-min.png?1342981301');
+  background: url('/assets/images/logo-mattketmo-min.png?1343501620');
   -webkit-transition-property: left, rotate;
   -webkit-transition-duration: 0.7s;
   -webkit-transition-timing-function: ease;
