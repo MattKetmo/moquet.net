@@ -31,9 +31,6 @@
     }
 
     // Blocks
-    .logo {
-        width: 100%;
-    }
     h1 {
         font-family: $font-title;
         text-align: right;
@@ -147,7 +144,7 @@ ul.social-icons {
 
         border-top: 1px solid #ccc;
         &:last-child {
-            border-bottom: 1px solid #ccc;
+            // border-bottom: 1px solid #ccc;
         }
 
         time {
@@ -178,16 +175,18 @@ ul.social-icons {
     padding-top: 20px;
 
     // Post title
-    h1 {
+    header h1 {
         font-family: $font-text;
         font-weight: bold;
-        font-size: 1.3em;
-        margin-bottom: 20px;
+        font-size: 2em;
+        text-align: center;
+        margin: 20px 0;
+        letter-spacing: -1px;
     }
 }
 
 .site-footer {
-    padding: 10px 0;
+    padding: 10px 0 30px;
     border-top: 1px solid #ccc;
 
     .inner {
@@ -208,5 +207,42 @@ ul.social-icons {
 
     .social-icons {
         padding-left: 10px;
+    }
+}
+
+.logo {
+    position: relative;
+    width: 200px;
+    height: 100px;
+    margin: auto;
+
+    div {
+        position: absolute;
+        top: 0;
+        left: 50px;
+        width: 100px;
+        height: 100px;
+        background: image-url("icon-mattketmo-min.png");
+        -webkit-transition-property: left, rotate;
+        -webkit-transition-duration: 0.7s;
+        -webkit-transition-timing-function: ease;
+    }
+
+    .logo-k {
+        opacity: 0;
+    }
+
+    &:hover {
+        cursor: pointer;
+
+        .logo-m {
+            left: 0;
+            -webkit-transform: rotate(315deg);
+        }
+        .logo-k {
+            left: 100px;
+            opacity: 1;
+            -webkit-transform: rotate(-315deg);
+        }
     }
 }

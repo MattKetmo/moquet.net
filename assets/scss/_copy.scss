@@ -139,8 +139,8 @@ $text-baseline: 21px;
     // ----------------------------------------
 
     a {
-        font-weight: bold;
-        text-decoration: underline;
+        text-decoration: none;
+        color: #09c;
     }
 
     a:visited {
@@ -148,6 +148,8 @@ $text-baseline: 21px;
     }
 
     a:hover {
-
+        color: #33b5e5;
+        // color: #258aaf;
+        // color: #7aa1b0;
     }
 }
