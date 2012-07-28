@@ -1,0 +1,29 @@
+// Vars
+$debug: false;
+
+// Font-Faces
+@include font-face("Quatro Ultra Slab", font-files(
+    "Quatro Ultra Slab.otf"
+));
+
+@include font-face("Roboto", font-files("Roboto-Regular.ttf"), false, normal, normal);
+@include font-face("Roboto", font-files("Roboto-Bold.ttf"), false, bold, normal);
+@include font-face("Roboto", font-files("Roboto-Italic.ttf"), false, normal, italic);
+@include font-face("Roboto", font-files("Roboto-BoldItalic.ttf"), false, bold, italic);
+
+$font-title: "Quatro Ultra Slab", serif;
+$font-text:  "Roboto", sans-serif;
+
+body {
+    background: #f4f4f4 image-url('cubes.png') repeat center;
+    color: #303030;
+}
+
+::selection, ::-moz-selection {
+    // background: #f14e32;
+    // background: #33B5E5; //#f14e32;
+    // background: #7aa1b0;
+    // background: #33b5e5;
+    background: #258aaf;
+    text-shadow: none;
+}
