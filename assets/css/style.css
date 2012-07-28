@@ -14,12 +14,12 @@ time, mark, audio, video {
   margin: 0;
   padding: 0;
   border: 0;
-  font-size: 100%;
   font: inherit;
+  font-size: 100%;
   vertical-align: baseline;
 }
 
-body {
+html {
   line-height: 1;
 }
 
@@ -55,13 +55,36 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 }
 
 @font-face {
-  font-family: "Junction";
-  src: url('/assets/fonts/junction.woff') format('woff');
+  font-family: "Quatro Ultra Slab";
+  src: url('/assets/fonts/Quatro Ultra Slab.otf') format('opentype');
 }
 
 @font-face {
-  font-family: "Quatro Ultra Slab";
-  src: url('/assets/fonts/Quatro Ultra Slab.otf') format('opentype');
+  font-family: "Roboto";
+  src: url('/assets/fonts/Roboto-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Roboto";
+  src: url('/assets/fonts/Roboto-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Roboto";
+  src: url('/assets/fonts/Roboto-Italic.ttf') format('truetype');
+  font-weight: normal;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Roboto";
+  src: url('/assets/fonts/Roboto-BoldItalic.ttf') format('truetype');
+  font-weight: bold;
+  font-style: italic;
 }
 
 body {
@@ -70,80 +93,115 @@ body {
 }
 
 ::selection, ::-moz-selection {
-  background: #ff6633;
+  background: #258aaf;
   text-shadow: none;
 }
 
-strong {
+.copy {
+  font-size: 16px;
+  line-height: 25px;
+}
+.copy > * {
+  margin: 0 0 21px 0;
+}
+.copy ul, .copy ol {
+  margin-left: 30px;
+}
+.copy ul li {
+  list-style-type: disc;
+}
+.copy ol li {
+  list-style-type: decimal;
+}
+.copy li {
+  display: list-item;
+}
+.copy em {
+  font-style: italic;
+}
+.copy strong {
   font-weight: bold;
 }
-
-a {
-  color: #303030;
+.copy mark {
+  background: yellow;
+}
+.copy ins {
+  background: green;
+}
+.copy del {
+  background: red;
+}
+.copy a {
   text-decoration: none;
+  color: #09c;
 }
-a:hover {
-  color: #0388A6;
-}
-
-.container {
-  width: 630px;
-  margin: 10% auto;
-  padding: 7% 0;
+.copy a:hover {
+  color: #33b5e5;
 }
 
-.clear {
+.site-container {
+  width: 650px;
+  margin: auto;
+}
+
+.site-header {
+  margin-top: 20px;
+}
+.site-header .row, .site-header .row1, .site-header .row2 {
+  width: 100%;
   clear: both;
 }
-
-.main {
-  width: 350px;
+.site-header .row1 {
+  height: 100px;
+}
+.site-header .row2 {
+  height: 120px;
+}
+.site-header .inner {
+  padding: 0 10px;
+}
+.site-header h1 {
+  font-family: "Quatro Ultra Slab", serif;
+  text-align: right;
+  width: 370px;
+  height: 100%;
   float: left;
 }
-.main .inner {
-  -webkit-box-shadow: #eeeeee 1px 0px 0px;
-  -moz-box-shadow: #eeeeee 1px 0px 0px;
-  box-shadow: #eeeeee 1px 0px 0px;
+.site-header h1 .inner {
+  padding-right: 20px;
   border-right: 1px solid #aaa;
-  padding-right: 15px;
-  heigth: 250px;
 }
-
-.secondary {
-  width: 280px;
-  float: right;
-}
-.secondary .inner {
-  padding-left: 15px;
-}
-
-.main {
-  font-family: "Quatro Ultra Slab", sans-serif;
-  text-align: right;
-}
-.main span {
+.site-header h1 span {
   display: block;
 }
-.main .firstname {
+.site-header h1 .firstname {
   font-size: 3.5em;
   line-height: .7em;
 }
-.main .lastname {
+.site-header h1 .lastname {
   font-size: 4.5em;
   line-height: .9em;
+  text-transform: capitalize;
 }
-
-.secondary {
-  font-family: "Junction", sans-serif;
-  padding-top: 10px;
+.site-header .baseline {
+  width: 280px;
+  float: left;
+  height: 100%;
+  font-family: "Roboto", sans-serif;
 }
-.secondary .pseudo {
+.site-header .baseline .inner {
+  padding-left: 20px;
+}
+.site-header .baseline p {
+  margin: 5px 0;
+}
+.site-header .baseline .pseudo {
   font-size: 1.2em;
-  line-height: 1.6em;
+  margin-bottom: 10px;
 }
-.secondary .status {
-  font-size: .9em;
-  line-height: 1.5em;
+.site-header .baseline .status span {
+  font-size: 1.5em;
+  font-weight: bold;
 }
 
 ul.social-icons {
@@ -177,9 +235,9 @@ ul.social-icons li {
   display: inline;
 }
 ul.social-icons a {
-  text-indent: 110%;
-  white-space: nowrap;
+  text-indent: -119988px;
   overflow: hidden;
+  text-align: left;
   background-image: url('/assets/images/../images-s509fd739c4.png');
   display: block;
   width: 32px;
@@ -216,41 +274,111 @@ ul.social-icons .linkedin:hover {
   background-position: 0 -288px;
 }
 
-.hint {
-  color: #999;
+.site-content {
+  width: 100%;
 }
 
-@media screen and (max-width: 630px) {
-  .container {
-    width: 100%;
-    min-width: 330px;
-    margin: auto;
-    padding: 7% 0;
-  }
+.blog-entries {
+  margin-top: 30px;
+}
+.blog-entries article {
+  font-family: "Roboto", sans-serif;
+  height: 50px;
+  line-height: 50px;
+  padding-left: 90px;
+  position: relative;
+  border-top: 1px solid #ccc;
+}
+.blog-entries article time {
+  position: absolute;
+  left: 15px;
+  top: 0px;
+  color: #888;
+}
+.blog-entries article h2 {
+  overflow: hidden;
+  font-weight: bold;
+  font-size: 1em;
+}
+.blog-entries article h2 a {
+  text-decoration: none;
+  color: #444;
+}
+.blog-entries article h2 a:hover {
+  color: #09c;
+}
 
-  .main {
-    width: 100%;
-    float: none;
-    text-align: center;
-  }
-  .main .inner {
-    border: none;
-    padding-left: 15px;
-  }
+.blog-post {
+  font-family: "Roboto", sans-serif;
+  padding-top: 20px;
+}
+.blog-post header {
+  margin: 20px 0;
+}
+.blog-post header h1 {
+  font-family: "Roboto", sans-serif;
+  font-weight: bold;
+  font-size: 2em;
+  text-align: center;
+  letter-spacing: -1px;
+  margin-bottom: 15px;
+}
+.blog-post header time {
+  color: #aaa;
+  text-align: center;
+  display: block;
+}
 
-  .secondary {
-    width: 100%;
-    float: none;
-    text-align: center;
-    margin-top: 15px;
-  }
-  .secondary .inner {
-    border: none;
-    padding-left: 15px;
-  }
+.site-footer {
+  padding: 10px 0 30px;
+  border-top: 1px solid #ccc;
+}
+.site-footer .inner {
+  width: 350px;
+  margin: auto;
+}
+.site-footer .pseudo, .site-footer .social-icons {
+  line-height: 30px;
+}
+.site-footer .pseudo {
+  font-family: "Roboto", sans-serif;
+  font-size: 1.2em;
+  float: left;
+  padding-right: 10px;
+}
+.site-footer .social-icons {
+  padding-left: 10px;
+}
 
-  ul.social-icons {
-    margin: 15px auto;
-    width: 200px;
-  }
+.logo {
+  position: relative;
+  width: 200px;
+  height: 100px;
+  margin: auto;
+}
+.logo div {
+  position: absolute;
+  top: 0;
+  left: 50px;
+  width: 100px;
+  height: 100px;
+  background: url('/assets/images/logo-mattketmo-min.png?1342981301');
+  -webkit-transition-property: left, rotate;
+  -webkit-transition-duration: 0.7s;
+  -webkit-transition-timing-function: ease;
+}
+.logo .logo-k {
+  opacity: 0;
+}
+.logo:hover {
+  cursor: pointer;
+}
+.logo:hover .logo-m {
+  left: 0;
+  -webkit-transform: rotate(315deg);
+}
+.logo:hover .logo-k {
+  left: 100px;
+  opacity: 1;
+  -webkit-transform: rotate(-315deg);
 }

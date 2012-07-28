@@ -4,6 +4,8 @@ $text-baseline: 21px;
 // making them global. Global styles will be constantly overridden.
 .copy {
     // @include improve-text-rendering;
+    font-size: 16px;
+    line-height: 25px;
 
     // Set the baseline on all elements directly inside a copy block
     // Margin won't work on inline elements anyway
@@ -15,8 +17,7 @@ $text-baseline: 21px;
     // ----------------------------------------
 
     p {
-        font-size: 16px;
-        line-height: 25px;
+
     }
 
     address {

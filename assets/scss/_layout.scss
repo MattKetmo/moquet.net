@@ -175,13 +175,23 @@ ul.social-icons {
     padding-top: 20px;
 
     // Post title
-    header h1 {
-        font-family: $font-text;
-        font-weight: bold;
-        font-size: 2em;
-        text-align: center;
+    header {
         margin: 20px 0;
-        letter-spacing: -1px;
+
+        h1 {
+            font-family: $font-text;
+            font-weight: bold;
+            font-size: 2em;
+            text-align: center;
+            letter-spacing: -1px;
+            margin-bottom: 15px;
+        }
+
+        time {
+            color: #aaa;
+            text-align: center;
+            display: block;
+        }
     }
 }
 
@@ -222,7 +232,7 @@ ul.social-icons {
         left: 50px;
         width: 100px;
         height: 100px;
-        background: image-url("icon-mattketmo-min.png");
+        background: image-url("logo-mattketmo-min.png");
         -webkit-transition-property: left, rotate;
         -webkit-transition-duration: 0.7s;
         -webkit-transition-timing-function: ease;
