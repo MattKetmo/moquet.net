@@ -102,7 +102,31 @@ body {
   line-height: 25px;
 }
 .copy > * {
-  margin: 0 0 21px 0;
+  margin-bottom: 16px;
+}
+.copy blockquote {
+  font-style: italic;
+  background: rgba(249, 249, 249, 0.6);
+  border-left: 1px solid #ccc;
+  margin: 1.5em 10px;
+  padding: .5em 10px;
+  quotes: "\201C""\201D""\2018""\2019";
+}
+.copy blockquote p {
+  display: inline;
+}
+.copy blockquote:before, .copy blockquote:after {
+  color: #ccc;
+  font-size: 4em;
+  line-height: .1em;
+  vertical-align: -0.4em;
+}
+.copy blockquote:before {
+  margin-right: .15em;
+  content: open-quote;
+}
+.copy blockquote:after {
+  content: close-quote;
 }
 .copy ul, .copy ol {
   margin-left: 30px;
@@ -115,6 +139,37 @@ body {
 }
 .copy li {
   display: list-item;
+}
+.copy pre code {
+  padding: 7px 10px;
+  display: block;
+  background-color: #444;
+  color: #eee;
+}
+.copy code {
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  border-radius: 3px;
+  font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+  font-size: 0.9em;
+  background-color: #f7f7f9;
+  padding: 2px 4px;
+  border: 1px solid #e1e1e8;
+}
+.copy h1, .copy h2, .copy h3, .copy h4, .copy h5, .copy h6 {
+  font-weight: bold;
+  margin-top: 20px;
+}
+.copy h1 {
+  font-size: 1.3em;
+}
+.copy h2 {
+  font-size: 1.2em;
+}
+.copy h3 {
+  font-size: 1.1em;
 }
 .copy em {
   font-style: italic;
@@ -331,6 +386,7 @@ ul.social-icons .linkedin:hover {
 
 .site-footer {
   padding: 10px 0 30px;
+  border-top: 1px solid #ccc;
 }
 .site-footer .inner {
   width: 350px;
@@ -361,7 +417,7 @@ ul.social-icons .linkedin:hover {
   left: 50px;
   width: 100px;
   height: 100px;
-  background: url('/assets/images/logo-mattketmo-min.png?1343501620');
+  background: url('/assets/images/logo-mattketmo-min.png?1343502125');
   -webkit-transition-property: left, rotate;
   -webkit-transition-duration: 0.7s;
   -webkit-transition-timing-function: ease;
