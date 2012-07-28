@@ -1,0 +1,174 @@
+//
+// Main wrapper
+//
+.site-container {
+    width: 650px;
+    margin: auto;
+}
+
+//
+// Header
+//
+.site-header {
+    margin-top: 20px;
+    //border-bottom: 1px solid #aaa;
+
+    // Rows
+    .row {
+        width: 100%;
+        clear: both;
+    }
+    .row1 {
+        @extend .row;
+        height: 100px;
+    }
+    .row2 {
+        @extend .row;
+        height: 120px;
+    }
+    .inner {
+        padding: 0 10px;
+    }
+
+    // Blocks
+    .logo {
+        width: 100%;
+    }
+    h1 {
+        font-family: $font-title;
+        text-align: right;
+        width: 370px;
+        height: 100%;
+        float: left;
+
+        @if $debug {
+            background-color: red;
+        }
+
+        .inner {
+            padding-right: 20px;
+            border-right: 1px solid #aaa;
+        }
+
+        span {
+            display: block;
+        }
+        .firstname {
+            font-size: 3.5em;
+            line-height: .7em;
+        }
+        .lastname {
+            font-size: 4.5em;
+            line-height: .9em;
+            text-transform: capitalize;
+        }
+    }
+    .baseline {
+        width: 280px;
+        float: left;
+        height: 100%;
+
+        @if $debug {
+            background-color: blue;
+        }
+
+        font-family: $font-text;
+
+        .inner {
+            padding-left: 20px;
+        }
+
+        p {
+            margin: 5px 0;
+        }
+        .pseudo {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+        .status {
+            span {
+                font-size: 1.5em;
+                font-weight: bold;
+            }
+        }
+    }
+}
+
+$icons: sprite-map("../images/icon-*.png");
+ul.social-icons {
+    @include horizontal-list;
+    margin-top: 5px;
+
+    li {
+        display: inline;
+    }
+    a {
+        @include hide-text;
+        background-image: sprite-url($icons);
+        display: block;
+        width: 32px;
+        height: 32px;
+    }
+
+    @each $media in github, twitter, symfony, google, linkedin {
+        .#{$media} {
+            background-position: sprite-position($icons, 'icon-#{$media}');
+            &:hover {
+                background-position: sprite-position($icons, 'icon-#{$media}--hover');
+            }
+        }
+    }
+}
+
+//
+// Content
+//
+.site-content {
+    width: 100%;
+
+    @if $debug {
+        background-color: green;
+    }
+}
+
+//
+// Blog
+//
+.blog-entries {
+    margin-top: 30px;
+
+    article {
+        font-family: $font-text;
+        height: 50px;
+        line-height: 50px;
+
+        padding-left: 90px;
+        position: relative;
+
+        border-top: 1px solid #ccc;
+        &:last-child {
+            border-bottom: 1px solid #ccc;
+        }
+
+        time {
+            position: absolute;
+            left: 15px;
+            top: 0px;
+            color: #888;
+        }
+        h2 {
+            overflow: hidden;
+            font-weight: bold;
+            font-size: 1em;
+
+            a {
+                text-decoration: none;
+                color: #444;
+
+                &:hover {
+                    color: #09c;
+                }
+            }
+        }
+    }
+}
