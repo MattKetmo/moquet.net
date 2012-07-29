@@ -141,6 +141,7 @@ body {
   display: list-item;
 }
 .copy pre code {
+  overflow: auto;
   padding: 7px 10px;
   display: block;
   background-color: #444;
@@ -414,15 +415,24 @@ ul.social-icons .linkedin:hover {
   margin: auto;
 }
 .logo div {
+  -webkit-transition-property: all;
+  -moz-transition-property: all;
+  -o-transition-property: all;
+  transition-property: all;
+  -webkit-transition-duration: 0.7s;
+  -moz-transition-duration: 0.7s;
+  -o-transition-duration: 0.7s;
+  transition-duration: 0.7s;
+  -webkit-transition-timing-function: ease;
+  -moz-transition-timing-function: ease;
+  -o-transition-timing-function: ease;
+  transition-timing-function: ease;
   position: absolute;
   top: 0;
   left: 50px;
   width: 100px;
   height: 100px;
   background: url('/assets/images/logo-mattketmo-min.png?1343502125');
-  -webkit-transition-property: left, rotate;
-  -webkit-transition-duration: 0.7s;
-  -webkit-transition-timing-function: ease;
 }
 .logo .logo-k {
   opacity: 0;
@@ -431,11 +441,19 @@ ul.social-icons .linkedin:hover {
   cursor: pointer;
 }
 .logo:hover .logo-m {
-  left: 0;
   -webkit-transform: rotate(315deg);
+  -moz-transform: rotate(315deg);
+  -ms-transform: rotate(315deg);
+  -o-transform: rotate(315deg);
+  transform: rotate(315deg);
+  left: 0;
 }
 .logo:hover .logo-k {
+  -webkit-transform: rotate(-315deg);
+  -moz-transform: rotate(-315deg);
+  -ms-transform: rotate(-315deg);
+  -o-transform: rotate(-315deg);
+  transform: rotate(-315deg);
   left: 100px;
   opacity: 1;
-  -webkit-transform: rotate(-315deg);
 }

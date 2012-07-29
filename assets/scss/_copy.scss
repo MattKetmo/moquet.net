@@ -91,6 +91,7 @@ $text-baseline: 16px;
 
     pre {
         code {
+            overflow: auto;
             padding: 7px 10px;
             display: block;
             background-color: #444;
