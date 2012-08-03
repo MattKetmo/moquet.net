@@ -26,6 +26,10 @@
         @extend .row;
         height: 120px;
     }
+    .row3 {
+        @extend .row;
+        height: 100px;
+    }
     .inner {
         padding: 0 10px;
     }
@@ -155,6 +159,8 @@ ul.social-icons {
         }
         h2 {
             overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
             font-weight: bold;
             font-size: 1em;
 
@@ -262,4 +268,44 @@ ul.social-icons {
             opacity: 1;
         }
     }
+}
+
+@media screen and (max-width: 650px) {
+    .site-container {
+        width: 90%;
+    }
+
+    .site-header {
+        .row1 {
+            height: 50px;
+        }
+        .row2 {
+            height: 100%;
+        }
+        h1 {
+            width: 100%;
+            float: none;
+            text-align: center;
+            .inner {
+                border-right: none;
+                border-bottom: 1px solid #ccc;
+                padding-bottom: 20px;
+            }
+        }
+        .baseline {
+            margin-top: 20px;
+            width: 100%;
+            float: none;
+            text-align: center;
+        }
+        .social-icons {
+            width: 6 * 32px;
+            margin: auto;
+        }
+    }
+}
+
+@media (max-device-width:768px) and (orientation:landscape) and (-webkit-min-device-pixel-ratio:2) {
+    // @see http://blog.goetter.fr/post/28469308363/initial-scale-1-le-pour-et-le-contre
+    html { -webkit-text-size-adjust: 66%; }
 }

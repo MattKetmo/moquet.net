@@ -203,7 +203,7 @@ body {
 .site-header {
   margin-top: 20px;
 }
-.site-header .row, .site-header .row1, .site-header .row2 {
+.site-header .row, .site-header .row1, .site-header .row2, .site-header .row3 {
   width: 100%;
   clear: both;
 }
@@ -212,6 +212,9 @@ body {
 }
 .site-header .row2 {
   height: 120px;
+}
+.site-header .row3 {
+  height: 100px;
 }
 .site-header .inner {
   padding: 0 10px;
@@ -353,6 +356,8 @@ ul.social-icons .linkedin:hover {
 }
 .blog-entries article h2 {
   overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   font-weight: bold;
   font-size: 1em;
 }
@@ -456,4 +461,42 @@ ul.social-icons .linkedin:hover {
   transform: rotate(-315deg);
   left: 100px;
   opacity: 1;
+}
+
+@media screen and (max-width: 650px) {
+  .site-container {
+    width: 90%;
+  }
+
+  .site-header .row1 {
+    height: 50px;
+  }
+  .site-header .row2 {
+    height: 100%;
+  }
+  .site-header h1 {
+    width: 100%;
+    float: none;
+    text-align: center;
+  }
+  .site-header h1 .inner {
+    border-right: none;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 20px;
+  }
+  .site-header .baseline {
+    margin-top: 20px;
+    width: 100%;
+    float: none;
+    text-align: center;
+  }
+  .site-header .social-icons {
+    width: 192px;
+    margin: auto;
+  }
+}
+@media (max-device-width:768px) and (orientation:landscape) and (-webkit-min-device-pixel-ratio:2) {
+  html {
+    -webkit-text-size-adjust: 66%;
+  }
 }
