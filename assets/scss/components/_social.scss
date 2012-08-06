@@ -1,0 +1,27 @@
+$icons: sprite-map("../images/icon-*.png");
+
+ul.social-icons {
+    @include horizontal-list;
+    display: inline-block;
+
+    li {
+        display: inline;
+    }
+    a {
+        @include hide-text;
+        background-image: sprite-url($icons);
+        display: block;
+        width: image-width('icon-github.png');
+        height: image-height('icon-github.png');
+    }
+
+    @each $media in github, twitter, symfony, google, linkedin {
+        .#{$media} {
+            background-position: sprite-position($icons, 'icon-#{$media}');
+
+            &:hover {
+                background-position: sprite-position($icons, 'icon-#{$media}--hover');
+            }
+        }
+    }
+}

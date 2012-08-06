@@ -1,0 +1,17 @@
+.baseline {
+    font-family: $font-text;
+
+    p {
+        margin: 5px 0;
+    }
+    .pseudo {
+        font-size: 1.2em;
+        margin-bottom: 10px;
+    }
+    .status {
+        span {
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+    }
+}

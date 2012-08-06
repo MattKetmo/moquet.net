@@ -97,6 +97,122 @@ body {
   text-shadow: none;
 }
 
+.site-container {
+  width: 650px;
+  margin: auto;
+}
+@media screen and (max-width: 650px) {
+  .site-container {
+    width: 90%;
+  }
+}
+
+.site-header {
+  clear: both;
+}
+.site-header.main-layout {
+  margin: 100px auto 20px;
+}
+.site-header.main-layout .inner {
+  padding: 0 20px;
+}
+@media screen and (max-width: 650px) {
+  .site-header.main-layout .inner {
+    padding: 20px 0;
+  }
+}
+.site-header.main-layout h1 {
+  width: 60%;
+  float: left;
+  text-align: right;
+}
+.site-header.main-layout h1 .inner {
+  border-right: 1px solid #ccc;
+}
+@media screen and (max-width: 650px) {
+  .site-header.main-layout h1 .inner {
+    border-bottom: 1px solid #ccc;
+    border-right: 0;
+  }
+}
+.site-header.main-layout .baseline {
+  width: 40%;
+  float: left;
+  text-align: left;
+}
+@media screen and (max-width: 650px) {
+  .site-header.main-layout h1, .site-header.main-layout .baseline {
+    width: 100%;
+    float: none;
+    text-align: center;
+  }
+}
+.site-header.simple-layout {
+  margin: 30px auto 30px;
+}
+.site-header.simple-layout .block {
+  margin: auto;
+}
+
+.site-content {
+  width: 100%;
+}
+
+.site-footer {
+  width: 100%;
+  padding: 10px 0 30px;
+  line-height: 30px;
+}
+.site-footer .inner {
+  width: 350px;
+  margin: auto;
+}
+.site-footer .pseudo {
+  font-family: "Roboto", sans-serif;
+  font-size: 1.2em;
+  float: left;
+  padding-right: 10px;
+}
+.site-footer .social-icons {
+  padding-left: 10px;
+}
+
+@media (max-device-width:768px) and (orientation:landscape) and (-webkit-min-device-pixel-ratio:2) {
+  html {
+    -webkit-text-size-adjust: 66%;
+  }
+}
+.fullname {
+  font-family: "Quatro Ultra Slab", serif;
+}
+.fullname span {
+  display: block;
+}
+.fullname .firstname {
+  font-size: 3.5em;
+  line-height: .7em;
+}
+.fullname .lastname {
+  font-size: 4.5em;
+  line-height: .9em;
+  text-transform: capitalize;
+}
+
+.baseline {
+  font-family: "Roboto", sans-serif;
+}
+.baseline p {
+  margin: 5px 0;
+}
+.baseline .pseudo {
+  font-size: 1.2em;
+  margin-bottom: 10px;
+}
+.baseline .status span {
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
 .copy {
   font-size: 16px;
   line-height: 25px;
@@ -195,72 +311,113 @@ body {
   color: #33b5e5;
 }
 
-.site-container {
-  width: 650px;
-  margin: auto;
-}
-
-.site-header {
+.blog-entries {
   margin-top: 20px;
 }
-.site-header .row, .site-header .row1, .site-header .row2, .site-header .row3 {
-  width: 100%;
-  clear: both;
+.blog-entries article {
+  font-family: "Roboto", sans-serif;
+  height: 50px;
+  line-height: 50px;
+  padding-left: 90px;
+  position: relative;
+  border-top: 1px solid #ccc;
 }
-.site-header .row1 {
-  height: 100px;
+.blog-entries article time {
+  position: absolute;
+  left: 15px;
+  top: 0px;
+  color: #888;
 }
-.site-header .row2 {
-  height: 120px;
+.blog-entries article h2 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: bold;
+  font-size: 1em;
 }
-.site-header .row3 {
-  height: 100px;
+.blog-entries article h2 a {
+  text-decoration: none;
+  color: #444;
 }
-.site-header .inner {
-  padding: 0 10px;
+.blog-entries article h2 a:hover {
+  color: #09c;
 }
-.site-header h1 {
-  font-family: "Quatro Ultra Slab", serif;
-  text-align: right;
-  width: 370px;
-  height: 100%;
-  float: left;
-}
-.site-header h1 .inner {
-  padding-right: 20px;
-  border-right: 1px solid #aaa;
-}
-.site-header h1 span {
-  display: block;
-}
-.site-header h1 .firstname {
-  font-size: 3.5em;
-  line-height: .7em;
-}
-.site-header h1 .lastname {
-  font-size: 4.5em;
-  line-height: .9em;
-  text-transform: capitalize;
-}
-.site-header .baseline {
-  width: 280px;
-  float: left;
-  height: 100%;
+
+.blog-post {
   font-family: "Roboto", sans-serif;
 }
-.site-header .baseline .inner {
-  padding-left: 20px;
+.blog-post header {
+  margin-bottom: 20px;
 }
-.site-header .baseline p {
-  margin: 5px 0;
-}
-.site-header .baseline .pseudo {
-  font-size: 1.2em;
-  margin-bottom: 10px;
-}
-.site-header .baseline .status span {
-  font-size: 1.5em;
+.blog-post header h1 {
+  font-family: "Roboto", sans-serif;
   font-weight: bold;
+  font-size: 2em;
+  text-align: center;
+  letter-spacing: -1px;
+  margin-bottom: 15px;
+}
+.blog-post header time {
+  color: #aaa;
+  text-align: center;
+  display: block;
+}
+.blog-post .comments {
+  margin-top: 40px;
+}
+
+.mk-logo {
+  position: relative;
+  width: 200px;
+  height: 100px;
+}
+.mk-logo .m-logo, .mk-logo .k-logo {
+  -webkit-transition-property: all;
+  -moz-transition-property: all;
+  -o-transition-property: all;
+  transition-property: all;
+  -webkit-transition-duration: 0.7s;
+  -moz-transition-duration: 0.7s;
+  -o-transition-duration: 0.7s;
+  transition-duration: 0.7s;
+  -webkit-transition-timing-function: ease;
+  -moz-transition-timing-function: ease;
+  -o-transition-timing-function: ease;
+  transition-timing-function: ease;
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 50px;
+  width: 100px;
+  height: 100px;
+  background: url('/assets/images/logo-mattketmo-min.png?1343502125');
+}
+.mk-logo .m-logo {
+  opacity: 1;
+}
+.mk-logo .k-logo {
+  opacity: 0;
+}
+.mk-logo:hover {
+  cursor: pointer;
+}
+.mk-logo:hover .m-logo {
+  -webkit-transform: rotate(315deg);
+  -moz-transform: rotate(315deg);
+  -ms-transform: rotate(315deg);
+  -o-transform: rotate(315deg);
+  transform: rotate(315deg);
+  left: 0;
+  opacity: 1;
+}
+.mk-logo:hover .k-logo {
+  -webkit-transform: rotate(-315deg);
+  -moz-transform: rotate(-315deg);
+  -ms-transform: rotate(-315deg);
+  -o-transform: rotate(-315deg);
+  transform: rotate(-315deg);
+  left: 100px;
+  opacity: 1;
 }
 
 ul.social-icons {
@@ -269,7 +426,7 @@ ul.social-icons {
   border: 0;
   overflow: hidden;
   *zoom: 1;
-  margin-top: 5px;
+  display: inline-block;
 }
 ul.social-icons li {
   list-style-image: none;
@@ -331,172 +488,4 @@ ul.social-icons .linkedin {
 }
 ul.social-icons .linkedin:hover {
   background-position: 0 -288px;
-}
-
-.site-content {
-  width: 100%;
-}
-
-.blog-entries {
-  margin-top: 30px;
-}
-.blog-entries article {
-  font-family: "Roboto", sans-serif;
-  height: 50px;
-  line-height: 50px;
-  padding-left: 90px;
-  position: relative;
-  border-top: 1px solid #ccc;
-}
-.blog-entries article time {
-  position: absolute;
-  left: 15px;
-  top: 0px;
-  color: #888;
-}
-.blog-entries article h2 {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  font-weight: bold;
-  font-size: 1em;
-}
-.blog-entries article h2 a {
-  text-decoration: none;
-  color: #444;
-}
-.blog-entries article h2 a:hover {
-  color: #09c;
-}
-
-.blog-post {
-  font-family: "Roboto", sans-serif;
-  padding-top: 20px;
-}
-.blog-post header {
-  margin: 20px 0;
-}
-.blog-post header h1 {
-  font-family: "Roboto", sans-serif;
-  font-weight: bold;
-  font-size: 2em;
-  text-align: center;
-  letter-spacing: -1px;
-  margin-bottom: 15px;
-}
-.blog-post header time {
-  color: #aaa;
-  text-align: center;
-  display: block;
-}
-.blog-post .comments {
-  margin-top: 40px;
-}
-
-.site-footer {
-  padding: 10px 0 30px;
-}
-.site-footer .inner {
-  width: 350px;
-  margin: auto;
-}
-.site-footer .pseudo, .site-footer .social-icons {
-  line-height: 30px;
-}
-.site-footer .pseudo {
-  font-family: "Roboto", sans-serif;
-  font-size: 1.2em;
-  float: left;
-  padding-right: 10px;
-}
-.site-footer .social-icons {
-  padding-left: 10px;
-}
-
-.logo {
-  position: relative;
-  width: 200px;
-  height: 100px;
-  margin: auto;
-}
-.logo div {
-  -webkit-transition-property: all;
-  -moz-transition-property: all;
-  -o-transition-property: all;
-  transition-property: all;
-  -webkit-transition-duration: 0.7s;
-  -moz-transition-duration: 0.7s;
-  -o-transition-duration: 0.7s;
-  transition-duration: 0.7s;
-  -webkit-transition-timing-function: ease;
-  -moz-transition-timing-function: ease;
-  -o-transition-timing-function: ease;
-  transition-timing-function: ease;
-  position: absolute;
-  top: 0;
-  left: 50px;
-  width: 100px;
-  height: 100px;
-  background: url('/assets/images/logo-mattketmo-min.png?1343502125');
-}
-.logo .logo-k {
-  opacity: 0;
-}
-.logo:hover {
-  cursor: pointer;
-}
-.logo:hover .logo-m {
-  -webkit-transform: rotate(315deg);
-  -moz-transform: rotate(315deg);
-  -ms-transform: rotate(315deg);
-  -o-transform: rotate(315deg);
-  transform: rotate(315deg);
-  left: 0;
-}
-.logo:hover .logo-k {
-  -webkit-transform: rotate(-315deg);
-  -moz-transform: rotate(-315deg);
-  -ms-transform: rotate(-315deg);
-  -o-transform: rotate(-315deg);
-  transform: rotate(-315deg);
-  left: 100px;
-  opacity: 1;
-}
-
-@media screen and (max-width: 650px) {
-  .site-container {
-    width: 90%;
-  }
-
-  .site-header .row1 {
-    height: 50px;
-  }
-  .site-header .row2 {
-    height: 100%;
-  }
-  .site-header h1 {
-    width: 100%;
-    float: none;
-    text-align: center;
-  }
-  .site-header h1 .inner {
-    border-right: none;
-    border-bottom: 1px solid #ccc;
-    padding-bottom: 20px;
-  }
-  .site-header .baseline {
-    margin-top: 20px;
-    width: 100%;
-    float: none;
-    text-align: center;
-  }
-  .site-header .social-icons {
-    width: 192px;
-    margin: auto;
-  }
-}
-@media (max-device-width:768px) and (orientation:landscape) and (-webkit-min-device-pixel-ratio:2) {
-  html {
-    -webkit-text-size-adjust: 66%;
-  }
 }
