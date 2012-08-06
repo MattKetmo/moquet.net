@@ -22,7 +22,7 @@ $site-container: 650px;
 
     // First variant
     &.main-layout {
-        margin: 100px auto 20px;
+        margin: 120px auto 40px;
 
         .inner {
             padding: 0 20px;
@@ -35,7 +35,7 @@ $site-container: 650px;
         h1 {
             @if $debug { background-color: red; }
 
-            width: 60%;
+            width: 57%;
             float: left;
             text-align: right;
 
@@ -54,7 +54,7 @@ $site-container: 650px;
         .baseline {
             @if $debug { background-color: blue; }
 
-            width: 40%;
+            width: 43%;
             float: left;
             text-align: left;
         }

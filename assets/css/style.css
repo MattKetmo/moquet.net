@@ -111,7 +111,7 @@ body {
   clear: both;
 }
 .site-header.main-layout {
-  margin: 100px auto 20px;
+  margin: 120px auto 40px;
 }
 .site-header.main-layout .inner {
   padding: 0 20px;
@@ -122,7 +122,7 @@ body {
   }
 }
 .site-header.main-layout h1 {
-  width: 60%;
+  width: 57%;
   float: left;
   text-align: right;
 }
@@ -136,7 +136,7 @@ body {
   }
 }
 .site-header.main-layout .baseline {
-  width: 40%;
+  width: 43%;
   float: left;
   text-align: left;
 }
