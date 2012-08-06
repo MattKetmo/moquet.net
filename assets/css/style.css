@@ -141,6 +141,9 @@ body {
   text-align: left;
 }
 @media screen and (max-width: 650px) {
+  .site-header.main-layout {
+    margin: 30px auto 0px;
+  }
   .site-header.main-layout h1, .site-header.main-layout .baseline {
     width: 100%;
     float: none;
@@ -311,9 +314,6 @@ body {
   color: #33b5e5;
 }
 
-.blog-entries {
-  margin-top: 20px;
-}
 .blog-entries article {
   font-family: "Roboto", sans-serif;
   height: 50px;
@@ -488,4 +488,8 @@ ul.social-icons .linkedin {
 }
 ul.social-icons .linkedin:hover {
   background-position: 0 -288px;
+}
+
+.clearfix {
+  clear: both;
 }

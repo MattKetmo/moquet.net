@@ -1,5 +1,5 @@
+// Site Layout
 $site-container: 650px;
-// $debug: true;
 
 //
 // Main wrapper
@@ -60,6 +60,8 @@ $site-container: 650px;
         }
 
         @media screen and (max-width: 650px) {
+            margin: 30px auto 0px;
+
             h1, .baseline {
                 width: 100%;
                 float: none;
