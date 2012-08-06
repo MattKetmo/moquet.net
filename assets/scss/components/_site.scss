@@ -67,6 +67,10 @@ $site-container: 650px;
                 float: none;
                 text-align: center;
             }
+
+            .social-icons {
+                margin: auto;
+            }
         }
     }
 
@@ -96,7 +100,6 @@ $site-container: 650px;
 
     width: 100%;
     padding: 10px 0 30px;
-    line-height: 30px;
 
     .inner {
         width: 350px;
@@ -108,10 +111,26 @@ $site-container: 650px;
         font-size: 1.2em;
         float: left;
         padding-right: 10px;
+        line-height: 30px;
     }
 
     .social-icons {
         padding-left: 10px;
+    }
+
+    @media screen and (max-width: 650px) {
+        .pseudo {
+            float: none;
+            text-align: center;
+            padding-right: 0;
+            padding-bottom: 5px;
+        }
+
+        .social-icons {
+            margin: auto;
+            padding-left: 0;
+        }
+
     }
 }
 

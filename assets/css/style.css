@@ -149,6 +149,9 @@ body {
     float: none;
     text-align: center;
   }
+  .site-header.main-layout .social-icons {
+    margin: auto;
+  }
 }
 .site-header.simple-layout {
   margin: 30px auto 30px;
@@ -164,7 +167,6 @@ body {
 .site-footer {
   width: 100%;
   padding: 10px 0 30px;
-  line-height: 30px;
 }
 .site-footer .inner {
   width: 350px;
@@ -175,9 +177,22 @@ body {
   font-size: 1.2em;
   float: left;
   padding-right: 10px;
+  line-height: 30px;
 }
 .site-footer .social-icons {
   padding-left: 10px;
+}
+@media screen and (max-width: 650px) {
+  .site-footer .pseudo {
+    float: none;
+    text-align: center;
+    padding-right: 0;
+    padding-bottom: 5px;
+  }
+  .site-footer .social-icons {
+    margin: auto;
+    padding-left: 0;
+  }
 }
 
 @media (max-device-width:768px) and (orientation:landscape) and (-webkit-min-device-pixel-ratio:2) {
@@ -426,7 +441,8 @@ ul.social-icons {
   border: 0;
   overflow: hidden;
   *zoom: 1;
-  display: inline-block;
+  display: block;
+  width: 192px;
 }
 ul.social-icons li {
   list-style-image: none;

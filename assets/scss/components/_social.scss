@@ -1,8 +1,13 @@
 $icons: sprite-map("../images/icon-*.png");
+$icon-width: image-width('icon-github.png');
+$icon-height: image-height('icon-github.png');
+$icon-padding: 4px;
+$icon-count: 5;
 
 ul.social-icons {
-    @include horizontal-list;
-    display: inline-block;
+    @include horizontal-list($icon-padding);
+    display: block;
+    width: $icon-count * $icon-width + ($icon-count - 1) * 2 * $icon-padding;
 
     li {
         display: inline;
@@ -11,8 +16,8 @@ ul.social-icons {
         @include hide-text;
         background-image: sprite-url($icons);
         display: block;
-        width: image-width('icon-github.png');
-        height: image-height('icon-github.png');
+        width: $icon-width;
+        height: $icon-height;
     }
 
     @each $media in github, twitter, symfony, google, linkedin {
