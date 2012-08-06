@@ -26,6 +26,10 @@
         @extend .row;
         height: 120px;
     }
+    .row3 {
+        @extend .row;
+        height: 100px;
+    }
     .inner {
         padding: 0 10px;
     }
@@ -155,6 +159,8 @@ ul.social-icons {
         }
         h2 {
             overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
             font-weight: bold;
             font-size: 1em;
 
@@ -193,11 +199,15 @@ ul.social-icons {
             display: block;
         }
     }
+
+    .comments {
+        margin-top: 40px;
+    }
 }
 
 .site-footer {
     padding: 10px 0 30px;
-    // border-top: 1px solid #ccc;
+    //border-top: 1px solid #ccc;
 
     .inner {
         width: 350px;
@@ -227,15 +237,16 @@ ul.social-icons {
     margin: auto;
 
     div {
+        @include transition-property(all);
+        @include transition-duration(0.7s);
+        @include transition-timing-function(ease);
+
         position: absolute;
         top: 0;
         left: 50px;
         width: 100px;
         height: 100px;
         background: image-url("logo-mattketmo-min.png");
-        -webkit-transition-property: left, rotate;
-        -webkit-transition-duration: 0.7s;
-        -webkit-transition-timing-function: ease;
     }
 
     .logo-k {
@@ -246,13 +257,55 @@ ul.social-icons {
         cursor: pointer;
 
         .logo-m {
+            @include transform(rotate(315deg));
+
             left: 0;
-            -webkit-transform: rotate(315deg);
         }
         .logo-k {
+            @include transform(rotate(-315deg));
+
             left: 100px;
             opacity: 1;
-            -webkit-transform: rotate(-315deg);
         }
     }
+}
+
+@media screen and (max-width: 650px) {
+    .site-container {
+        width: 90%;
+    }
+
+    .site-header {
+        .row1 {
+            height: 50px;
+        }
+        .row2 {
+            height: 100%;
+        }
+        h1 {
+            width: 100%;
+            float: none;
+            text-align: center;
+            .inner {
+                border-right: none;
+                border-bottom: 1px solid #ccc;
+                padding-bottom: 20px;
+            }
+        }
+        .baseline {
+            margin-top: 20px;
+            width: 100%;
+            float: none;
+            text-align: center;
+        }
+        .social-icons {
+            width: 6 * 32px;
+            margin: auto;
+        }
+    }
+}
+
+@media (max-device-width:768px) and (orientation:landscape) and (-webkit-min-device-pixel-ratio:2) {
+    // @see http://blog.goetter.fr/post/28469308363/initial-scale-1-le-pour-et-le-contre
+    html { -webkit-text-size-adjust: 66%; }
 }

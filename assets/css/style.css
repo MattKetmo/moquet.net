@@ -102,7 +102,31 @@ body {
   line-height: 25px;
 }
 .copy > * {
-  margin: 0 0 21px 0;
+  margin-bottom: 16px;
+}
+.copy blockquote {
+  font-style: italic;
+  background: rgba(249, 249, 249, 0.6);
+  border-left: 1px solid #ccc;
+  margin: 1.5em 10px;
+  padding: .5em 10px;
+  quotes: "\201C""\201D""\2018""\2019";
+}
+.copy blockquote p {
+  display: inline;
+}
+.copy blockquote:before, .copy blockquote:after {
+  color: #ccc;
+  font-size: 4em;
+  line-height: .1em;
+  vertical-align: -0.4em;
+}
+.copy blockquote:before {
+  margin-right: .15em;
+  content: open-quote;
+}
+.copy blockquote:after {
+  content: close-quote;
 }
 .copy ul, .copy ol {
   margin-left: 30px;
@@ -115,6 +139,38 @@ body {
 }
 .copy li {
   display: list-item;
+}
+.copy pre code {
+  overflow: auto;
+  padding: 7px 10px;
+  display: block;
+  background-color: #444;
+  color: #eee;
+}
+.copy code {
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  border-radius: 3px;
+  font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+  font-size: 0.9em;
+  background-color: #f7f7f9;
+  padding: 2px 4px;
+  border: 1px solid #e1e1e8;
+}
+.copy h1, .copy h2, .copy h3, .copy h4, .copy h5, .copy h6 {
+  font-weight: bold;
+  margin-top: 20px;
+}
+.copy h1 {
+  font-size: 1.3em;
+}
+.copy h2 {
+  font-size: 1.2em;
+}
+.copy h3 {
+  font-size: 1.1em;
 }
 .copy em {
   font-style: italic;
@@ -147,7 +203,7 @@ body {
 .site-header {
   margin-top: 20px;
 }
-.site-header .row, .site-header .row1, .site-header .row2 {
+.site-header .row, .site-header .row1, .site-header .row2, .site-header .row3 {
   width: 100%;
   clear: both;
 }
@@ -156,6 +212,9 @@ body {
 }
 .site-header .row2 {
   height: 120px;
+}
+.site-header .row3 {
+  height: 100px;
 }
 .site-header .inner {
   padding: 0 10px;
@@ -297,6 +356,8 @@ ul.social-icons .linkedin:hover {
 }
 .blog-entries article h2 {
   overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   font-weight: bold;
   font-size: 1em;
 }
@@ -328,6 +389,9 @@ ul.social-icons .linkedin:hover {
   text-align: center;
   display: block;
 }
+.blog-post .comments {
+  margin-top: 40px;
+}
 
 .site-footer {
   padding: 10px 0 30px;
@@ -356,15 +420,24 @@ ul.social-icons .linkedin:hover {
   margin: auto;
 }
 .logo div {
+  -webkit-transition-property: all;
+  -moz-transition-property: all;
+  -o-transition-property: all;
+  transition-property: all;
+  -webkit-transition-duration: 0.7s;
+  -moz-transition-duration: 0.7s;
+  -o-transition-duration: 0.7s;
+  transition-duration: 0.7s;
+  -webkit-transition-timing-function: ease;
+  -moz-transition-timing-function: ease;
+  -o-transition-timing-function: ease;
+  transition-timing-function: ease;
   position: absolute;
   top: 0;
   left: 50px;
   width: 100px;
   height: 100px;
-  background: url('/assets/images/logo-mattketmo-min.png?1343501620');
-  -webkit-transition-property: left, rotate;
-  -webkit-transition-duration: 0.7s;
-  -webkit-transition-timing-function: ease;
+  background: url('/assets/images/logo-mattketmo-min.png?1343502125');
 }
 .logo .logo-k {
   opacity: 0;
@@ -373,11 +446,57 @@ ul.social-icons .linkedin:hover {
   cursor: pointer;
 }
 .logo:hover .logo-m {
-  left: 0;
   -webkit-transform: rotate(315deg);
+  -moz-transform: rotate(315deg);
+  -ms-transform: rotate(315deg);
+  -o-transform: rotate(315deg);
+  transform: rotate(315deg);
+  left: 0;
 }
 .logo:hover .logo-k {
+  -webkit-transform: rotate(-315deg);
+  -moz-transform: rotate(-315deg);
+  -ms-transform: rotate(-315deg);
+  -o-transform: rotate(-315deg);
+  transform: rotate(-315deg);
   left: 100px;
   opacity: 1;
-  -webkit-transform: rotate(-315deg);
+}
+
+@media screen and (max-width: 650px) {
+  .site-container {
+    width: 90%;
+  }
+
+  .site-header .row1 {
+    height: 50px;
+  }
+  .site-header .row2 {
+    height: 100%;
+  }
+  .site-header h1 {
+    width: 100%;
+    float: none;
+    text-align: center;
+  }
+  .site-header h1 .inner {
+    border-right: none;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 20px;
+  }
+  .site-header .baseline {
+    margin-top: 20px;
+    width: 100%;
+    float: none;
+    text-align: center;
+  }
+  .site-header .social-icons {
+    width: 192px;
+    margin: auto;
+  }
+}
+@media (max-device-width:768px) and (orientation:landscape) and (-webkit-min-device-pixel-ratio:2) {
+  html {
+    -webkit-text-size-adjust: 66%;
+  }
 }

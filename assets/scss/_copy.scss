@@ -1,4 +1,4 @@
-$text-baseline: 21px;
+$text-baseline: 16px;
 
 // Define styles for blocks of content scoped within the .copy rather than
 // making them global. Global styles will be constantly overridden.
@@ -10,7 +10,7 @@ $text-baseline: 21px;
     // Set the baseline on all elements directly inside a copy block
     // Margin won't work on inline elements anyway
     & > * {
-        margin: 0 0 $text-baseline 0;
+        margin-bottom: $text-baseline;
     }
 
     // Block Elements
@@ -22,6 +22,33 @@ $text-baseline: 21px;
 
     address {
 
+    }
+
+    blockquote {
+        font-style: italic;
+        background: rgba(249, 249, 249, 0.6);
+        border-left: 1px solid #ccc;
+        margin: 1.5em 10px;
+        padding: .5em 10px;
+        quotes: "\201C""\201D""\2018""\2019";;
+
+        p {
+            display:inline;
+        }
+
+        &:before, &:after {
+            color: #ccc;
+            font-size: 4em;
+            line-height: .1em;
+            vertical-align: -.4em;
+        }
+        &:before {
+            margin-right: .15em;
+            content: open-quote;
+        }
+        &:after {
+            content: close-quote;
+        }
     }
 
     // Lists
@@ -63,30 +90,42 @@ $text-baseline: 21px;
     // ----------------------------------------
 
     pre {
-
+        code {
+            overflow: auto;
+            padding: 7px 10px;
+            display: block;
+            background-color: #444;
+            color: #eee;
+        }
     }
 
     code {
-
+        @include border-radius(3px);
+        font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+        font-size: 0.9em;
+        background-color: #f7f7f9;
+        padding: 2px 4px;
+        border: 1px solid #e1e1e8;
     }
 
     // Headings
     // ----------------------------------------
 
     h1,h2,h3,h4,h5,h6 {
-
+        font-weight: bold;
+        margin-top: 20px;
     }
 
     h1 {
-
+        font-size: 1.3em;
     }
 
     h2 {
-
+        font-size: 1.2em;
     }
 
     h3 {
-
+        font-size: 1.1em;
     }
 
     h4 {
