@@ -1,0 +1,39 @@
+.blog-entries {
+    article {
+        font-family: $font-text;
+        height: 50px;
+        line-height: 50px;
+
+        padding-left: 90px;
+        position: relative;
+
+        border-top: 1px solid #ccc;
+        &:last-child {
+            // border-bottom: 1px solid #ccc;
+        }
+
+        time {
+            position: absolute;
+            left: 15px;
+            top: 0px;
+            color: #888;
+        }
+
+        h2 {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            font-weight: bold;
+            font-size: 1em;
+
+            a {
+                text-decoration: none;
+                color: #444;
+
+                &:hover {
+                    color: #09c;
+                }
+            }
+        }
+    }
+}

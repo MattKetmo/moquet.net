@@ -1,0 +1,27 @@
+.blog-post {
+    font-family: $font-text;
+
+    // Post title
+    header {
+        margin-bottom: 20px;
+
+        h1 {
+            font-family: $font-text;
+            font-weight: bold;
+            font-size: 2em;
+            text-align: center;
+            letter-spacing: -1px;
+            margin-bottom: 15px;
+        }
+
+        time {
+            color: #aaa;
+            text-align: center;
+            display: block;
+        }
+    }
+
+    .comments {
+        margin-top: 40px;
+    }
+}

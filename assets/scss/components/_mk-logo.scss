@@ -1,0 +1,45 @@
+$mk-logo-image: 'logo-mattketmo-min.png';
+$mk-logo-width: image-width($mk-logo-image);
+$mk-logo-height: image-height($mk-logo-image);
+
+.mk-logo {
+    position: relative;
+    width: 2 * $mk-logo-width;
+    height: $mk-logo-height;
+
+    .m-logo, .k-logo {
+        @include transition-property(all);
+        @include transition-duration(0.7s);
+        @include transition-timing-function(ease);
+
+        display: block;
+        position: absolute;
+        top: 0;
+        left: $mk-logo-width / 2;
+        width: $mk-logo-width;
+        height: $mk-logo-height;
+        background: image-url($mk-logo-image);
+    }
+
+    .m-logo {
+        opacity: 1;
+    }
+    .k-logo {
+        opacity: 0;
+    }
+
+    &:hover {
+        cursor: pointer;
+
+        .m-logo {
+            @include transform(rotate(315deg));
+            left: 0;
+            opacity: 1;
+        }
+        .k-logo {
+            @include transform(rotate(-315deg));
+            left: $mk-logo-width;
+            opacity: 1;
+        }
+    }
+}
