@@ -9,7 +9,7 @@ $mk-logo-height: image-height($mk-logo-image);
 
     .m-logo, .k-logo {
         @include transition-property(all);
-        @include transition-duration(0.7s);
+        @include transition-duration(1.5s);
         @include transition-timing-function(ease);
 
         display: block;
@@ -31,15 +31,17 @@ $mk-logo-height: image-height($mk-logo-image);
     &:hover {
         cursor: pointer;
 
+        .m-logo, .k-logo {
+            @include transition-duration(0.7s);
+            opacity: 1;
+        }
         .m-logo {
             @include transform(rotate(315deg));
             left: 0;
-            opacity: 1;
         }
         .k-logo {
             @include transform(rotate(-315deg));
             left: $mk-logo-width;
-            opacity: 1;
         }
     }
 }

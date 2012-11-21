@@ -391,10 +391,10 @@ body {
   -moz-transition-property: all;
   -o-transition-property: all;
   transition-property: all;
-  -webkit-transition-duration: 0.7s;
-  -moz-transition-duration: 0.7s;
-  -o-transition-duration: 0.7s;
-  transition-duration: 0.7s;
+  -webkit-transition-duration: 1.5s;
+  -moz-transition-duration: 1.5s;
+  -o-transition-duration: 1.5s;
+  transition-duration: 1.5s;
   -webkit-transition-timing-function: ease;
   -moz-transition-timing-function: ease;
   -o-transition-timing-function: ease;
@@ -416,6 +416,13 @@ body {
 .mk-logo:hover {
   cursor: pointer;
 }
+.mk-logo:hover .m-logo, .mk-logo:hover .k-logo {
+  -webkit-transition-duration: 0.7s;
+  -moz-transition-duration: 0.7s;
+  -o-transition-duration: 0.7s;
+  transition-duration: 0.7s;
+  opacity: 1;
+}
 .mk-logo:hover .m-logo {
   -webkit-transform: rotate(315deg);
   -moz-transform: rotate(315deg);
@@ -423,7 +430,6 @@ body {
   -o-transform: rotate(315deg);
   transform: rotate(315deg);
   left: 0;
-  opacity: 1;
 }
 .mk-logo:hover .k-logo {
   -webkit-transform: rotate(-315deg);
@@ -432,7 +438,6 @@ body {
   -o-transform: rotate(-315deg);
   transform: rotate(-315deg);
   left: 100px;
-  opacity: 1;
 }
 
 ul.social-icons {
