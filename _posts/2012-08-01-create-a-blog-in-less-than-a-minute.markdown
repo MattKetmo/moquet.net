@@ -8,32 +8,32 @@ tags: [jekyll, site]
 > create a new blog. So you can learn to blog while reading this blog.
 
 
-Hi everyone! I'm Matthieu Moquet, a french PHP web developper, curently
-working on the future of the awesome [BlaBlaCar][] startup. To present myself
+Hi everyone! I'm Matthieu Moquet, a french PHP web developer, currently
+working on the future of the awesome [BlaBlaCar][] startup. To introduce myself
 in a few words, I'm a [Symfony][] lover, an [Android][] fanboy, an intensive
 [git][] & [vim][] user, and this blog will be all about that.
 
-For my very first article, let's see **how I created this blog**, in a very
+For my very first article, let's see **how this blog was created**, in a very
 simple way, using [Jekyll][].
 
 Jekyll is a simple **static site generator**. It will transform all your HTML
-& markdown/textile content into ordered HTML files. It lets you write posts in
+& markdown/textile content into ordered HTML files. It allows you write articles in
 simple text files and create static HTML pages, but without repeating the
 layout of your site.
 
 # Prerequisites
 
-Writing this article, I assume that you:
+You must:
 
-- are able to [install Jekyll][install]: `sudo gem install jekyll`
-- know basic markup languages as [HTML][], [Markdown][], and [Yaml][]
-- know Git and have an account on [Github][] (optional but usefull to make it
+- be able to [install Jekyll][install]: `sudo gem install jekyll`
+- know basic markup languages such as [HTML][], [Markdown][], and [Yaml][]
+- know Git and have an account on [Github][] (optional but useful to make it
   online)
 
 # Initialize the structure
 
-First we're going to create the basic structure of our app. The purpose of each
-folder we need are described in [Jekyll Usage page][usage]:
+First we're going to create the basic structure of our app. The content of each
+folder we need is described in [Jekyll Usage page][usage]:
 
     $ mkdir _layouts _posts
     $ touch index.html _config.yml _layouts/{default,post}.html
@@ -78,7 +78,7 @@ Lets see an example of a basic structure:
     </body>
     </html>
 
-`index.html`: defines the homepage where we list all blog posts
+`index.html`: defines the homepage where we list all blog articles
 
     ---
     layout: default
@@ -132,8 +132,8 @@ online on GitHub](https://help.github.com/articles/using-jekyll-with-pages).
 
 # Go further
 
-Of course, Jekyll have lot's more features not presented in this article. The
-best way to learn is to have a look to the many [sites using
+Of course, Jekyll has a lot more features not presented in this article. The
+best way to learn is to have a look at the many [sites using
 Jekyll](https://github.com/mojombo/jekyll/wiki/Sites).
 
 Here are some quick improvements you can do:
@@ -144,12 +144,12 @@ Here are some quick improvements you can do:
 
 There are also plenty of [plugins][] (written in ruby) you can use.
 
-To ease the installation of Jekyll, you can even use [JekyllBootstrap][] which
+To simplify the installation of Jekyll, you can even use [JekyllBootstrap][] which
 will initialize the structure for you and put it on your Github account. It
-have several themes you can use if you don't want to play with CSS.
+has several themes you can use if you don't want to play with CSS.
 
 I also recommend to read [how Jekyll was born][born], a nice article by its
-creator which will make you better interstand the spirit of static blog
+creator which will give you a better understanding of the spirit of static blog
 generators like Jekyll.
 
 [born]: http://tom.preston-werner.com/2008/11/17/blogging-like-a-hacker.html
