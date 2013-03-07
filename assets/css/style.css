@@ -88,7 +88,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 }
 
 body {
-  background: #f4f4f4 url('/assets/images/cubes.png?1339014984') repeat center;
+  background: #f4f4f4 url('/assets/images/cubes.png?1362487981') repeat center;
   color: #303030;
 }
 
@@ -127,11 +127,11 @@ body {
   text-align: right;
 }
 .site-header.main-layout h1 .inner {
-  border-right: 1px solid #ccc;
+  border-right: 1px solid #cccccc;
 }
 @media screen and (max-width: 650px) {
   .site-header.main-layout h1 .inner {
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid #cccccc;
     border-right: 0;
   }
 }
@@ -195,7 +195,7 @@ body {
   }
 }
 
-@media (max-device-width:768px) and (orientation:landscape) and (-webkit-min-device-pixel-ratio:2) {
+@media (max-device-width: 768px) and (orientation: landscape) and (-webkit-min-device-pixel-ratio: 2) {
   html {
     -webkit-text-size-adjust: 66%;
   }
@@ -241,9 +241,9 @@ body {
 .copy blockquote {
   font-style: italic;
   background: rgba(249, 249, 249, 0.6);
-  border-left: 1px solid #ccc;
+  border-left: 1px solid #cccccc;
   margin: 1.5em 10px;
-  padding: .5em 10px;
+  padding: 0.5em 10px;
   quotes: "\201C""\201D""\2018""\2019";
 }
 .copy blockquote p {
@@ -253,7 +253,7 @@ body {
   color: #ccc;
   font-size: 4em;
   line-height: .1em;
-  vertical-align: -0.4em;
+  vertical-align: -.4em;
 }
 .copy blockquote:before {
   margin-right: .15em;
@@ -333,9 +333,21 @@ body {
   font-family: "Roboto", sans-serif;
   height: 50px;
   line-height: 50px;
-  padding-left: 90px;
   position: relative;
-  border-top: 1px solid #ccc;
+  border-top: 1px solid #cccccc;
+}
+.blog-entries article a {
+  text-decoration: none;
+  display: block;
+}
+.blog-entries article a:hover h2 {
+  color: #09c;
+}
+.blog-entries article a:active {
+  background-color: #09c;
+}
+.blog-entries article a:active h2, .blog-entries article a:active time {
+  color: white;
 }
 .blog-entries article time {
   position: absolute;
@@ -349,13 +361,8 @@ body {
   white-space: nowrap;
   font-weight: bold;
   font-size: 1em;
-}
-.blog-entries article h2 a {
-  text-decoration: none;
   color: #444;
-}
-.blog-entries article h2 a:hover {
-  color: #09c;
+  padding-left: 90px;
 }
 
 .blog-post {
@@ -405,7 +412,7 @@ body {
   left: 50px;
   width: 100px;
   height: 100px;
-  background: url('/assets/images/logo-mattketmo-min.png?1343502125');
+  background: url('/assets/images/logo-mattketmo-min.png?1362487981');
 }
 .mk-logo .m-logo {
   opacity: 1;
