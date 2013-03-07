@@ -33,7 +33,7 @@ $text-baseline: 16px;
         quotes: "\201C""\201D""\2018""\2019";;
 
         p {
-            display:inline;
+            display: inline;
         }
 
         &:before, &:after {
@@ -94,7 +94,7 @@ $text-baseline: 16px;
             overflow: auto;
             padding: 7px 10px;
             display: block;
-            background-color: #444;
+            background-color: #303030;
             color: #eee;
         }
     }
@@ -106,6 +106,7 @@ $text-baseline: 16px;
         background-color: #f7f7f9;
         padding: 2px 4px;
         border: 1px solid #e1e1e8;
+        line-height: 1.4em;
     }
 
     // Headings

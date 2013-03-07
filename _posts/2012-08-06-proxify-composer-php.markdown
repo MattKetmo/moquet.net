@@ -111,17 +111,19 @@ computer (once I previously cloned it in Gitpod).
 To use this git repository with into your project, just add the corresponding
 repository section into your `composer.json`:
 
-    {
-        "require": {
-            "symfony/symfony": "dev-master"
-        },
-        "repositories": [
-            {
-                "type": "vcs",
-                "url":  "git://gp@gp-server/symfony.git"
-            }
-        ]
-    }
+{% highlight json %}
+{
+    "require": {
+        "symfony/symfony": "dev-master"
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url":  "git://gp@gp-server/symfony.git"
+        }
+    ]
+}
+{% endhighlight %}
 
 Now the `php composer.phar install` command will directly clone your local
 repository instead of fetching GitHub.
@@ -132,17 +134,19 @@ when you want to declare private repositories for your project, but in this
 case you can use it to **overload** any public repository with your proxy.
 Then you only have to add the Satis URI in your `composer.json`:
 
-    {
-        "repositories": [
-            {
-                "type": "composer",
-                "url": "http://packages.example.org/"
-            }
-        ],
-        "require": {
-            "symfony/symfony": "2.1.*"
+{% highlight json %}
+{
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "http://packages.example.org/"
         }
+    ],
+    "require": {
+        "symfony/symfony": "2.1.*"
     }
+}
+{% endhighlight %}
 
 # Using Broker
 
@@ -170,17 +174,19 @@ This will download all your vendors into the `repositories/project_name`
 folder. Once you've set up your server to point on the root directory of
 Broker, you could had it to your `composer.json` file:
 
-    {
-        "repositories": [
-            {
-                "type": "composer",
-                "url": "http://broker-server/repositories/project_name"
-            }
-        ],
-        "require": {
-            "symfony/symfony": "2.1.*"
+{% highlight json %}
+{
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "http://broker-server/repositories/project_name"
         }
+    ],
+    "require": {
+        "symfony/symfony": "2.1.*"
     }
+}
+{% endhighlight %}
 
 I would recommend this method which is much easier than the previous one, and
 also much more powerfull as it is provided for Composer. However, keep in mind

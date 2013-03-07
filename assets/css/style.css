@@ -278,7 +278,7 @@ body {
   overflow: auto;
   padding: 7px 10px;
   display: block;
-  background-color: #444;
+  background-color: #303030;
   color: #eee;
 }
 .copy code {
@@ -292,6 +292,7 @@ body {
   background-color: #f7f7f9;
   padding: 2px 4px;
   border: 1px solid #e1e1e8;
+  line-height: 1.4em;
 }
 .copy h1, .copy h2, .copy h3, .copy h4, .copy h5, .copy h6 {
   font-weight: bold;
