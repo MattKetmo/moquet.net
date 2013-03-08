@@ -67,65 +67,73 @@ Lets see an example of a basic structure:
 
 `_layouts/default.html`: defines the basic structure
 
-    <!DOCTYPE HTML>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>My Blog</title>
-    </head>
-    <body>
-        {{ '{{' }} content }}
-    </body>
-    </html>
+{% highlight html %}
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Blog</title>
+</head>
+<body>
+    {{ '{{' }} content }}
+</body>
+</html>
+{% endhighlight %}
 
 `index.html`: defines the homepage where we list all blog articles
 
-    ---
-    layout: default
-    ---
+{% highlight html %}
+---
+layout: default
+---
 
-    <h1>Blog post</h1>
+<h1>Blog post</h1>
 
-    <ul>
-        {{ '{%' }} for post in site.posts %}
-            <li>
-                {{ '{{' }} post.date|date_to_string }} »
-                <a href="{{ '{{' }} post.url }}">{{ '{{' }} post.title }}</a>
-            </li>
-        {{ '{%' }} endfor %}
-    </ul>
+<ul>
+    {{ '{%' }} for post in site.posts %}
+        <li>
+            {{ '{{' }} post.date|date_to_string }} »
+            <a href="{{ '{{' }} post.url }}">{{ '{{' }} post.title }}</a>
+        </li>
+    {{ '{%' }} endfor %}
+</ul>
+{% endhighlight %}
 
 
 `_layouts/post.html`: defines the post layout
 
-    ---
-    layout: default
-    ---
+{% highlight html %}
+---
+layout: default
+---
 
-    <article class="post">
-        <header>
-            <h2>{{ '{{' }} page.title }}</h2>
-            <time datetime="{{ '{{' }} page.date|date: "%Y-%m-%d" }}">
-                {{ '{{' }} page.date|date_to_string }}
-            </time>
-        </header>
+<article class="post">
+    <header>
+        <h2>{{ '{{' }} page.title }}</h2>
+        <time datetime="{{ '{{' }} page.date|date: "%Y-%m-%d" }}">
+            {{ '{{' }} page.date|date_to_string }}
+        </time>
+    </header>
 
-        <div class="entry">
-            {{ '{{' }} content }}
-        </div>
-    </article>
+    <div class="entry">
+        {{ '{{' }} content }}
+    </div>
+</article>
+{% endhighlight %}
 
 
 And then I just have to add a new markdown file in the `_posts` directory
 (following the convention `YYYY-MM-DD-slug-of-the-post.markdown`) to add a new
 blog post:
 
-    ---
-    layout: post
-    title: This is an example
-    ---
+{% highlight html %}
+---
+layout: post
+title: This is an example
+---
 
-    Hi folks! This is an example of content.
+Hi folks! This is an example of content.
+{% endhighlight %}
 
 That's it! We've created a blog in a few lines. You're now ready to [push it
 online on GitHub](https://help.github.com/articles/using-jekyll-with-pages).
