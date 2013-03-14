@@ -89,14 +89,22 @@ $text-baseline: 16px;
     // Code Blocks
     // ----------------------------------------
 
+    @mixin codeBlock {
+        overflow: auto;
+        padding: 7px 10px;
+        display: block;
+        background-color: #303030;
+        color: #eee;
+    }
+
     pre {
         code {
-            overflow: auto;
-            padding: 7px 10px;
-            display: block;
-            background-color: #303030;
-            color: #eee;
+            @include codeBlock;
         }
+    }
+
+    code.pre {
+        @include codeBlock;
     }
 
     code {

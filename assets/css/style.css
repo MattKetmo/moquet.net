@@ -281,6 +281,13 @@ body {
   background-color: #303030;
   color: #eee;
 }
+.copy code.pre {
+  overflow: auto;
+  padding: 7px 10px;
+  display: block;
+  background-color: #303030;
+  color: #eee;
+}
 .copy code {
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
