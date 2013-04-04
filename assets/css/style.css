@@ -526,6 +526,20 @@ ul.social-icons .linkedin:hover {
   background-position: 0 -288px;
 }
 
+h1.page-title {
+  font-family: "Roboto", sans-serif;
+  font-weight: bold;
+  font-size: 2em;
+  text-align: center;
+  letter-spacing: -1px;
+  margin-bottom: 15px;
+}
+h1.page-title small {
+  font-size: 0.6em;
+  font-weight: normal;
+  color: #999;
+}
+
 .clearfix {
   clear: both;
 }
