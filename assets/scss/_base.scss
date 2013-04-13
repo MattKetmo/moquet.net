@@ -6,11 +6,6 @@ $debug: false;
     "Quatro Ultra Slab.otf"
 ));
 
-@include font-face("Roboto", font-files("Roboto-Regular.ttf"), false, normal, normal);
-@include font-face("Roboto", font-files("Roboto-Bold.ttf"), false, bold, normal);
-@include font-face("Roboto", font-files("Roboto-Italic.ttf"), false, normal, italic);
-@include font-face("Roboto", font-files("Roboto-BoldItalic.ttf"), false, bold, italic);
-
 $font-title: "Quatro Ultra Slab", serif;
 $font-text:  "Roboto", sans-serif;
 
