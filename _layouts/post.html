@@ -2,7 +2,7 @@
 layout: base
 ---
 
-<header class="site-header simple-layout">
+<header class="page-header">
     <a href="/">
         <div class="mk-logo block">
             <div class="m-logo"></div>
@@ -11,14 +11,14 @@ layout: base
     </a>
 </header>
 
-<div class="site-content">
+<div class="page-content">
     <article class="blog-post">
         <header>
             <h1>{{ page.title}}</h1>
             <time datetime="{{ page.date | date: "%Y-%m-%d" }}">{{ page.date | date_to_string }}</time>
         </header>
 
-        <div class="copy">
+        <div class="type">
             {{ content }}
         </div>
 
@@ -37,20 +37,18 @@ layout: base
     </article>
 </div>
 
-<footer class="site-footer">
+<footer class="page-footer">
     <div class="inner">
         <p class="pseudo">
             @MattKetmo
         </p>
 
-        <div>
-            <ul class="social-icons">
-                <li><a href="http://github.com/MattKetmo" title="GitHub" class="github">Github</a></li>
-                <li><a href="http://twitter.com/MattKetmo" title="Twitter" class="twitter">Twitter</a></li>
-                <li><a href="http://fr.linkedin.com/in/matthieumoquet" title="LinkedIn" class="linkedin">Linkedin</a></li>
-                <li><a href="https://plus.google.com/u/0/112952330011857430726/about" title="Google+" class="google">Google+</a></li>
-                <li><a href="https://connect.sensiolabs.com/profile/MattKetmo" title="Symfony" class="symfony">Symfony</a></li>
-            </ul>
-        </div>
+        <ul class="social-icons">
+            <li><a href="http://github.com/MattKetmo" title="GitHub" class="github">Github</a></li>
+            <li><a href="http://twitter.com/MattKetmo" title="Twitter" class="twitter">Twitter</a></li>
+            <li><a href="http://fr.linkedin.com/in/matthieumoquet" title="LinkedIn" class="linkedin">Linkedin</a></li>
+            <li><a href="https://plus.google.com/u/0/112952330011857430726/about" title="Google+" class="google">Google+</a></li>
+            <li><a href="https://connect.sensiolabs.com/profile/MattKetmo" title="Symfony" class="symfony">Symfony</a></li>
+        </ul>
     </div>
 </footer>

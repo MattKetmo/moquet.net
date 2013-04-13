@@ -9,10 +9,24 @@ $debug: false;
 $font-title: "Quatro Ultra Slab", serif;
 $font-text:  "Roboto", sans-serif;
 
+// Site Layout
+$site-container: 650px;
+
 body {
     background: #f4f4f4 image-url('cubes.png') repeat center;
     font-family: Roboto, sans-serif;
     color: #303030;
+}
+
+* {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+@media (max-device-width:768px) and (orientation:landscape) and (-webkit-min-device-pixel-ratio:2) {
+    // @see http://blog.goetter.fr/post/28469308363/initial-scale-1-le-pour-et-le-contre
+    html { -webkit-text-size-adjust: 66%; }
 }
 
 ::selection, ::-moz-selection {

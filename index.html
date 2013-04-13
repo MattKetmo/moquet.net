@@ -3,63 +3,67 @@ layout: base
 title: Matthieu Moquet
 ---
 
-<header class="site-header main-layout" style="clear:both">
+<header class="homepage-header" style="clear:both">
     <h1 class="fullname">
-        <div class="inner">
-            <span class="firstname">Matthieu</span>
-            <span class="lastname">Moquet</span>
-        </div>
+        <span class="firstname">Matthieu</span>
+        <span class="lastname">Moquet</span>
     </h1>
 
     <div class="baseline">
-        <div class="inner">
-            <p class="status">
-                <span class="www">WWW</span>eb developer
-            </p>
+        <p class="status">
+            <span class="www">WWW</span>eb developer
+        </p>
 
-            <p class="pseudo">
-                @MattKetmo
-            </p>
+        <p class="pseudo">
+            @MattKetmo
+        </p>
 
-            <ul class="social-icons">
-                <li><a href="http://github.com/MattKetmo" title="GitHub" class="github">Github</a></li>
-                <li><a href="http://twitter.com/MattKetmo" title="Twitter" class="twitter">Twitter</a></li>
-                <li><a href="http://fr.linkedin.com/in/matthieumoquet" title="LinkedIn" class="linkedin">Linkedin</a></li>
-                <li><a href="https://plus.google.com/u/0/112952330011857430726/about" title="Google+" class="google">Google+</a></li>
-                <li><a href="https://connect.sensiolabs.com/profile/MattKetmo" title="Symfony" class="symfony">Symfony</a></li>
-            </ul>
-        </div>
+        <ul class="social-icons">
+            <li><a href="http://github.com/MattKetmo" title="GitHub" class="github">Github</a></li>
+            <li><a href="http://twitter.com/MattKetmo" title="Twitter" class="twitter">Twitter</a></li>
+            <li><a href="http://fr.linkedin.com/in/matthieumoquet" title="LinkedIn" class="linkedin">Linkedin</a></li>
+            <li><a href="https://plus.google.com/u/0/112952330011857430726/about" title="Google+" class="google">Google+</a></li>
+            <li><a href="https://connect.sensiolabs.com/profile/MattKetmo" title="Symfony" class="symfony">Symfony</a></li>
+        </ul>
     </div>
 
     <div class="clearfix"></div>
 </header>
 
 <div class="site-content">
-    <section class="blog-entries part">
-        <h2 class="part-title">Blog</h2>
+    <section class="block">
+        <h2 class="block-title">Blog</h2>
 
-        {% for post in site.posts %}
-            <article class="entry">
-                <a href="{{ post.url }}">
-                    <h2>
-                        {{ post.title }}
-                    </h2>
-                    <time datetime="{{ post.date | date: '%Y-%m-%d' }}">{{ post.date | date: "%d %b" }}</time>
-                </a>
-            </article>
-        {% endfor %}
+        <div class="block-list">
+            {% for post in site.posts %}
+                <article class="block-list-item">
+                    <a href="{{ post.url }}">
+                        <h2 class="item-title">
+                            {{ post.title }}
+                        </h2>
+                        <time class="item-prefix" datetime="{{ post.date | date: '%Y-%m-%d' }}">
+                            {{ post.date | date: "%d %b" }}
+                        </time>
+                    </a>
+                </article>
+            {% endfor %}
+        </div>
     </section>
 
-    <section class="blog-entries">
-        <h2 class="part-title">Talks</h2>
-        <article class="entry">
-            <a href="/talks/symfony-live-2013">
-                <h2>
-                    Development Workflow at BlaBlaCar — Symfony Live Paris 2013
-                </h2>
-                <time datetime="2013-04-06">Apr 13</time>
-            </a>
-        </article>
+    <section class="block">
+        <h2 class="block-title">Talks</h2>
+        <div class="block-list">
+            <article class="block-list-item">
+                <a href="/talks/symfony-live-2013">
+                    <h2 class="item-title">
+                        Development Workflow at BlaBlaCar — Symfony Live Paris 2013
+                    </h2>
+                    <time class="item-prefix" datetime="2013-04-06">
+                        Apr 13
+                    </time>
+                </a>
+            </article>
+        </div>
     </section>
 </div>
 

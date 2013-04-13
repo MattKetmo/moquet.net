@@ -2,7 +2,7 @@ $text-baseline: 16px;
 
 // Define styles for blocks of content scoped within the .copy rather than
 // making them global. Global styles will be constantly overridden.
-.copy {
+.type {
     // @include improve-text-rendering;
     font-size: 16px;
     line-height: 25px;
