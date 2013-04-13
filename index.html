@@ -35,7 +35,9 @@ title: Matthieu Moquet
 </header>
 
 <div class="site-content">
-    <section class="blog-entries">
+    <section class="blog-entries part">
+        <h2 class="part-title">Blog</h2>
+
         {% for post in site.posts %}
             <article class="entry">
                 <a href="{{ post.url }}">
@@ -46,6 +48,18 @@ title: Matthieu Moquet
                 </a>
             </article>
         {% endfor %}
+    </section>
+
+    <section class="blog-entries">
+        <h2 class="part-title">Talks</h2>
+        <article class="entry">
+            <a href="/talks/symfony-live-2013">
+                <h2>
+                    Development Workflow at BlaBlaCar — Symfony Live Paris 2013
+                </h2>
+                <time datetime="2013-04-06">Apr 13</time>
+            </a>
+        </article>
     </section>
 </div>
 

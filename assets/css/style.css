@@ -61,6 +61,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 
 body {
   background: #f4f4f4 url('/assets/images/cubes.png?1362487981') repeat center;
+  font-family: Roboto, sans-serif;
   color: #303030;
 }
 
@@ -514,6 +515,19 @@ h1.page-title small {
   font-size: 0.6em;
   font-weight: normal;
   color: #999;
+}
+
+.part {
+  margin-bottom: 20px;
+}
+
+.part-title {
+  font-size: 1.4em;
+  margin-bottom: 5px;
+  font-family: "Roboto", sans-serif;
+  font-weight: 300;
+  text-transform: uppercase;
+  letter-spacing: -1px;
 }
 
 .clearfix {

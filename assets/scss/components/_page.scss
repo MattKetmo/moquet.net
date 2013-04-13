@@ -12,3 +12,16 @@ h1.page-title {
         color: #999;
     }
 }
+
+.part {
+    margin-bottom: 20px;
+}
+
+.part-title {
+    font-size: 1.4em;
+    margin-bottom: 5px;
+    font-family: $font-text;
+    font-weight: 300;
+    text-transform: uppercase;
+    letter-spacing: -1px;
+}
