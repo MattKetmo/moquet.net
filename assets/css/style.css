@@ -210,6 +210,10 @@ body {
 .copy > * {
   margin-bottom: 16px;
 }
+.copy p.lead {
+  font-size: 1.1em;
+  font-weight: 300;
+}
 .copy blockquote {
   font-style: italic;
   background: rgba(249, 249, 249, 0.6);

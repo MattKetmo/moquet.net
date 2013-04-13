@@ -17,7 +17,11 @@ $text-baseline: 16px;
     // ----------------------------------------
 
     p {
-
+        &.lead {
+            font-size: 1.1em;
+            font-weight: 300;
+            //letter-spacing: 0.1em;
+        }
     }
 
     address {

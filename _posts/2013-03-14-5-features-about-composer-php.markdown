@@ -4,9 +4,11 @@ title: 5 features to know about Composer PHP
 tags: [composer, php]
 ---
 
-***Note: I started to write this article some months ago but I never took the
+<p class="lead">
+Note: I started to write this article some months ago but I never took the
 time to finish it. So, it's not really "fresh" news, but nonetheless, there may
-be things you still do not know.***
+be things you still do not know.
+</p>
 
 # 1. Update only one vendor
 
