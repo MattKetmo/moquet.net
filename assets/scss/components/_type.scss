@@ -29,6 +29,7 @@ $text-baseline: 16px;
     }
 
     blockquote {
+        font-size: 1.2em;
         font-style: italic;
         background: rgba(249, 249, 249, 0.6);
         border-left: 1px solid #ccc;
@@ -51,7 +52,7 @@ $text-baseline: 16px;
             content: open-quote;
         }
         &:after {
-            content: close-quote;
+            //content: close-quote;
         }
     }
 
