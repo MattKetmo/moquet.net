@@ -1,11 +1,10 @@
-# Set this to the root of your project when deployed:
 http_path       = "/assets/"
+
 css_dir         = "css"
 sass_dir        = "scss"
-images_dir      = "images"
 fonts_dir       = "fonts"
-javascripts_dir = "js"
+images_dir      = "images"
+javascripts_dir = "javascripts"
 
-# Extra configuration
-line_comments = false
-#relative_assets = true
+line_comments = (environment == :production) ? false : true
+output_style  = (environment == :production) ? :compressed : :nested
