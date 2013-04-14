@@ -31,40 +31,9 @@ title: Matthieu Moquet
 </header>
 
 <div class="site-content">
-    <section class="block">
-        <h2 class="block-title">Blog</h2>
+    {% include posts.html %}
 
-        <div class="block-list">
-            {% for post in site.posts %}
-                <article class="block-list-item">
-                    <a href="{{ post.url }}">
-                        <h2 class="item-title">
-                            {{ post.title }}
-                        </h2>
-                        <time class="item-prefix" datetime="{{ post.date | date: '%Y-%m-%d' }}">
-                            {{ post.date | date: "%d %b" }}
-                        </time>
-                    </a>
-                </article>
-            {% endfor %}
-        </div>
-    </section>
-
-    <section class="block">
-        <h2 class="block-title">Talks</h2>
-        <div class="block-list">
-            <article class="block-list-item">
-                <a href="/talks/symfony-live-2013">
-                    <h2 class="item-title">
-                        Development Workflow at BlaBlaCar — Symfony Live Paris 2013
-                    </h2>
-                    <time class="item-prefix" datetime="2013-04-06">
-                        Apr 13
-                    </time>
-                </a>
-            </article>
-        </div>
-    </section>
+    {% include talks.html %}
 </div>
 
 <footer class="site-footer">

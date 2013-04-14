@@ -19,7 +19,7 @@ title: Development Workflow at BlaBlaCar — Symfony Live Paris 2013
             <small>Symfony Live Paris 2013</small>
         </h1>
 
-        <div class="copy">
+        <div class="block type">
             <script
                 async
                 class="speakerdeck-embed"
@@ -27,20 +27,8 @@ title: Development Workflow at BlaBlaCar — Symfony Live Paris 2013
                 data-ratio="1.33333333333333"
                 src="//speakerdeck.com/assets/embed.js">
             </script>
-
         </div>
 
-        <section class="comments">
-            <div id="disqus_thread"></div>
-            <script type="text/javascript">
-                var disqus_shortname = 'mattketmo';
-
-                (function() {
-                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-                    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
-                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-                })();
-            </script>
-        </section>
+        {% include comments.html %}
     </article>
 </div>
