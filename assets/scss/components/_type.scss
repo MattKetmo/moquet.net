@@ -128,6 +128,20 @@ $text-baseline: 16px;
     h1,h2,h3,h4,h5,h6 {
         font-weight: bold;
         margin-top: 20px;
+
+        // Anchorify
+        .anchor-link {
+            color: transparent;
+            padding-left: 7px;
+            font-size: 0.7em;
+            font-family: sans-serif;
+        }
+
+        &:hover {
+            .anchor-link {
+                color: #444;
+            }
+        }
     }
 
     h1 {
