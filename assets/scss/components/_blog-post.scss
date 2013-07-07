@@ -16,8 +16,22 @@
 
         time {
             color: #aaa;
+        }
+
+        .meta {
             text-align: center;
             display: block;
+        }
+
+        .github-link {
+            padding-left: 5px;
+            font-size: 0.9em;
+            color: #aaa;
+            text-decoration: none;
+
+            &:hover {
+                color: #33b5e5;
+            }
         }
     }
 

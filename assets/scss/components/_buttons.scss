@@ -1,0 +1,13 @@
+.btn-share {
+    border-radius: 2px;
+    display: inline-block;
+    padding: 4px 12px;
+    font-size: 0.8em;
+    text-decoration: none;
+    background-color: #09c;
+    color: #fff;
+
+    &:hover {
+        background-color: #33b5e5;
+    }
+}
