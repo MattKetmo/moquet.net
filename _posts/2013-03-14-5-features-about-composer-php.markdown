@@ -180,7 +180,7 @@ Without that optimization, you may notice a [performance loss from 20 to 25%](ht
 
 Of course, if you need any help or details for a command, read to the
 [official documentation](http://getcomposer.org) or watch this awesome
-[interactive cheatsheet][jolicode] made by Jolicode.
+[interactive cheatsheet][jolicode] made by JoliCode.
 
 [composer]: http://getcomposer.org/
 [jolicode]: http://composer.json.jolicode.com/
