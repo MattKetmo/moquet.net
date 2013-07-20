@@ -1,2 +1,5 @@
 permalink: /blog/:title/
 pygments: true
+
+base_url: http://moquet.net
+twitter_account: MattKetmo
