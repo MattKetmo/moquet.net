@@ -31,6 +31,12 @@
         $('.social-icons a').tipsy({ fade: true });
         $('.action-link').tipsy({ fade: true });
         $('.blog-post-content').find('h1, h2, h3, h4, h5').anchorify();
+
+        $('.btn-tweet').on('click', function(e) {
+            e.preventDefault();
+            var url = $(this).attr('href');
+            window.open(url, 'Twitter', 'height=300,width=550');
+        });
     </script>
 
     <script>
