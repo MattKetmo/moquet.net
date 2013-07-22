@@ -28,14 +28,21 @@
     <script src="/assets/js/jquery.tipsy.js"></script>
     <script src="/assets/js/anchorify.min.js"></script>
     <script>
+        // Links
         $('.social-icons a').tipsy({ fade: true });
         $('.action-link').tipsy({ fade: true });
-        $('.blog-post-content').find('h1, h2, h3, h4, h5').anchorify();
-
         $('.btn-tweet').on('click', function(e) {
             e.preventDefault();
             var url = $(this).attr('href');
             window.open(url, 'Twitter', 'height=300,width=550');
+        });
+
+        // Blog posts
+        $('.blog-post-content').find('h1, h2, h3, h4, h5').anchorify();
+        $('.blog-post-content pre').on('dblclick', function() {
+            var range = document.createRange();
+            range.selectNode(this);
+            window.getSelection().addRange(range);
         });
     </script>
 
