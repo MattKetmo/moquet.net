@@ -53,6 +53,12 @@ command. Since it has no correspondence, it's like you typed `foobar`. Note
 that since recently, there is a new warning message that tells you `nothing` is
 not a valid package, but that doesn't matter.
 
+**Update 2013-08-16** — *As [mentioned in the comments](#comment-1002816789),
+there is now a [new option](https://github.com/composer/composer/commit/f6b7f0e29aa89b59d21479946ee28efb270bb551)
+to only update the `composer.lock` file:*
+
+    $ composer update --lock
+
 # 2. Add a library without editing your composer.json
 
 To add a new vendor for your project, you can manually add a new line into your
