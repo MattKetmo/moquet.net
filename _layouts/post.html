@@ -21,8 +21,7 @@ layout: base
                     <i class="icon-link"></i>
                 </a>
 
-
-                <a class="action-link btn-tweet" title="Tweet it" href="https://twitter.com/share?text={{ page.title }}&url={{ site.base_url }}{{ page.url }}&via={{ site.twitter_account }}&related={{ site.twitter_account }}" target="_blank">
+                <a class="action-link js-tweet" title="Tweet it" href="https://twitter.com/share?text={{ page.title }}&url={{ site.base_url }}{{ page.url }}&via={{ site.twitter_account }}&related={{ site.twitter_account }}" target="_blank">
                     <i class="icon-twitter"></i>
                 </a>
             </div>
@@ -30,6 +29,18 @@ layout: base
 
         <div class="block type blog-post-content">
             {{ content }}
+        </div>
+
+        <div class="block bottom-buttons">
+            <a class="btn-github" title="View on GitHub" href="https://github.com/MattKetmo/mattketmo.github.com/blob/master/{{ page.path }}">
+                <i class="icon-link"></i>
+                View on GitHub
+            </a>
+
+            <a class="btn-tweet js-tweet" title="Tweet it" href="https://twitter.com/share?text={{ page.title }}&url={{ site.base_url }}{{ page.url }}&via={{ site.twitter_account }}&related={{ site.twitter_account }}" target="_blank">
+                <i class="icon-twitter"></i>
+                Share this post
+            </a>
         </div>
 
         {% include comments.html %}

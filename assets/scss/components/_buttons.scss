@@ -11,3 +11,33 @@
         background-color: #33b5e5;
     }
 }
+
+.btn-tweet,
+.btn-github {
+    font-size: 1.2em;
+    padding: 12px 30px;
+    margin: 3px;
+    text-decoration: none;
+
+    .icon-twitter, .icon-github, .icon-link {
+        padding-right: 5px;
+    }
+}
+
+.btn-tweet {
+    color: #fff;
+    background-color: #33B5E5;
+
+    &:hover {
+        background-color: #0099CC;
+    }
+}
+
+.btn-github {
+    color: #444;
+    background-color: #ddd;
+
+    &:hover {
+        background-color: #ccc;
+    }
+}

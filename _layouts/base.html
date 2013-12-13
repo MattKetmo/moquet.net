@@ -31,7 +31,7 @@
         // Links
         $('.social-icons a').tipsy({ fade: true });
         $('.action-link').tipsy({ fade: true });
-        $('.btn-tweet').on('click', function(e) {
+        $('.js-tweet').on('click', function(e) {
             e.preventDefault();
             var url = $(this).attr('href');
             window.open(url, 'Twitter', 'height=300,width=550');
