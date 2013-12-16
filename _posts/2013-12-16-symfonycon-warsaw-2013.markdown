@@ -31,8 +31,9 @@ the Symfony ecosystem, and reminded us last features of the [symfony.com](http:/
 website like the [projects page](http://symfony.com/projects),
 the easy way to edit page and the [roapmap notifications](http://symfony.com/roadmap).
 
-Then, as the Symfony merge leader, he spoke about his way to process pull-requests on GitHub.
-He wrote a `gh` command-line with some nice features like the ability to change PRs'
+Then, as the Symfony "[lead merger](https://twitter.com/fabpot/status/6619944506630144)",
+he spoke about his way to process pull-requests on GitHub.
+He wrote a `gh` command-line with nice features like the ability to change PRs'
 destination branch — you know, bug fixes must be done on the oldest
 maintained branch while new features on master —, squash git commits,
 update commit message with a label and add the full issue thread.
@@ -56,7 +57,7 @@ Javier mainly spoted five ideas to improve the Symfony community via its website
 - Avoid having too much bundle for one thing — this is currently a (top-secret) project
   in progress and did not expand much on this topic
 
-Julien — the release manager of PHP 5.5 and ex-collegue from [BlaBlaCar](http://www.blablacar.com) —
+Julien, the release manager of PHP 5.5 and ex-collegue from [BlaBlaCar](http://www.blablacar.com),
 talked about the performance part he's going to focus on.
 He's actually working on a rewrite of the Pimple library.
 Some improvements had been made on the PHP code, but he's also working
@@ -80,9 +81,9 @@ Several tools were mentionned:
 - [Capistrano](https://github.com/capistrano/capistrano), plus [Capifony](http://capifony.org/) to deploy easily
 - [Fabric](http://fabfile.org), usefull for repetitive tasks or one-shot batch command
 - [Ansible](http://www.ansibleworks.com/)
-- [Chef](http://www.getchef.com/chef/), and [Puppet](http://puppetlabs.com/) two (more or less equivalent) provisioning tools
+- [Chef](http://www.getchef.com/chef/) and [Puppet](http://puppetlabs.com/) two (more or less equivalent) provisioning tools
 - [Vagrant](http://www.vagrantup.com/) to provision virtual machines
-  (don't forget this [tip](http://www.whitewashing.de/2013/08/19/speedup_symfony2_on_vagrant_boxes.html)
+  (don't forget [this tip](http://www.whitewashing.de/2013/08/19/speedup_symfony2_on_vagrant_boxes.html)
   when using Symfony2)
 
 Grégoire is currently using Chef to deploy at SensioLabs.
@@ -225,9 +226,9 @@ security access control in a standard Symfony app.
 She first showed us how the Access Control Engine can be complicated.
 Then she compared with a Voter implementation, which is much easier to code and test.
 
-For French guys, I also recommand reading this
+For French guys, I also recommend reading this
 [blog post](http://devblog.lexik.fr/non-classe/faciliter-la-gestion-des-droits-dacces-avec-les-voters-2488) from Lexik team,
-or [this one](http://kriswallsmith.net/post/15994931191/symfony2-security-voters) from Kris Wallsmith.
+or [this one](http://kriswallsmith.net/post/15994931191/symfony2-security-voters) in English from Kris Wallsmith.
 
 
 # Proxy pattern in PHP
@@ -257,7 +258,7 @@ component. I strongly encourage you to view the (upcoming) video — or
 
 Jordi started quite recently to take an interest in application & architecture monitoring.
 Monitoring becomes more and more important when building complex apps with many "moving parts".
-Lead developper of Composer, he presented us the tool he chosed to monitor
+Lead developer of Composer, he presented us the tool he chose to monitor
 [packagist.org](http://packagist.org).
 
 Actually there are many tools on the market.
@@ -340,7 +341,7 @@ to combine both DriebitHttpCacheBundle and LiipCacheControlBundle.
 [Liuggio](https://github.com/liuggio) talked about an important topic on *avoiding the monolithic*
 using a decoupled, flexible and tailored architecture.
 I just looked over his [website](http://welcometothebundle.com/) and saw several interessing posts.
-He's also author of [Leaphly](http://leaphly.org/), a nice shopping cart for developper.
+He's also author of [Leaphly](http://leaphly.org/), a nice shopping cart for developer.
 
 The lighting talks session has been closed by the amazing
 Jeremy Mikola who spoke about… *lights*!
