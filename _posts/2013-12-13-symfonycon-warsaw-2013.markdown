@@ -17,6 +17,10 @@ Here is an extract of the notes I took during those two days.
 As usual, talks were splitted into two tracks.
 So I have nothing to say for half ones, except a link to the **slides**.
 
+*By the way, if you find a typo, feel free to [fork and edit this post](https://github.com/MattKetmo/moquet.net/blob/gh-pages/_posts/2013-12-13-symfonycon-warsaw-2013.markdown),
+or [ping me on Twitter](https://twitter.com/MattKetmo).
+Thank you!*
+
 # Opening keynote
 
 *Fabien Potencier* — [slides](https://speakerdeck.com/fabpot/symfonycon-2013-keynote)
