@@ -339,7 +339,7 @@ By the way, he started to work on a [new FOS bundle](FOSHttpCacheBundle)
 to combine both DriebitHttpCacheBundle and LiipCacheControlBundle.
 
 [Liuggio](https://github.com/liuggio) talked about an important topic on *avoiding the monolithic*
-using a decoupled, flexible and tailored architecture.
+using a decoupled, flexible and tailored architecture ([slides](http://www.slideshare.net/liuggio/leaphly-fight-monolothic-today)).
 I just looked over his [website](http://welcometothebundle.com/) and saw several interessing posts.
 He's also author of [Leaphly](http://leaphly.org/), a nice shopping cart for developer.
 
