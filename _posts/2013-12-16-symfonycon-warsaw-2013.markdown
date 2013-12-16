@@ -9,7 +9,7 @@ in Warsaw has just finished, and I must admit that was great.
 Congrats to the SensioLabs team and especially
 [Anne-Sophie](https://twitter.com/ansobach) for the organization.
 The [venue was incredible](http://warsaw2013.symfony.com/venue)
-with a big conference room,
+with a [big conference room](https://twitter.com/kriswallsmith/status/411050365753507840),
 and more than 600 people were attending the main talks.
 First time a Symfony conference is sold out more than two weeks before the due date.
 
