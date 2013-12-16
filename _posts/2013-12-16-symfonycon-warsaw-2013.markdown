@@ -333,7 +333,7 @@ library, [Marc Morera](https://twitter.com/mmoreram) introduced
 the [GearmanBundle](https://github.com/mmoreram/GearmanBundle)
 ([slides](http://fr.slideshare.net/MarcMorera/gearman-bundle-warsaw-2013-ed)),
 and David de Boer explained his strategy to invalidate HTTP cache using
-[DriebitHttpCacheBundle](github.com/driebit/DriebitHttpCacheBundle).
+[DriebitHttpCacheBundle](https://github.com/driebit/DriebitHttpCacheBundle).
 By the way, he started to work on a [new FOS bundle](FOSHttpCacheBundle)
 to combine both DriebitHttpCacheBundle and LiipCacheControlBundle.
 
