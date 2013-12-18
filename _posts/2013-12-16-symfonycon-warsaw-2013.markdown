@@ -285,7 +285,7 @@ It worse keeping an eye on it.
 
 # Taming Runaway Silex Apps
 
-*Dave Marshall*
+*Dave Marshall* — [slides](https://speakerdeck.com/davedevelopment/taming-runaway-silex-apps-symfonycon-warsaw-2013)
 
 
 # Decouple your application with (Domain-)Events
