@@ -39,7 +39,8 @@ maintained branch while new features on master —, squash git commits,
 update commit message with a label and add the full issue thread.
 This looks to be an amazing swiss knife and I hope it will be open-sourced shortly.
 
-Lastly, he introduces the launch of a new tool called [ubot.io](http://ubot.io).
+Lastly, he introduces the launch of a new tool called [ubot.io](http://ubot.io)
+— *edit 2013-12-18:* it has been renamed to [fabbot.io](http://fabbot.io/).
 This is mainly an automatisation tool to detect typos and CS on pull-requests.
 Think of it as bot combining both [stof](https://github.com/stof)
 and [pborreli](https://github.com/pborreli) super powers.
