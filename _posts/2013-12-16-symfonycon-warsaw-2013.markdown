@@ -183,7 +183,7 @@ if the speech was fast, Ryan is a good teacher.
 
 Personally, I was looking forward this talk in order to know how other people
 integrate such tools in a Symfony application. I must admit I'm getting
-ride of Assetic and I will spend a bit more time configuring correctly
+rid of Assetic and I will spend a bit more time configuring correctly
 all the asset part in my applications.
 If you're curious too, look at [Ryan's code example](https://github.com/knpuniversity/symfonycon-frontend)
 or even at this [Symfony Grunt Edition](https://github.com/kbond/symfony-grunt-edition)
