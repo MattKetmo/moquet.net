@@ -248,7 +248,7 @@ component. I strongly encourage you to view the (upcoming) video — or
 [this existing one](http://www.youtube.com/watch?v=eVaz_mMuDjw) in French.
 
 
-# Symfony componentmponents in the wild
+# Symfony components in the wild
 
 *Jakub Zalas* — [slides](https://speakerdeck.com/jakzal/symfony-components-in-the-wild-symfonycon-2013)
 
