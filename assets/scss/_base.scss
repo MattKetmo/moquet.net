@@ -24,6 +24,13 @@ body {
     box-sizing: border-box;
 }
 
+.preload * {
+    -webkit-transition: none !important;
+    -moz-transition: none !important;
+    -ms-transition: none !important;
+    -o-transition: none !important;
+}
+
 @media (max-device-width:768px) and (orientation:landscape) and (-webkit-min-device-pixel-ratio:2) {
     // @see http://blog.goetter.fr/post/28469308363/initial-scale-1-le-pour-et-le-contre
     html { -webkit-text-size-adjust: 66%; }
