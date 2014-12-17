@@ -1,6 +1,7 @@
 .Layout {
   width: 750px;
   margin: 0 auto;
+  overflow: hidden;
 
   @media screen and (max-width: 750px) {
     width: 100%;

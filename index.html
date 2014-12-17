@@ -15,10 +15,9 @@ layout: base
     <p class="AboutHeader-lead">
       Hello. My name is <strong>Matthieu Moquet</strong>.
 
-      I currently live in <strong>Paris</strong> and work at
-      <strong>BlaBlaCar</strong>
+      I currently live in <strong>Paris</strong> and work as a web engineer
+      at <strong>BlaBlaCar</strong>.
       <!-- <strong style="x-text-shadow: #ddd 0px 0px"><span style="color:#6cb52d">Bla</span><span style="color:#0084ba">Bla</span><span style="color:#ba2928">Car</span></strong> -->
-      as a web developer.
     </p>
 
     <p class="AboutHeader-followMe">
@@ -78,68 +77,23 @@ layout: base
     </h2>
 
     <ul class="TalkList-list">
-      <li class="TalkItem">
-        <a href="/">
-          <div class="TalkItem-container">
-            <div class="TalkItem-overlay"></div>
-            <h3 class="TalkItem-title">
-              Localization should not be a pain (anymore)
-            </h3>
-            <img src="https://speakerd.s3.amazonaws.com/presentations/843b8d10583801325d0932c09a5c5970/slide_0.jpg?1417182273" alt="" class="TalkItem-thumbnail">
-          </div>
-          <p class="TalkItem-meta">
-            SymfonyCon Madrid 2014
-          </p>
-        </a>
-      </li>
-
-      <li class="TalkItem">
-        <a href="/">
-          <div class="TalkItem-container">
-            <div class="TalkItem-overlay"></div>
-            <h3 class="TalkItem-title">
-              Agility in your translation workflow
-            </h3>
-            <img src="https://speakerd.s3.amazonaws.com/presentations/ee18c2b0dbbe0131d9c42a008baf6e6b/slide_0.jpg?1403594037" alt="" class="TalkItem-thumbnail">
-          </div>
-
-          <p class="TalkItem-meta">
-            PHPTour Lyon 2014
-          </p>
-        </a>
-      </li>
-      <li class="TalkItem">
-        <a href="/">
-          <img src="http://placehold.it/400x300" alt="" class="TalkItem-thumbnail">
-          <p class="TalkItem-meta">
-            SymfonyLive Paris 2013
-          </p>
-        </a>
-      </li>
-
-      <li class="TalkItem">
-        <a href="/">
-          <div class="TalkItem-container">
-            <div class="TalkItem-overlay"></div>
-            <h3 class="TalkItem-title">
-              Decoupling your application
-            </h3>
-            <img src="https://speakerd.s3.amazonaws.com/presentations/3a409b70a0c20131f6cb2abc05ca10ad/slide_0.jpg?1397131411" alt="" class="TalkItem-thumbnail">
-          </div>
-          <p class="TalkItem-meta">
-            Symfony Live Paris 2014
-          </p>
-        </a>
-      </li>
-
-      <li class="TalkItem">
-        <a href="/">
-          <img src="http://placehold.it/400x300" alt="" class="TalkItem-thumbnail">
-          <p class="TalkItem-meta">
-            SymfonyLive Paris 2013
-          </p>
-        </a>
-      </li>
+      {% assign sorted_talks = (site.talks | sort: 'date') %}
+      {% for talk in sorted_talks reversed %}
+        <li class="TalkItem">
+          <a href="{{ talk.url }}">
+            <div class="TalkItem-container">
+              <div class="TalkItem-overlay"></div>
+              <h3 class="TalkItem-title">
+                {{ talk.title }}
+              </h3>
+              <img src="{{ talk.thumbnail }}" alt="" class="TalkItem-thumbnail">
+            </div>
+            <p class="TalkItem-meta">
+              {{ talk.event }}
+            </p>
+          </a>
+        </li>
+      {% endfor %}
     </ul>
   </div>
 </section>

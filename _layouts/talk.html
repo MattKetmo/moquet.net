@@ -1,0 +1,37 @@
+---
+layout: base
+---
+
+<a href="/" class="BackLink isLight">
+  <i class="icon-arrow-left"></i>
+  <span>Home</span>
+</a>
+
+<article class="BlogPostContainer">
+  <header class="BlogPostHeader">
+    <div class="Layout">
+      <h1 class="BlogPostHeader-title">
+        {{ page.title }}
+      </h1>
+
+      <p class="BlogPostHeader-meta">
+        {{ page.event }} —
+        <time datetime="{{ page.date | date: "%Y-%m-%d" }}">
+          {{ page.date | date: "%h %Y" }}
+        </time>
+      </p>
+    </div>
+  </header>
+
+  <section class="BlogPostContent Type Layout">
+    <div class="block type">
+      <script
+          async
+          class="speakerdeck-embed"
+          data-id="{{ page.speakerdeck }}"
+          data-ratio="1.33333333333333"
+          src="//speakerdeck.com/assets/embed.js">
+      </script>
+    </div>
+  </section>
+</article>
