@@ -1,0 +1,75 @@
+@font-face {
+  font-family: "icons";
+  src: url('../fonts/icons.eot');
+  src: url('../fonts/icons.eot?#iefix') format('eot'),
+    url('../fonts/icons.woff') format('woff'),
+    url('../fonts/icons.ttf') format('truetype'),
+    url('../fonts/icons.svg#icons') format('svg');
+}
+
+%icon {
+  font-family: "icons";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  // speak: none; // only necessary if not using the private unicode range (firstGlyph option)
+  text-decoration: none;
+  text-transform: none;
+}
+
+@function icon-char($filename) {
+  $char: "";
+
+  @if $filename == arrow-bottom {
+    $char: "\E001";
+  }
+  @if $filename == arrow-left {
+    $char: "\E002";
+  }
+  @if $filename == arrow-right {
+    $char: "\E003";
+  }
+  @if $filename == arrow-top {
+    $char: "\E004";
+  }
+  @if $filename == logo {
+    $char: "\E005";
+  }
+  @if $filename == twitter {
+    $char: "\E006";
+  }
+
+  @return $char;
+}
+
+@mixin icon($filename, $insert: before) {
+  // Additionnal properties
+  vertical-align: middle;
+  line-height: 1;
+
+  &:#{$insert} {
+    @extend %icon;
+    content: icon-char($filename);
+  }
+}
+
+.icon-arrow-bottom {
+  @include icon(arrow-bottom);
+}
+.icon-arrow-left {
+  @include icon(arrow-left);
+}
+.icon-arrow-right {
+  @include icon(arrow-right);
+}
+.icon-arrow-top {
+  @include icon(arrow-top);
+}
+.icon-logo {
+  @include icon(logo);
+}
+.icon-twitter {
+  @include icon(twitter);
+}

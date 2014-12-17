@@ -1,0 +1,22 @@
+.BackLink {
+  @include font-size(16);
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  text-transform: uppercase;
+
+  i {
+    padding: 0 5px 0 0;
+  }
+
+  &.isLight {
+    color: #eee;
+  }
+  &.isDark {
+    color: $color-dark;
+  }
+
+  &:hover {
+    color: $color-primary;
+  }
+}

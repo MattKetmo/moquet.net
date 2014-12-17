@@ -2,57 +2,27 @@
 layout: base
 ---
 
-<header class="page-header">
-    <a href="/">
-        <div class="mk-logo block">
-            <div class="m-logo"></div>
-            <div class="k-logo"></div>
-        </div>
-    </a>
-</header>
+<a href="/" class="BackLink isLight">
+  <i class="icon-arrow-left"></i>
+  <span>Home</span>
+</a>
 
-<div class="page-content">
-    <article class="blog-post">
-        <header>
-            <h1>{{ page.title }}</h1>
-            <div class="meta">
-                <time datetime="{{ page.date | date: "%Y-%m-%d" }}">{{ page.date | date_to_string }}</time>
-                <a class="action-link" title="View on GitHub" href="https://github.com/MattKetmo/mattketmo.github.com/blob/master/{{ page.path }}">
-                    <i class="icon-link"></i>
-                </a>
+<article class="BlogPostContainer">
+  <header class="BlogPostHeader">
+    <div class="Layout">
+      <h1 class="BlogPostHeader-title">
+        {{ page.title }}
+      </h1>
 
-                <a class="action-link js-tweet" title="Tweet it" href="https://twitter.com/share?text={{ page.title }}&url={{ site.base_url }}{{ page.url }}&via={{ site.twitter_account }}&related={{ site.twitter_account }}" target="_blank">
-                    <i class="icon-twitter"></i>
-                </a>
-            </div>
-        </header>
-
-        <div class="block type blog-post-content">
-            {{ content }}
-        </div>
-
-        <div class="block bottom-buttons">
-            <a class="btn-tweet js-tweet" title="Tweet it" href="https://twitter.com/share?text={{ page.title }}&url={{ site.base_url }}{{ page.url }}&via={{ site.twitter_account }}&related={{ site.twitter_account }}" target="_blank">
-                <i class="icon-twitter"></i>
-                Share this post
-            </a>
-
-            <a class="btn-github" title="View on GitHub" href="https://github.com/MattKetmo/mattketmo.github.com/blob/master/{{ page.path }}">
-                <i class="icon-link"></i>
-                View on GitHub
-            </a>
-        </div>
-
-        {% include comments.html %}
-    </article>
-</div>
-
-<footer class="page-footer">
-    <div class="inner">
-        <p class="pseudo">
-            @MattKetmo
-        </p>
-
-        {% include social-icons.html %}
+      <p class="BlogPostHeader-meta">
+        <time datetime="{{ page.date | date: "%Y-%m-%d" }}">
+          {{ page.date | date_to_string }}
+        </time>
+      </p>
     </div>
-</footer>
+  </header>
+
+  <section class="BlogPostContent Type Layout">
+    {{ content }}
+  </section>
+</article>

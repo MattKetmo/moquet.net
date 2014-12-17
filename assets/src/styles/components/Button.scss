@@ -1,0 +1,49 @@
+.Button {
+  display: inline-block;
+
+  @include font-size(16);
+  line-height: 1.42857143;
+
+  color: $color-primary;
+  border: 2px solid $color-primary;
+  border-radius: 4px;
+  background: transparent;
+
+  &:hover {
+    color: #fff;
+    background-color: $color-primary;
+  }
+
+  text-transform: uppercase;
+  padding: 10px 25px;
+  letter-spacing: .05em;
+  font-weight: 600;
+
+  margin-bottom: 0;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+
+  -ms-touch-action: manipulation;
+  touch-action: manipulation;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background-image: none;
+
+  &.twitter {
+    @include font-size(20);
+    border: 0;
+    color: #55acee;
+    background-color: #fafafa;
+    text-transform: none;
+    letter-spacing: 0;
+
+    &:hover {
+      color: #fff;
+      background-color: #55acee;
+    }
+  }
+}
