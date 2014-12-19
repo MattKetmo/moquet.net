@@ -34,11 +34,14 @@
   @if $filename == arrow-top {
     $char: "\E004";
   }
-  @if $filename == logo {
+  @if $filename == link {
     $char: "\E005";
   }
-  @if $filename == twitter {
+  @if $filename == logo {
     $char: "\E006";
+  }
+  @if $filename == twitter {
+    $char: "\E007";
   }
 
   @return $char;
@@ -66,6 +69,9 @@
 }
 .icon-arrow-top {
   @include icon(arrow-top);
+}
+.icon-link {
+  @include icon(link);
 }
 .icon-logo {
   @include icon(logo);
