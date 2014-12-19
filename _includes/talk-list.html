@@ -1,0 +1,27 @@
+<section class="TalkList">
+  <div class="Layout">
+    <h2 class="TalkList-title">
+      Talks
+    </h2>
+
+    <ul class="TalkList-list">
+      {% assign sorted_talks = (site.talks | sort: 'date') %}
+      {% for talk in sorted_talks reversed %}
+        <li class="TalkItem">
+          <a href="{{ talk.url }}">
+            <div class="TalkItem-container">
+              <div class="TalkItem-overlay"></div>
+              <h3 class="TalkItem-title">
+                {{ talk.title }}
+              </h3>
+              <img src="{{ talk.thumbnail }}" alt="" class="TalkItem-thumbnail">
+            </div>
+            <p class="TalkItem-meta">
+              {{ talk.event }}
+            </p>
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+</section>
