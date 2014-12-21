@@ -4,6 +4,8 @@
   @include font-size(16);
   padding: 15px 0;
 
+  @include clearfix();
+
   i {
     padding-right: 5px;
     font-size: 1.2em;
