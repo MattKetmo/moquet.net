@@ -15,23 +15,25 @@ layout: base
       </h1>
 
       <p class="BlogPostHeader-meta">
+        {{ page.event }} —
         <time datetime="{{ page.date | date: "%Y-%m-%d" }}">
-          {{ page.date | date_to_string }}
+          {{ page.date | date: "%h %Y" }}
         </time>
       </p>
     </div>
   </header>
 
   <section class="BlogPostContent Type Layout">
-    {{ content }}
+    <div class="block type">
+      <script
+          async
+          class="speakerdeck-embed"
+          data-id="{{ page.speakerdeck }}"
+          data-ratio="1.33333333333333"
+          src="//speakerdeck.com/assets/embed.js">
+      </script>
+    </div>
   </section>
-
-  <p class="BlogPostFooter Layout">
-    <a class="Button twitter js-twitter-share" title="Tweet it" href="https://twitter.com/share?text={{ page.title }}&url={{ site.base_url }}{{ page.url }}&via={{ site.twitter_account }}&related={{ site.twitter_account }}" target="_blank">
-      <i class="icon-twitter"></i>
-      <span>Share this post</span>
-    </a>
-  </p>
 
   {% include comments.html %}
 </article>

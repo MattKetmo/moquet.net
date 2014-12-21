@@ -1,5 +1,10 @@
 permalink: /blog/:title/
-pygments: true
+highlighter: pygments
 
 base_url: http://moquet.net
 twitter_account: MattKetmo
+
+collections:
+  talks:
+    output: true
+    permalink: /talks/:path/

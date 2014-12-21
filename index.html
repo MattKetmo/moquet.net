@@ -1,34 +1,11 @@
 ---
 layout: base
-title: Matthieu Moquet
 ---
 
-<header class="homepage-header" style="clear:both">
-    <h1 class="fullname">
-        <span class="firstname">Matthieu</span>
-        <span class="lastname">Moquet</span>
-    </h1>
+{% include about-header.html %}
 
-    <div class="baseline">
-        <p class="status">
-            <span class="www">WWW</span>eb developer
-        </p>
+{% include blog-post-list.html %}
 
-        <p class="pseudo">
-            @MattKetmo
-        </p>
+{% include talk-list.html %}
 
-        {% include social-icons.html %}
-    </div>
-
-    <div class="clearfix"></div>
-</header>
-
-<div class="site-content">
-    {% include posts.html %}
-
-    {% include talks.html %}
-</div>
-
-<footer class="site-footer">
-</footer>
+{% include footer.html %}

@@ -1,0 +1,9 @@
+.Image {
+  &.isCircle {
+    border-radius: 50%;
+  }
+
+  &.isRounded {
+    border-radius: 4px;
+  }
+}

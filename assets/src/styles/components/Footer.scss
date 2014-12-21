@@ -1,0 +1,37 @@
+.Footer {
+  background-color: #363942;
+  color: #eee;
+  @include font-size(16);
+  padding: 15px 0;
+
+  i {
+    padding-right: 5px;
+    font-size: 1.2em;
+  }
+  a {
+    color: #eee;
+    &:hover {
+      color: #fff;
+    }
+  }
+
+  &-column {
+    width: 50%;
+    float: left;
+    padding: 5px 0;
+
+    &:last-of-type {
+      text-align: right;
+
+      @media screen and (max-width: 650px) {
+        text-align: center;
+      }
+    }
+
+    @media screen and (max-width: 650px) {
+      width: 100%;
+      float: none;
+      text-align: center;
+    }
+  }
+}

@@ -4,59 +4,31 @@
 <!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
 <head>
-    <title>{{ page.title }}</title>
+  <title>{{ page.title }}</title>
 
-    <meta charset="UTF-8" />
-    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible" />
-    <meta content="Matthieu Moquet" name="author" />
-    <meta content="Personal pages - Matthieu Moquet (@MattKetmo)" name="description" />
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <meta charset="UTF-8" />
+  <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible" />
+  <meta content="Matthieu Moquet" name="author" />
+  <meta content="Personal pages - Matthieu Moquet (@MattKetmo)" name="description" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
 
-    <link rel="alternate" href="/atom.xml" title="Matthieu Moquet" type="application/atom+xml" />
-    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,400italic,700,700italic" />
-    <link rel="stylesheet" href="/assets/css/style.css?v=1.2" />
-    <link rel="stylesheet" href="/assets/css/vendor/pygments.css" />
-    <link rel="stylesheet" href="/assets/css/vendor/tipsy.css" />
-    <link rel="stylesheet" href="/assets/css/vendor/tipsy.css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/public/favicon/apple-touch-icon-180x180.png">
+  <link rel="icon" type="image/png" href="/assets/public/favicon/favicon-192x192.png" sizes="192x192">
+  <link rel="icon" type="image/png" href="/assets/public/favicon/favicon-160x160.png" sizes="160x160">
+  <link rel="icon" type="image/png" href="/assets/public/favicon/favicon-96x96.png" sizes="96x96">
+  <link rel="icon" type="image/png" href="/assets/public/favicon/favicon-16x16.png" sizes="16x16">
+  <link rel="icon" type="image/png" href="/assets/public/favicon/favicon-32x32.png" sizes="32x32">
+
+
+  <link rel="alternate" href="/atom.xml" title="Matthieu Moquet" type="application/atom+xml" />
+  <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,900' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" type="text/css" href="/assets/dist/css/main.css">
 </head>
 <body class="preload">
-    <div class="site-container">
-        {{ content }}
-    </div>
+  {{ content }}
 
-    <script src="/assets/js/jquery.min.js"></script>
-    <script src="/assets/js/jquery.tipsy.js"></script>
-    <script src="/assets/js/anchorify.min.js"></script>
-    <script>
-        // Start translation only after page load
-        // @see http://css-tricks.com/transitions-only-after-page-load/
-        $("window").load(function() {
-            $("body").removeClass("preload");
-        });
+  <script src="/assets/dist/js/main.js"></script>
 
-        // Links
-        $('.social-icons a').tipsy({ fade: true });
-        $('.action-link').tipsy({ fade: true });
-        $('.js-tweet').on('click', function(e) {
-            e.preventDefault();
-            var url = $(this).attr('href');
-            window.open(url, 'Twitter', 'height=300,width=550');
-        });
-
-        // Blog posts
-        $('.blog-post-content').find('h1, h2, h3, h4, h5').anchorify();
-        $('.blog-post-content pre').on('dblclick', function() {
-            var range = document.createRange();
-            range.selectNode(this);
-            window.getSelection().addRange(range);
-        });
-    </script>
-
-    <script>
-        var _gaq=[['_setAccount','UA-23657373-1'],['_trackPageview']];
-        (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
-        g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
-        s.parentNode.insertBefore(g,s)}(document,'script'));
-    </script>
+  {% include analytics.html %}
 </body>
 </html>

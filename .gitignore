@@ -1,5 +1,4 @@
-# Jekyll
-_site
-
-# Compass
-.sass-cache
+/_site/
+/node_modules/
+/assets/dist/
+/assets/src/fonts/
