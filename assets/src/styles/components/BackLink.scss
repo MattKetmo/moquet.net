@@ -5,18 +5,25 @@
   left: 10px;
   text-transform: uppercase;
 
-  i {
-    padding: 0 5px 0 0;
-  }
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+
+  padding: 8px 10px;
+  border-radius: 50%;
+  border: 2px solid;
 
   &.isLight {
     color: #eee;
+    border-color: #eee;
   }
   &.isDark {
     color: $color-dark;
+    border-color: $color-dark;
   }
 
   &:hover {
     color: $color-primary;
+    border-color: $color-primary;
   }
 }
