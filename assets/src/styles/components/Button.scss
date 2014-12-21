@@ -36,14 +36,28 @@
   &.twitter {
     @include font-size(20);
     border: 0;
-    color: #55acee;
-    background-color: #fafafa;
+    background-color: #55acee;
+    color: #fafafa;
     text-transform: none;
     letter-spacing: 0;
 
+    i ~ span,
+    span ~ i {
+      padding-left: 5px;
+    }
+
     &:hover {
-      color: #fff;
-      background-color: #55acee;
+      background-color: darken(#55acee, 8);
+    }
+
+    &.inverse {
+      color: #55acee;
+      background-color: #fafafa;
+
+      &:hover {
+        color: #fff;
+        background-color: #55acee;
+      }
     }
   }
 }

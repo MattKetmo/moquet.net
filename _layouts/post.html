@@ -26,6 +26,13 @@ layout: base
     {{ content }}
   </section>
 
+  <p class="BlogPostFooter Layout">
+    <a class="Button twitter js-twitter-share" title="Tweet it" href="https://twitter.com/share?text={{ page.title }}&url={{ site.base_url }}{{ page.url }}&via={{ site.twitter_account }}&related={{ site.twitter_account }}" target="_blank">
+      <i class="icon-twitter"></i>
+      <span>Share this post</span>
+    </a>
+  </p>
+
   {% include comments.html %}
 </article>
 
