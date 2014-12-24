@@ -1,0 +1,32 @@
+.DrawingList {
+  padding: 10px 0 30px;
+  background-color: #e5e5e5;
+  // background-color: #258bcb;
+
+  &-title {
+    @include font-size(22);
+    font-weight: 400;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: #444;
+    // color: #fafafa;
+    margin: 20px 0;
+  }
+
+  &-list {
+    @include clearfix();
+
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    border: 1px solid #eee;
+    border-right: 1px solid #ddd;
+    border-bottom: 1px solid #ccc;
+    border-radius: 2px;
+  }
+
+  &-button {
+    margin-top: 25px;
+    text-align: center;
+  }
+}
