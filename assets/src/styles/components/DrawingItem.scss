@@ -1,0 +1,28 @@
+.DrawingItem {
+  float: left;
+  overflow: hidden;
+  width: (100% / 6);
+
+  @media screen and (max-width: 900px) {
+    width: (100% / 4);
+  }
+
+  @media screen and (max-width: 650px) {
+    width: (100% / 3);
+  }
+
+  @media screen and (max-width: 550px) {
+    width: (100% / 2);
+  }
+
+
+  &-image {
+    width: 100%;
+    vertical-align: middle;
+    transition: 0.15s ease-in-out;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+}
