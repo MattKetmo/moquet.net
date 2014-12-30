@@ -1,13 +1,16 @@
 .BackLink {
-  @include font-size(16);
+  @include font-size(40);
+  // @include font-size(16);
   position: absolute;
-  top: 10px;
-  left: 10px;
+  top: 15px;
+  left: 15px;
   text-transform: uppercase;
+  transition: 0.2s ease-in-out;
 
-  padding: 8px 10px;
-  border-radius: 50%;
-  border: 2px solid;
+  padding: 0;
+  // padding: 8px 10px;
+  // border-radius: 50%;
+  // border: 2px solid;
 
   &.isLight {
     color: #eee;
@@ -19,7 +22,9 @@
   }
 
   &:hover {
-    color: $color-primary;
-    border-color: $color-primary;
+    transform: scale(1.2) rotate(-45deg); // rotate(315 = 45 + 180 + 90)
+    color: #fff;
+    // color: $color-primary;
+    // border-color: $color-primary;
   }
 }
