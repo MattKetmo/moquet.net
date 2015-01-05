@@ -2,20 +2,12 @@ var gulp = require('gulp');
 var gutil = require('gulp-util');
 
 var clean = require('gulp-clean');
+var concat = require('gulp-concat');
 var iconfont = require('gulp-iconfont');
 var iconfontCSS = require('gulp-iconfont-css');
 var plumber = require('gulp-plumber')
 var sass = require('gulp-sass')
-
-
-
-var stylus = require('gulp-stylus');
-var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
-var coffee = require('gulp-coffee');
-var async = require('async');
-var cssmin = require('gulp-cssmin');
-var nib = require('nib');
 
 //
 // Variables
