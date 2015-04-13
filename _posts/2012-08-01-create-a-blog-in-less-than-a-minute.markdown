@@ -21,7 +21,7 @@ Jekyll is a simple **static site generator**. It will transform all your HTML
 simple text files and create static HTML pages, but without repeating the
 layout of your site.
 
-# Prerequisites
+## Prerequisites
 
 You must:
 
@@ -30,7 +30,7 @@ You must:
 - know Git and have an account on [Github][] (optional but useful to make it
   online)
 
-# Initialize the structure
+## Initialize the structure
 
 First we're going to create the basic structure of our app. The content of each
 folder we need is described in [Jekyll Usage page][usage]:
@@ -44,7 +44,7 @@ the date and the slug. There is an option to make pretty URLs automatically:
 
     permalink: pretty
 
-# Create a basic layout
+## Create a basic layout
 
 Let's have something to watch! We'll now create the layouts and the homepage.
 
@@ -138,7 +138,7 @@ Hi folks! This is an example of content.
 That's it! We've created a blog in a few lines. You're now ready to [push it
 online on GitHub](https://help.github.com/articles/using-jekyll-with-pages).
 
-# Go further
+## Go further
 
 Of course, Jekyll has a lot more features not presented in this article. The
 best way to learn is to have a look at the many [sites using

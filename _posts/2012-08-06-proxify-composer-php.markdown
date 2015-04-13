@@ -59,7 +59,7 @@ As Git is a decentralized system, it is relativly easy to create a proxy ---
 ie. a local clone of the repository --- which everyone could use instead of the
 original one.
 
-# Using Gitpod
+## Using Gitpod
 
 [Gitpod][] is a local caching server for Git. Its operation is very simple:
 once you've cloned a repository, each time you git-fetch it, it will git-fetch
@@ -148,7 +148,7 @@ Then you only have to add the Satis URI in your `composer.json`:
 }
 {% endhighlight %}
 
-# Using Broker
+## Using Broker
 
 I recently discovered [Broker][], a PHP application which creates a full
 repository proxy for Composer.
@@ -192,7 +192,7 @@ I would recommend this method which is much easier than the previous one, and
 also much more powerfull as it is provided for Composer. However, keep in mind
 to update your proxy repositories first before running a `composer update`.
 
-# The missing option
+## The missing option
 
 Both of the previous methods work, but they have the same major incovenient:
 you have to modify the `composer.json` to use the proxy. In the case of

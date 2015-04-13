@@ -21,7 +21,7 @@ So I have nothing to say for half ones, except a link to the **slides**.
 or [ping me on Twitter](https://twitter.com/MattKetmo).
 Thank you!*
 
-# Opening keynote
+## Opening keynote
 
 *Fabien Potencier* — [slides](https://speakerdeck.com/fabpot/symfonycon-2013-keynote)
 
@@ -67,7 +67,7 @@ the PHP library into a C library, but rather a hook of the slowest parts — lik
 does the [C-extension of Twig](http://twig.sensiolabs.org/doc/installation.html#installing-the-c-extension).
 
 
-# How to automatize your infrastructure with Chef
+## How to automatize your infrastructure with Chef
 
 *Grégoire Pineau* — [slides](http://lyrixx.github.io/SFCon-Warsaw2013-Automation/)
 
@@ -91,12 +91,12 @@ Grégoire is currently using Chef to deploy at SensioLabs.
 I would like to have more concret examples but one talk wouldn't be enough.
 
 
-# Diving deep into Twig
+## Diving deep into Twig
 
 *Matthias Noback* — [slides](http://fr.slideshare.net/matthiasnoback/diving-deep-into-twig)
 
 
-# Build Awesome REST APIs With Symfony2
+## Build Awesome REST APIs With Symfony2
 
 *William Durand*, *Lukas Kahwe Smith* — [slides](https://speakerdeck.com/willdurand/build-awesome-rest-apis-with-symfony2)
 
@@ -122,12 +122,12 @@ If you haven't already done it, I recomand you to read William's blog post
 about [doing a REST API with Symfony](http://williamdurand.fr/2012/08/02/rest-apis-with-symfony2-the-right-way/).
 
 
-# Simplify your code with annotations
+## Simplify your code with annotations
 
 *Piotr Pasich* — [slides](http://fr.slideshare.net/piotrpasich/simplify-your-code-with-annotations-symfonycon-warsaw-2013)
 
 
-# Increase productivity with Doctrine2 extensions
+## Increase productivity with Doctrine2 extensions
 
 *Gediminas Morkevicius*
 
@@ -139,12 +139,12 @@ but the intonation in his voice was quite insupportable and made me almost sleep
 Also, as I already knew the library, I didn't learn that much.
 
 
-# Pitching Symfony to your Client
+## Pitching Symfony to your Client
 
 *John La* — [slides](http://www.funnygarbage.com/pitchSymfony)
 
 
-# How Kris Writes Symfony Apps
+## How Kris Writes Symfony Apps
 
 *Kris Wallsmith* — [slides](http://fr.slideshare.net/kriswallsmith/how-kris-writessymfonyappssymfonycon)
 
@@ -161,12 +161,12 @@ and prefers Voters than ACL (see also [Marie's talk](#drop_ace_use_voters) about
 Kris is very pleasant to listen, and even won the best speaker award.
 
 
-# Symfony2 Content Management in 40 minutes
+## Symfony2 Content Management in 40 minutes
 
 *David Buchmann* — [slides](http://davidbu.ch/slides/20131212-symfonycon-cmf.html), [code sample](https://github.com/dbu/conference-tutorial/pulls?direction=asc)
 
 
-# Cool like Frontend Developer: Grunt, RequireJS, Bower and other Tools
+## Cool like Frontend Developer: Grunt, RequireJS, Bower and other Tools
 
 *Ryan Weaver* —
 [slides](http://www.slideshare.net/weaverryan/cool-like-frontend-developer-grunt-requirejs-bower-and-other-tools-29177248),
@@ -190,12 +190,12 @@ or even at this [Symfony Grunt Edition](https://github.com/kbond/symfony-grunt-e
 made in the meantime by Kevin Bond.
 
 
-# Community Building with Mentoring: What makes people crazy happy to work on an open source project?
+## Community Building with Mentoring: What makes people crazy happy to work on an open source project?
 
 *Cathy Theys* — [slides](https://github.com/YesCT/warsaw)
 
 
-# Async PHP with React
+## Async PHP with React
 
 *Jeremy Mikola* — [slides](https://speakerdeck.com/jmikola/async-php-with-react)
 
@@ -213,12 +213,12 @@ This was really a nice talk about async and IO vs. CPU, but sometimes a bit hard
 to follow for [a friday morning](http://www.memecenter.com/fun/144660/Alcohol-is-poison).
 
 
-# Symfony2 Forms: Past, Present, Future
+## Symfony2 Forms: Past, Present, Future
 
 *Bernhard Schussek* — [slides](https://speakerdeck.com/bschussek/symfony2-forms-past-present-future)
 
 
-# Drop ACE, use voters
+## Drop ACE, use voters
 
 *Marie Minasyan* — [slides](http://slid.es/marieminasyan/drop-ace-use-role-voters)
 
@@ -232,12 +232,12 @@ For French guys, I also recommend reading this
 or [this one](http://kriswallsmith.net/post/15994931191/symfony2-security-voters) in English from Kris Wallsmith.
 
 
-# Proxy pattern in PHP
+## Proxy pattern in PHP
 
 *Marco Pivetta* — [slides](http://ocramius.github.io/presentations/proxy-pattern-in-php/#/)
 
 
-# Mastering the Security component's authentication mechanism
+## Mastering the Security component's authentication mechanism
 
 *Joseph Rouff* — [slides](https://speakerdeck.com/rouffj/mastering-the-security-components-authentication-mechanism),
 [code sample](https://github.com/rouffj/HowtoSecurityBundle)
@@ -248,12 +248,12 @@ component. I strongly encourage you to view the (upcoming) video — or
 [this existing one](http://www.youtube.com/watch?v=eVaz_mMuDjw) in French.
 
 
-# Symfony components in the wild
+## Symfony components in the wild
 
 *Jakub Zalas* — [slides](https://speakerdeck.com/jakzal/symfony-components-in-the-wild-symfonycon-2013)
 
 
-# Application monitoring with Heka and statsd
+## Application monitoring with Heka and statsd
 
 *Jordi Boggiano* — [slides](http://slides.seld.be/?file=2013-12-13+Application+monitoring+with+Heka+and+statsd.html)
 
@@ -284,12 +284,12 @@ This project is relativly young, but in active development by Mozilla.
 It worse keeping an eye on it.
 
 
-# Taming Runaway Silex Apps
+## Taming Runaway Silex Apps
 
 *Dave Marshall* — [slides](https://speakerdeck.com/davedevelopment/taming-runaway-silex-apps-symfonycon-warsaw-2013)
 
 
-# Decouple your application with (Domain-)Events
+## Decouple your application with (Domain-)Events
 
 *Benjamin Eberlei* — [slides](http://qafoo.com/talks/13_12_symfonycon_domain_events.pdf)
 
@@ -309,12 +309,12 @@ Every action of your controller should have a dedicated event.
 Different approaches were suggested here, each with pros and cons.
 
 
-# How to build Console Applications
+## How to build Console Applications
 
 *Daniel Gomes* — [slides](https://speakerdeck.com/danielcsgomes/how-to-build-console-applications-symfonycon-2013)
 
 
-# Lighting Talks
+## Lighting Talks
 
 Lighting talks are good way to encourage developers to present their work.
 There were a dizain of short speeches — less than 7 minutes each.

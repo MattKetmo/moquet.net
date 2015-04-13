@@ -10,7 +10,7 @@ time to finish it. So, it's not really "fresh" news, but nonetheless, there may
 be things you still do not know.
 </p>
 
-# 1. Update only one vendor
+## 1. Update only one vendor
 
 You want to update only one specific library, without updating all your
 dependencies? That's easy, just add the vendor name as argument to the
@@ -59,7 +59,7 @@ to only update the `composer.lock` file:*
 
     $ composer update --lock
 
-# 2. Add a library without editing your composer.json
+## 2. Add a library without editing your composer.json
 
 To add a new vendor for your project, you can manually add a new line into your
 `composer.json` then use the previous method to **only** install this vendor.
@@ -83,7 +83,7 @@ vendor(s) (note the `-n` option to not ask any interactive question):
         }
     }
 
-# 3. Easy fork
+## 3. Easy fork
 
 Speaking about `composer.json` initialization, did you ever used the
 [`create-project`](http://getcomposer.org/doc/03-cli.md#create-project)
@@ -95,7 +95,7 @@ This will automatically clone the repository and checkout the given version.
 That may be usefull to quickly clone a library without searching the original
 URI of the sources.
 
-# 4. Prefer dist packages and cache them
+## 4. Prefer dist packages and cache them
 
 Did you know that **dist packages are now cached** in your home directory?
 
@@ -146,7 +146,7 @@ Here, the archive for `twig/twig:1.12.2` has been stored into
 `~/.composer/cache/files/twig/twig/1.12.2.0-v1.12.2.zip` and used the second
 time I reinstalled the package.
 
-# 5. Prefer source to edit your vendors
+## 5. Prefer source to edit your vendors
 
 For practical reasons, you may prefer cloning sources instead of downloading
 packages. For instance, this can be useful to edit a library directly in the
@@ -174,7 +174,7 @@ modified, and asks if you want to discard the changes:
         M Dumper.php
         Discard changes [y,n,v,s,?]?
 
-# Be ready for production
+## Be ready for production
 
 Just a reminder, before deploying your code in production, don't forget to optimize
 the autoloader:

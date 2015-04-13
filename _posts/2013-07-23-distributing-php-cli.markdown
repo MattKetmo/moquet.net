@@ -14,7 +14,7 @@ Such as [`composer`](http://getcomposer.org/) or [`php-cs-fixer`](http://cs.sens
 let's see how to quickly build a PHAR file for your application
 with self-update capabilities.
 
-# The Symfony Console
+## The Symfony Console
 
 First we need to create our CLI app. Let's call it [Cliph](https://github.com/MattKetmo/cliph).
 For the example, we will build a typical [Symfony console](http://symfony.com/doc/current/components/index.html)
@@ -72,7 +72,7 @@ Our application is now ready to run:
     $ ./bin/cliph hello
     Hello World
 
-# The Box Project
+## The Box Project
 
 The next step is to package all the sources into one single executable
 [PHAR](http://www.php.net/manual/en/intro.phar.php) file.
@@ -160,7 +160,7 @@ Box will automatically use the git tag number if any, or fallback to the
 commit hash. If a tag was created on a previous commit, the version may
 look somthing like `1.0.0-1-gae87139` (ie. use of tag + commit hash).
 
-# Auto updates
+## Auto updates
 
 Now that we have our PHAR, it would be awesome to add a command to auto update
 the app. Think of something like `composer self-update`,
@@ -269,7 +269,7 @@ Then, from a `1.1.0` vesion of our app, run the `update` command:
     Cliph version 1.1.1
 
 
-# Sign your application
+## Sign your application
 
 Now as a bonus part, we would like to sign our application.
 PHAR files can be signed with a set of public & private keys — using for instance OpenSSL.
@@ -305,7 +305,7 @@ In my opinion, an option in the `box` command would be clever
 (eg. `box build --key private.key -p`).
 
 
-# Automation
+## Automation
 
 Last thing we want to do is to automate the whole process.
 For the example, I wrote a stupid [bash script](https://github.com/MattKetmo/cliph/commit/5897c317f2a6a54208482540ef33d7316407a984)
