@@ -110,4 +110,31 @@
 
   strong {
   }
+
+  .note {
+    margin: 20px -20px;
+    border-left: 10px solid gray;
+    background-color: #fafafa;
+    border-radius: 2px;
+
+    p {
+      //@include font-size(20);
+      padding: 10px;
+    }
+
+    &.success {
+      border-left-color: #a6e22e;
+    }
+    &.info {
+      border-left-color: #31aded;
+    }
+    &.danger {
+      border-left-color: #ed4035;
+      // background-color: lighten(#ed4035, 40);
+    }
+    &.warning {
+      border-left-color: #ed9743;
+    }
+
+  }
 }
