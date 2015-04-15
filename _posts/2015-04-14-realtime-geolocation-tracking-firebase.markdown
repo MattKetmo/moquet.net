@@ -12,7 +12,7 @@ Here is a quick experiment I did to play with it.
 
 <p>
   <img
-    class="Image center responsize"
+    class="Image center responsize isRounded"
     src="/content/2015-04-14-realtime-geolocation-tracking-firebase/locatme-banner.png"
     alt="Locat.me banner"/>
 </p>
@@ -45,8 +45,8 @@ My proof of concept is very basic but it may be useful in some situations.
 
 It's an app you can use to **easily locate your friends** when you have an appointment
 but you don't have an accurate meeting point.
-You know they are close but you have difficulties in explaining where you are exactly.
-(it could be a parallel street or just somewhere else on a park).
+You know they are close but you have difficulties in explaining where you are exactly
+(it could be a parallel street or just somewhere else in the park).
 
 How the app works is very simple:
 
@@ -81,14 +81,18 @@ You can also use a custom identifier to share. Useful for named events
   </p>
 </div>
 
-The domain name is a gift from Gandi which offered some free domains for their 15th birthday.
-As I won a `.me` I decided to use it for that occasion (unfortunatly every cool and short domain names
-were already taken so I needed to sacrifice the final "e" letter).
+<div class="note info">
+  <p>
+    About the domain name, this is a gift from Gandi which offered some free domains for their 15th birthday.
+    As I won a <code>.me</code> I decided to use it for that occasion (unfortunatly every cool and short domain names
+    were already taken so I needed to sacrifice the final "e" letter).
+  </p>
+</div>
 
 
 ## Just code it
 
-Now that I explained the idea it's time to play with it.
+Now that I explained the main idea it's time to play with it.
 The code is really trivial.
 I think it took me less than an hour while watching a stupid movie on TV to get something working.
 
@@ -221,6 +225,7 @@ markersRef.on('child_removed', function(oldChildSnapshot) {
 {% endhighlight %}
 
 That's pretty much it. It was easy, right?
-If you want to hack on it, you can checkout the full code on [github.com/MattKetmo/firemap](https://github.com/MattKetmo/firemap/blob/master/app.js).
 
-Enjoy.
+If you want to hack on it, checkout the code on [github.com/MattKetmo/firemap](https://github.com/MattKetmo/firemap/blob/master/app.js).
+You can also find other demo applications of Firebase at [firebase.github.io](https://firebase.github.io/),
+like this [real-time bus tracking in San Francisco](https://geofire.firebaseapp.com/sfVehicles/index.html).
