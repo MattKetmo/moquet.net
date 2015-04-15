@@ -13,7 +13,7 @@ Here is a quick experiment I did to play with it.
 <p>
   <img
     class="Image center responsize isRounded"
-    src="/content/2015-04-14-realtime-geolocation-tracking-firebase/locatme-banner.png"
+    src="/content/2015-04-16-realtime-geolocation-tracking-firebase/locatme-banner.png"
     alt="Locat.me banner"/>
 </p>
 
@@ -62,10 +62,10 @@ and the map will be refreshed without you do anything.
 Blue point is your position while orange ones are others.
 
 <p>
-  <a href="/content/2015-04-14-realtime-geolocation-tracking-firebase/locatme-screenshot.png">
+  <a href="/content/2015-04-16-realtime-geolocation-tracking-firebase/locatme-screenshot.png">
     <img
       class="Image center responsize"
-      src="/content/2015-04-14-realtime-geolocation-tracking-firebase/locatme-screenshot.png"
+      src="/content/2015-04-16-realtime-geolocation-tracking-firebase/locatme-screenshot.png"
       alt="Locat.me Screenshot"
       width="300px" />
   </a>
@@ -133,10 +133,10 @@ This hash will help me to group markers together.
 I will use Firebase to read and write the geolocations under the `/maps/{mapId}` endpoint.
 
 <p>
-  <a href="/content/2015-04-14-realtime-geolocation-tracking-firebase/screenshot-firebase-admin.png">
+  <a href="/content/2015-04-16-realtime-geolocation-tracking-firebase/screenshot-firebase-admin.png">
     <img
       class="Image center responsize"
-      src="/content/2015-04-14-realtime-geolocation-tracking-firebase/screenshot-firebase-admin.png"
+      src="/content/2015-04-16-realtime-geolocation-tracking-firebase/screenshot-firebase-admin.png"
       alt="Firebase admin screenshot"
       style="max-height:550px" />
   </a>
