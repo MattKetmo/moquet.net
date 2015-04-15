@@ -62,11 +62,13 @@ and the map will be refreshed without you do anything.
 Blue point is your position while orange ones are others.
 
 <p>
-  <img
-    class="Image center responsize"
-    src="/content/2015-04-14-realtime-geolocation-tracking-firebase/locatme-screenshot.png"
-    alt="Locat.me Screenshot"
-    width="300px" />
+  <a href="/content/2015-04-14-realtime-geolocation-tracking-firebase/locatme-screenshot.png">
+    <img
+      class="Image center responsize"
+      src="/content/2015-04-14-realtime-geolocation-tracking-firebase/locatme-screenshot.png"
+      alt="Locat.me Screenshot"
+      width="300px" />
+  </a>
 </p>
 
 You can also use a custom identifier to share. Useful for named events
@@ -127,11 +129,13 @@ This hash will help me to group markers together.
 I will use Firebase to read and write the geolocations under the `/maps/{mapId}` endpoint.
 
 <p>
-  <img
-    class="Image center responsize"
-    src="/content/2015-04-14-realtime-geolocation-tracking-firebase/screenshot-firebase-admin.png"
-    alt="Firebase admin screenshot"
-    style="max-height:550px" />
+  <a href="/content/2015-04-14-realtime-geolocation-tracking-firebase/screenshot-firebase-admin.png">
+    <img
+      class="Image center responsize"
+      src="/content/2015-04-14-realtime-geolocation-tracking-firebase/screenshot-firebase-admin.png"
+      alt="Firebase admin screenshot"
+      style="max-height:550px" />
+  </a>
 </p>
 
 As you can see on this admin panel screenshot every marker is stored under the path
