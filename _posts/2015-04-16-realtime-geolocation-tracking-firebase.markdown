@@ -36,7 +36,7 @@ or signup to try the [quick tutorial](https://www.firebase.com/how-it-works.html
 
 ## Introducing Locat.me
 
-By using such technology you can develop an Uber-like application every easily, they said.
+By using such technology you can develop an Uber-like application very easily, they said.
 I was eager to test it.
 Their admin dashboard is quite intuitive and the API is so simple that you can do powerful
 thing quickly.
