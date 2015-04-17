@@ -226,6 +226,6 @@ markersRef.on('child_removed', function(oldChildSnapshot) {
 
 That's pretty much it. It was easy, right?
 
-If you want to hack on it, checkout the code on [github.com/MattKetmo/firemap](https://github.com/MattKetmo/firemap/blob/master/app.js).
+If you want to hack on it, checkout the code on [github.com/MattKetmo/firemap](https://github.com/MattKetmo/firemap/blob/v1.0.0/app.js).
 You can also find other demo applications of Firebase at [firebase.github.io](https://firebase.github.io/),
 like this [real-time bus tracking in San Francisco](https://geofire.firebaseapp.com/sfVehicles/index.html).
