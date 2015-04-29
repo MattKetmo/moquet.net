@@ -24,7 +24,7 @@ overwrite the `composer.lock`.
 Nevertheless, this is also very usefull to fix a warning message I'm sure you
 know very well:
 
-<code class="pre" style="background:#c4c42f;color:#303030">
+<code class="pre" style="background:#ffe680;color:#303030">
 Warning: The lock file is not up to date with the latest changes in composer.json,
 you may be getting outdated dependencies, run update to update them.
 </code>
