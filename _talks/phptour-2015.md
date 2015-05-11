@@ -1,0 +1,8 @@
+---
+layout: talk
+date: 2015-05-13
+title: Event Sourcing
+event: PHP Tour Luxembourg 2015
+thumbnail: phptour-2015.jpg
+speakerdeck: 9697eba5588446f888a11f5f1d23d2de
+---
