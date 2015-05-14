@@ -1,4 +1,8 @@
-/_site/
+/.sculpin/
+/app/cache/*
+/app/logs/*
+/output_*/
+
 /node_modules/
 /assets/dist/
 /assets/src/fonts/
