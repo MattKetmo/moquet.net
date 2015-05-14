@@ -67,7 +67,7 @@ Lets see an example of a basic structure:
 
 `_layouts/default.html`: defines the basic structure
 
-{% highlight html %}
+```html
 <!DOCTYPE HTML>
 <html lang="en">
 <head>
@@ -78,11 +78,11 @@ Lets see an example of a basic structure:
     {{ '{{' }} content }}
 </body>
 </html>
-{% endhighlight %}
+```
 
 `index.html`: defines the homepage where we list all blog articles
 
-{% highlight html %}
+```html
 ---
 layout: default
 ---
@@ -97,12 +97,12 @@ layout: default
         </li>
     {{ '{%' }} endfor %}
 </ul>
-{% endhighlight %}
+```
 
 
 `_layouts/post.html`: defines the post layout
 
-{% highlight html %}
+```html
 ---
 layout: default
 ---
@@ -119,21 +119,21 @@ layout: default
         {{ '{{' }} content }}
     </div>
 </article>
-{% endhighlight %}
+```
 
 
 And then I just have to add a new markdown file in the `_posts` directory
 (following the convention `YYYY-MM-DD-slug-of-the-post.markdown`) to add a new
 blog post:
 
-{% highlight html %}
+```html
 ---
 layout: post
 title: This is an example
 ---
 
 Hi folks! This is an example of content.
-{% endhighlight %}
+```
 
 That's it! We've created a blog in a few lines. You're now ready to [push it
 online on GitHub](https://help.github.com/articles/using-jekyll-with-pages).

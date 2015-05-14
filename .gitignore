@@ -4,5 +4,5 @@
 /output_*/
 
 /node_modules/
-/assets/dist/
-/assets/src/fonts/
+/source/assets/dist/
+/source/assets/src/fonts/

@@ -22,7 +22,7 @@ app with one « *hello world* » command.
 Basically this results [in only 2 files](https://github.com/MattKetmo/cliph/commit/cd38f2438fe049033fe83d60c711d365cd68e261).
 The first one is the command in the `src` folder:
 
-{% highlight php %}
+```php
 <?php
 
 namespace Cliph\Command;
@@ -46,11 +46,11 @@ class HelloCommand extends Command
         $output->writeln('Hello World');
     }
 }
-{% endhighlight %}
+```
 
 And the second is the launcher in `bin/cliph`:
 
-{% highlight php %}
+```php
 #!/usr/bin/env php
 <?php
 
@@ -62,7 +62,7 @@ use Symfony\Component\Console\Application;
 $application = new Application('Cliph', '0.1-dev');
 $application->add(new Command\HelloCommand());
 $application->run();
-{% endhighlight %}
+```
 
 Our application is now ready to run:
 
@@ -92,7 +92,7 @@ a simple JSON file.
 The JSON file contains the location of the PHP files to combine, and
 the executable to run. This is typically what we need for our app:
 
-{% highlight json %}
+```json
 {
     "chmod": "0755",
     "directories": [
@@ -113,7 +113,7 @@ the executable to run. This is typically what we need for our app:
     "output": "cliph.phar",
     "stub": true
 }
-{% endhighlight %}
+```
 
 As you notice, you can specify the source files using three different directives:
 
@@ -134,11 +134,11 @@ parameter is used to replace any string in the source files. Here, any string
 repository. To take advantage of this, we place it as the version parameter
 on our main launcher `bin/cliph`:
 
-{% highlight php %}
+```php
 <?php
 //...
 $application = new Application('Cliph', '@package_version@');
-{% endhighlight %}
+```
 
 Time to see the result. [Install Box](https://github.com/kherge/Box#as-a-phar-recommended)
 if you did not already, then run:
@@ -178,7 +178,7 @@ To host the `manifest.json` file, we will use GitHub pages.
 
 Here is what look like our update command:
 
-{% highlight php %}
+```php
 <?php
 
 namespace Cliph\Command;
@@ -207,7 +207,7 @@ class UpdateCommand extends Command
         $manager->update($this->getApplication()->getVersion(), true);
     }
 }
-{% endhighlight %}
+```
 
 Only two lines of code. Awesome, right? The first parameter of the `update`
 method is the current version number (in order to compare with available versions),
@@ -284,14 +284,14 @@ To generate an OpenSSL private key, you have choice to directly use the `openssl
 command, or the `box key:create`. Then, to sign the PHAR the only thing to do is
 to add the `key` option into your `box.json` file:
 
-{% highlight json %}
+```json
 {
     "chmod": "0755",
     "...": "...",
     "stub": true,
     "key": "private.key"
 }
-{% endhighlight %}
+```
 
 Then if you run a `box build` you will see a new file `cliph.phar.pubkey`.
 If you try to move or remove this file, you will get a `PharException`.
@@ -314,9 +314,9 @@ It works with [`jsawk`](https://github.com/micha/jsawk) to manipulate the JSON f
 
 Now I just have to run:
 
-{% highlight bash %}
+```bash
 $ ./bump-version.sh 1.3.0
-{% endhighlight %}
+```
 
 And a new PHAR file is automatically created with the given version number,
 and pushed to the `gh-pages`.

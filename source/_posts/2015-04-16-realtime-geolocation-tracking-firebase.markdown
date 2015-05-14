@@ -1,7 +1,6 @@
 ---
-layout: post
 title: Realtime geolocation tracking with Firebase
-tags: [firebase]
+layout: post
 ---
 
 I went recently to Google Paris offices to attend an [Angular meetup](http://www.meetup.com/AngularJS-Paris/events/221083701/)
@@ -100,7 +99,7 @@ To display the map and the markers I used [Mapbox](https://www.mapbox.com/).
 First time I played with it too.
 But my usage is very simple. This is what I just need to know:
 
-{% highlight js %}
+```js
 // Load the map canvas in the #map block
 var map = L.mapbox.map('map', 'examples.map-i86nkdio')
 
@@ -113,12 +112,12 @@ map.on('ready', function() {
   marker.setLatLng([latitude, longitude])
 
 })
-{% endhighlight %}
+```
 
 Second thing I need to handle is the URL hash (ie. the map identifier).
 Here I just generate a new one unless it already exists.
 
-{% highlight js %}
+```js
 // Read the current hash
 var mapId = location.hash.replace(/^#/, '');
 
@@ -127,7 +126,7 @@ if (!mapId) {
   mapId = (Math.random() + 1).toString(36).substring(2, 12);
   location.hash = mapId;
 }
-{% endhighlight %}
+```
 
 This hash will help me to group markers together.
 I will use Firebase to read and write the geolocations under the `/maps/{mapId}` endpoint.
@@ -149,7 +148,7 @@ as well as a timestamp to know its last update date.
 I've also set the security rules to avoid people fetching every map ids.
 You can only read and write on path `/maps/{mapId}` but not directly on `/maps`.
 
-{% highlight json %}
+```json
 {
   "rules": {
     "maps": {
@@ -160,13 +159,13 @@ You can only read and write on path `/maps/{mapId}` but not directly on `/maps`.
     }
   }
 }
-{% endhighlight %}
+```
 
 The marker identifiers are unique per browser.
 I used a simple UUID generator function and save it in current [LocalStorage](https://developer.mozilla.org/en-US/docs/Web/API/Storage/LocalStorage).
 It allows user to refresh the page without creating another marker on the map.
 
-{% highlight js %}
+```js
 // Get current UUID
 var myUuid = localStorage.getItem('myUuid');
 
@@ -175,13 +174,13 @@ if (!myUuid) {
   myUuid = guid();
   localStorage.setItem('myUuid', myUuid);
 }
-{% endhighlight %}
+```
 
 Now the main action is to get user's current location and store it on Firebase.
 I'm using the HTML5 Geolocation API which provide a [watch function](https://developer.mozilla.org/en-US/docs/Web/API/Geolocation/Using_geolocation#Watching_the_current_position)
 to be notified of his positions.
 
-{% highlight js %}
+```js
 // Access to Firebase instance of current map
 var markersRef = new Firebase('https://locatme.firebaseio.com/maps/' + mapId);
 
@@ -195,14 +194,14 @@ navigator.geolocation.watchPosition(function(position) {
     timestamp: Math.floor(Date.now() / 1000)
   })
 })
-{% endhighlight %}
+```
 
 Now the only thing left is to add markers on the map.
 To do this I listen on every events happening on the current map endpoint.
 In the example below `addPoint()`, `putPoint()` and `removePoint()` are
 simple functions to add, update or remove a marker in the map.
 
-{% highlight js %}
+```js
 markersRef.on('child_added', function(childSnapshot) {
   var uuid = childSnapshot.key()
   var position = childSnapshot.val()
@@ -222,7 +221,7 @@ markersRef.on('child_removed', function(oldChildSnapshot) {
 
   removePoint(uuid)
 })
-{% endhighlight %}
+```
 
 That's pretty much it. It was easy, right?
 

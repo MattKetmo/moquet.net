@@ -1,7 +1,6 @@
----
-layout: base
----
+{% extends 'base' %}
 
+{% block content_wrapper %}
 <a href="/" class="BackLink isLight">
   <i class="icon-logo"></i>
 </a>
@@ -14,15 +13,15 @@ layout: base
       </h1>
 
       <p class="BlogPostHeader-meta">
-        <time datetime="{{ page.date | date: "%Y-%m-%d" }}">
-          {{ page.date | date_to_string }}
+        <time datetime="{{ post.date|date('Y-m-d') }}">
+          {{ post.date|date('d M Y') }}
         </time>
       </p>
     </div>
   </header>
 
   <div class="BlogPostContent Type Layout">
-    {{ content }}
+    {{ page.blocks.content|raw }}
   </div>
 
   <p class="BlogPostFooter Layout">
@@ -32,7 +31,9 @@ layout: base
     </a>
   </p>
 
-  {% include comments.html %}
+  {% include 'partials/comments.html' %}
 </article>
 
-{% include footer.html %}
+{% include 'partials/footer.html' %}
+
+{% endblock %}

@@ -24,10 +24,11 @@
   <link rel="stylesheet" type="text/css" href="/assets/dist/css/main.css">
 </head>
 <body class="preload">
-  {{ content }}
+
+  {% block content_wrapper %}
+    {% block content '' %}
+  {% endblock %}
 
   <script src="/assets/dist/js/main.js"></script>
-
-  {% include analytics.html %}
 </body>
 </html>

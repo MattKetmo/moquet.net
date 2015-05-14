@@ -12,8 +12,8 @@ var uglify = require('gulp-uglify');
 //
 // Variables
 //
-var srcDir = './assets/src';
-var distDir = './assets/dist';
+var srcDir = './source/assets/src';
+var distDir = './source/assets/dist';
 var isDebug = !gutil.env.prod;
 
 //

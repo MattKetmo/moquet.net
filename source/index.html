@@ -1,14 +1,165 @@
 ---
 layout: base
 title: Matthieu Moquet
+use:
+  - posts
+  - talks
 ---
 
-{% include about-header.html %}
+<section class="AboutHeader">
+  <div class="Layout">
+    <h1 class="AboutHeader-title">
+      Matthieu Moquet
+    </h1>
 
-{% include blog-post-list.html %}
+    <p class="AboutHeader-avatar">
+      <img src="/assets/public/images/avatar.jpg" alt="Matthieu Moquet avatar" class="Image isCircle">
+    </p>
 
-{% include talk-list.html %}
+    <p class="AboutHeader-lead">
+      Hello. My name is <strong>Matthieu Moquet</strong>.
 
-{% include drawing-list.html %}
+      I currently live in <strong>Paris</strong> and work as a web engineer at
+      <strong>BlaBlaCar</strong>.
+      <!-- <strong style="background: #fafafa; padding: 0px 10px; border-radius: 4px; x-text-shadow: #ddd 0px 0px"><span style="color:#6cb52d">Bla</span><span style="color:#0084ba">Bla</span><span style="color:#ba2928">Car</span></strong> -->
+    </p>
 
-{% include footer.html %}
+    <p class="AboutHeader-followMe">
+      Find me on social networks
+    </p>
+
+    <p class="AboutHeader-links">
+      <a href="https://twitter.com/MattKetmo" class="Button twitter inverse">
+        <i class="icon-twitter"></i>
+        <span>MattKetmo</span>
+      </a>
+    </p>
+  </div>
+</section>
+
+<section class="BlogPostList" id="blog">
+  <div class="Layout">
+    <h2 class="BlogPostList-title">
+      Blog
+    </h2>
+
+    <ul class="BlogPostList-list">
+      {% for post in data.posts | slice(0, 10) %}
+        {% include 'partials/blog-post-item.html' %}
+      {% endfor %}
+    </ul>
+
+    <!--
+    <div class="BlogPostList-button">
+      <a href="/blog/" class="Button">
+        View all
+        <i class="icon-arrow-right"></i>
+      </a>
+    </div>
+    -->
+  </div>
+</section>
+
+
+<section class="TalkList" id="talks">
+  <div class="Layout">
+    <h2 class="TalkList-title">
+      Talks
+    </h2>
+
+    <ul class="TalkList-list">
+      {% for talk in data.talks|slice(0, 12) %}
+        <li class="TalkItem">
+          <a href="{{ talk.url }}">
+            <div class="TalkItem-container">
+              <div class="TalkItem-overlay"></div>
+              <h3 class="TalkItem-title">
+                {{ talk.title }}
+              </h3>
+              <img src="/assets/public/images/talks/{{ talk.thumbnail }}" alt="{{ talk.title }}" class="TalkItem-thumbnail">
+            </div>
+            <p class="TalkItem-meta">
+              {{ talk.event }}
+            </p>
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+</section>
+
+<section class="DrawingList" id="drawings">
+  <div class="Layout">
+    <h2 class="DrawingList-title">
+      Drawings
+    </h2>
+
+    <p class="DrawingList-description">
+      Did I tell you drawing was a passion when I was child?
+      Here are below some I did several years ago.
+      You can find a few more of my drawing on my dedicated
+      <a href="https://plus.google.com/photos/+MatthieuMoquet/albums/5684939403743189713">Google+ Album</a>.
+    </p>
+  </div>
+
+  <ul class="DrawingList-list">
+    <li class="DrawingItem">
+      <img class="DrawingItem-image" src="/assets/public/images/drawings/wolf.jpg" alt="Drawing">
+    </li>
+
+    <li class="DrawingItem">
+      <img class="DrawingItem-image" src="/assets/public/images/drawings/50cent.jpg" alt="Drawing">
+    </li>
+
+    <li class="DrawingItem">
+      <img class="DrawingItem-image" src="/assets/public/images/drawings/jamal.jpg" alt="Drawing">
+    </li>
+
+    <li class="DrawingItem">
+      <img class="DrawingItem-image" src="/assets/public/images/drawings/xavier.jpg" alt="Drawing">
+    </li>
+
+    <li class="DrawingItem">
+      <img class="DrawingItem-image" src="/assets/public/images/drawings/shak_basketball.jpg" alt="Drawing">
+    </li>
+
+    <li class="DrawingItem">
+      <img class="DrawingItem-image" src="/assets/public/images/drawings/style2ouf.jpg" alt="Drawing">
+    </li>
+
+    <li class="DrawingItem">
+      <img class="DrawingItem-image" src="/assets/public/images/drawings/superbreaker.jpg" alt="Drawing">
+    </li>
+
+    <li class="DrawingItem">
+      <img class="DrawingItem-image" src="/assets/public/images/drawings/math_cp1.jpg" alt="Drawing">
+    </li>
+
+    <li class="DrawingItem">
+      <img class="DrawingItem-image" src="/assets/public/images/drawings/math_cp2.jpg" alt="Drawing">
+    </li>
+
+    <li class="DrawingItem">
+      <img class="DrawingItem-image" src="/assets/public/images/drawings/platines_dj.jpg" alt="Drawing">
+    </li>
+
+    <li class="DrawingItem">
+      <img class="DrawingItem-image" src="/assets/public/images/drawings/clash_trone.jpg" alt="Drawing">
+    </li>
+
+    <li class="DrawingItem">
+      <img class="DrawingItem-image" src="/assets/public/images/drawings/sanka.jpg" alt="Drawing">
+    </li>
+  </ul>
+
+  <!--
+  <div class="DrawingList-button">
+    <a href="https://plus.google.com/photos/+MatthieuMoquet/albums/5684939403743189713" class="Button">
+      View more
+      <i class="icon-arrow-right"></i>
+    </a>
+  </div>
+  -->
+</section>
+
+{% include 'partials/footer.html' %}

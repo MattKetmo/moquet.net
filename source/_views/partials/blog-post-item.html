@@ -1,0 +1,17 @@
+<li class="BlogPostItem">
+  <h3 class="BlogPostItem-title">
+    <a href="{{ post.url }}">
+      {{ post.title }}
+    </a>
+  </h3>
+
+  <!--
+  <p class="BlogPostItem-excerpt"></p>
+  -->
+
+  <p class="BlogPostItem-meta">
+    <time datetime="{{ post.date|date('Y-m-d') }}">
+      {{ post.date|date('d M Y') }}
+    </time>
+  </p>
+</li>

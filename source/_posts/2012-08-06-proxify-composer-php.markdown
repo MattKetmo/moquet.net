@@ -111,7 +111,7 @@ computer (once I previously cloned it in Gitpod).
 To use this git repository with into your project, just add the corresponding
 repository section into your `composer.json`:
 
-{% highlight json %}
+```json
 {
     "require": {
         "symfony/symfony": "dev-master"
@@ -123,7 +123,7 @@ repository section into your `composer.json`:
         }
     ]
 }
-{% endhighlight %}
+```
 
 Now the `php composer.phar install` command will directly clone your local
 repository instead of fetching GitHub.
@@ -134,7 +134,7 @@ when you want to declare private repositories for your project, but in this
 case you can use it to **overload** any public repository with your proxy.
 Then you only have to add the Satis URI in your `composer.json`:
 
-{% highlight json %}
+```json
 {
     "repositories": [
         {
@@ -146,7 +146,7 @@ Then you only have to add the Satis URI in your `composer.json`:
         "symfony/symfony": "2.1.*"
     }
 }
-{% endhighlight %}
+```
 
 ## Using Broker
 
@@ -174,7 +174,7 @@ This will download all your vendors into the `repositories/project_name`
 folder. Once you've set up your server to point on the root directory of
 Broker, you could had it to your `composer.json` file:
 
-{% highlight json %}
+```json
 {
     "repositories": [
         {
@@ -186,7 +186,7 @@ Broker, you could had it to your `composer.json` file:
         "symfony/symfony": "2.1.*"
     }
 }
-{% endhighlight %}
+```
 
 I would recommend this method which is much easier than the previous one, and
 also much more powerfull as it is provided for Composer. However, keep in mind
