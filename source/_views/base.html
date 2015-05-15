@@ -4,13 +4,15 @@
 <!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
 <head>
-  <title>{% block meta_title page.title|default(site.title) %}</title>
+  <title>{% block title page.title|default(site.title) %}</title>
 
+  {% block meta %}
   <meta charset="UTF-8">
   <meta content="IE=edge" http-equiv="X-UA-Compatible">
   <meta content="{{ site.author }}" name="author">
   <meta content="{% block meta_description page.description|default(site.description)|replace({'\n': ' '})|trim %}" name="description">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  {% endblock %}
 
   <link rel="apple-touch-icon" sizes="180x180" href="/assets/public/favicon/apple-touch-icon-180x180.png">
   <link rel="icon" type="image/png" href="/assets/public/favicon/favicon-192x192.png" sizes="192x192">
@@ -19,9 +21,14 @@
   <link rel="icon" type="image/png" href="/assets/public/favicon/favicon-16x16.png" sizes="16x16">
   <link rel="icon" type="image/png" href="/assets/public/favicon/favicon-32x32.png" sizes="32x32">
 
+  {# <link rel="canonical" href="{{ site.url }}{{ page.url }}"> #}
+
   <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="Matthieu Moquet">
+
+  {% block stylesheets %}
   <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,900">
   <link rel="stylesheet" type="text/css" href="/assets/dist/css/main.css">
+  {% endblock %}
 </head>
 <body class="preload">
 
@@ -29,7 +36,9 @@
     {% block content '' %}
   {% endblock %}
 
+  {% block javascripts %}
   <script src="/assets/dist/js/main.js"></script>
+  {% endblock %}
 
   {% include 'partials/analytics.html' %}
 </body>
