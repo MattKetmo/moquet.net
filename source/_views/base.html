@@ -4,12 +4,12 @@
 <!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
 <head>
-  <title>{{ page.title }}</title>
+  <title>{% block meta_title page.title|default(site.title) %}</title>
 
   <meta charset="UTF-8">
   <meta content="IE=edge" http-equiv="X-UA-Compatible">
-  <meta content="Matthieu Moquet" name="author">
-  <meta content="Personal pages - Matthieu Moquet (@MattKetmo)" name="description">
+  <meta content="{{ site.author }}" name="author">
+  <meta content="{% block meta_description page.description|default(site.description)|replace({'\n': ' '})|trim %}" name="description">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
   <link rel="apple-touch-icon" sizes="180x180" href="/assets/public/favicon/apple-touch-icon-180x180.png">

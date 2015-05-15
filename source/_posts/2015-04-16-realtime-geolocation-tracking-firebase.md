@@ -1,6 +1,9 @@
 ---
 title: Realtime geolocation tracking with Firebase
 layout: post
+description: |
+  Here is how I created the locat.me service.
+  It is a simple realtime geolocation tracking using Firebase and Mapbox.
 ---
 
 I went recently to Google Paris offices to attend an [Angular meetup](http://www.meetup.com/AngularJS-Paris/events/221083701/)

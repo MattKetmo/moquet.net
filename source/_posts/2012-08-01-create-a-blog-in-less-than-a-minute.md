@@ -2,6 +2,7 @@
 layout: post
 title: How to create a blog in less than a minute
 tags: [jekyll, site]
+description: This is how I started this blog using Jekyll as static generator website.
 ---
 
 > Yo dawg! I heard you like blogs. So I started a blog and blogged about how to

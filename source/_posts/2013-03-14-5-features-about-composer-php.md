@@ -2,13 +2,13 @@
 layout: post
 title: 5 features to know about Composer PHP
 tags: [composer, php]
+description: |
+  Some tips on Composer about vendor install, caching and optimization.
+  Also understand the "lock file is not up to date with the latest changes" warning.
 ---
 
-<p class="lead">
-Note: I started to write this article some months ago but I never took the
-time to finish it. So, it's not really "fresh" news, but nonetheless, there may
-be things you still do not know.
-</p>
+Here is some tips you should know when you use Composer to install your
+PHP dependencies.
 
 ## 1. Update only one vendor
 

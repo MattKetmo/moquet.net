@@ -2,6 +2,9 @@
 layout: post
 title: SymfonyCon Warsaw 2013 in a nutshell
 tags: [symfony]
+description: |
+  My feedbacks from the SymfonyCon Warsaw 2013.
+  I've listed all the slides of the conferences and sum up the talks that I attended.
 ---
 
 The first [SymfonyCon](http://warsaw2013.symfony.com/)

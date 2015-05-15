@@ -2,6 +2,9 @@
 layout: post
 title: Proxify Composer for PHP
 tags: [composer, php]
+description: |
+  Some experimentations on using some proxy methods to make Composer
+  dependencies installation faster.
 ---
 
 Every PHP developer who use modern libraries or frameworks should know

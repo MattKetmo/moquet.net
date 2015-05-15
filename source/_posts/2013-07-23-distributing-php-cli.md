@@ -1,7 +1,10 @@
 ---
 layout: post
 title: Distributing a PHP CLI app with ease
-tags: [php, phar, box]
+tags: [php]
+description: |
+  An example of command line tool in PHP using Symfony and the Box project.
+  This explains how to easily build a PHAR file and how to create an auto-update command.
 ---
 
 Something I love with PHP is how easily you can build a CLI application.
