@@ -40,20 +40,7 @@ use:
 
     <ul class="TalkList-list">
       {% for talk in data.talks|slice(0, 12) %}
-        <li class="TalkItem">
-          <a href="{{ talk.url }}">
-            <div class="TalkItem-container">
-              <div class="TalkItem-overlay"></div>
-              <h3 class="TalkItem-title">
-                {{ talk.title }}
-              </h3>
-              <img src="/assets/public/images/talks/{{ talk.thumbnail }}" alt="{{ talk.title }}" class="TalkItem-thumbnail">
-            </div>
-            <p class="TalkItem-meta">
-              {{ talk.event }}
-            </p>
-          </a>
-        </li>
+        {% include 'partials/talk-item.html' %}
       {% endfor %}
     </ul>
 
@@ -84,51 +71,51 @@ use:
 
   <ul class="DrawingList-list">
     <li class="DrawingItem">
-      <img class="DrawingItem-image" src="/assets/public/images/drawings/wolf.jpg" alt="Drawing">
+      <img class="DrawingItem-image" src="/uploads/drawings/wolf.jpg" alt="Drawing">
     </li>
 
     <li class="DrawingItem">
-      <img class="DrawingItem-image" src="/assets/public/images/drawings/50cent.jpg" alt="Drawing">
+      <img class="DrawingItem-image" src="/uploads/drawings/50cent.jpg" alt="Drawing">
     </li>
 
     <li class="DrawingItem">
-      <img class="DrawingItem-image" src="/assets/public/images/drawings/jamal.jpg" alt="Drawing">
+      <img class="DrawingItem-image" src="/uploads/drawings/jamal.jpg" alt="Drawing">
     </li>
 
     <li class="DrawingItem">
-      <img class="DrawingItem-image" src="/assets/public/images/drawings/xavier.jpg" alt="Drawing">
+      <img class="DrawingItem-image" src="/uploads/drawings/xavier.jpg" alt="Drawing">
     </li>
 
     <li class="DrawingItem">
-      <img class="DrawingItem-image" src="/assets/public/images/drawings/shak_basketball.jpg" alt="Drawing">
+      <img class="DrawingItem-image" src="/uploads/drawings/shak_basketball.jpg" alt="Drawing">
     </li>
 
     <li class="DrawingItem">
-      <img class="DrawingItem-image" src="/assets/public/images/drawings/style2ouf.jpg" alt="Drawing">
+      <img class="DrawingItem-image" src="/uploads/drawings/style2ouf.jpg" alt="Drawing">
     </li>
 
     <li class="DrawingItem">
-      <img class="DrawingItem-image" src="/assets/public/images/drawings/superbreaker.jpg" alt="Drawing">
+      <img class="DrawingItem-image" src="/uploads/drawings/superbreaker.jpg" alt="Drawing">
     </li>
 
     <li class="DrawingItem">
-      <img class="DrawingItem-image" src="/assets/public/images/drawings/math_cp1.jpg" alt="Drawing">
+      <img class="DrawingItem-image" src="/uploads/drawings/math_cp1.jpg" alt="Drawing">
     </li>
 
     <li class="DrawingItem">
-      <img class="DrawingItem-image" src="/assets/public/images/drawings/math_cp2.jpg" alt="Drawing">
+      <img class="DrawingItem-image" src="/uploads/drawings/math_cp2.jpg" alt="Drawing">
     </li>
 
     <li class="DrawingItem">
-      <img class="DrawingItem-image" src="/assets/public/images/drawings/platines_dj.jpg" alt="Drawing">
+      <img class="DrawingItem-image" src="/uploads/drawings/platines_dj.jpg" alt="Drawing">
     </li>
 
     <li class="DrawingItem">
-      <img class="DrawingItem-image" src="/assets/public/images/drawings/clash_trone.jpg" alt="Drawing">
+      <img class="DrawingItem-image" src="/uploads/drawings/clash_trone.jpg" alt="Drawing">
     </li>
 
     <li class="DrawingItem">
-      <img class="DrawingItem-image" src="/assets/public/images/drawings/sanka.jpg" alt="Drawing">
+      <img class="DrawingItem-image" src="/uploads/drawings/sanka.jpg" alt="Drawing">
     </li>
   </ul>
 
