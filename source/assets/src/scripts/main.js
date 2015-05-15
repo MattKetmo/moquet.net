@@ -24,5 +24,8 @@ $(function() {
     var url = $(this).attr('href');
     window.open(url, 'Twitter', 'height=300,width=550');
   });
+
+  // Start highlight.js
+  hljs.initHighlightingOnLoad();
 });
 
