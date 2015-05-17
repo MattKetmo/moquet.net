@@ -1,5 +1,11 @@
 {% extends 'base' %}
 
+{% block meta_description %}
+{% spaceless %}
+  This is the content of my talk &quot;{{ page.title }}&quot; presented at {{ page.event }} on {{ page.date|date('M Y') }}.
+{% endspaceless %}
+{% endblock %}
+
 {% block content_wrapper %}
 <a href="/" class="BackLink isLight">
   <i class="icon-logo"></i>
