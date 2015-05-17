@@ -7,7 +7,7 @@ description: |
   Also understand the "lock file is not up to date with the latest changes" warning.
 ---
 
-Here is some tips you should know when using Composer the dependency manager for PHP.
+Here are some tips you should know when using Composer the dependency manager for PHP.
 
 ## 1. Update only one vendor
 
