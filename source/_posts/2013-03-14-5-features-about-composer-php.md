@@ -7,8 +7,7 @@ description: |
   Also understand the "lock file is not up to date with the latest changes" warning.
 ---
 
-Here is some tips you should know when you use Composer to install your
-PHP dependencies.
+Here is some tips you should know when using Composer the dependency manager for PHP.
 
 ## 1. Update only one vendor
 
@@ -16,7 +15,9 @@ You want to update only one specific library, without updating all your
 dependencies? That's easy, just add the vendor name as argument to the
 [`update`](http://getcomposer.org/doc/03-cli.md#update) command:
 
-    $ composer update foo/bar
+```bash
+$ composer update foo/bar
+```
 
 This will only install or update the library (plus its dependencies) and
 overwrite the `composer.lock`.
@@ -33,55 +34,66 @@ you may be getting outdated dependencies, run update to update them.
 what you should expect if you just have edited the `composer.json` file. For
 instance, if you **add or update a detail** like the library description,
 authors, extra parameters, or even put a trailing whitespace, this will change
-the md5sum of the file. Then Composer will warn you if this hash differs from
+the **md5sum** of the file. Then Composer will warn you if this hash differs from
 the one stored in the `composer.lock`.
+
+```json
+{
+    "hash": "0bcd1234f87401a9669eb5264b8e32a7",
+    "packages": [
+       "..."
+    ]
+}
+```
 
 Ok, so how to proceed? The `update` command is the one which update the lock file.
 But if I just add a description, I may not want to update any library.
-In that case, just **update nothing**:
+In that case use the `--lock` parameter.
 
-    $ composer update nothing
-    Loading composer repositories with package information
-    Updating dependencies
-    Nothing to install or update
-    Writing lock file
-    Generating autoload files
+```bash
+$ composer update --lock
+```
 
-Thus, Composer won't update your vendors, but it will bring your
-`composer.lock` file up to date. `nothing` in not a key word in the update
-command. Since it has no correspondence, it's like you typed `foobar`. Note
-that since recently, there is a new warning message that tells you `nothing` is
-not a valid package, but that doesn't matter.
+Thus Composer won't upgrade your vendors.
+It will **only update the lock file hash** to suppress the warning.
+However it may also install the packages you have not yet installed
+(if you have not done the `install` command previously), but no package upgrade is performed.
 
-**Update 2013-08-16** — *As [mentioned in the comments](#comment-1002816789),
-there is now a [new option](https://github.com/composer/composer/commit/f6b7f0e29aa89b59d21479946ee28efb270bb551)
-to only update the `composer.lock` file:*
+Note that trying to update a vendor that doesn't exist will have the same effect.
 
-    $ composer update --lock
+```bash
+$ composer update foobar
+```
 
 ## 2. Add a library without editing your composer.json
 
 To add a new vendor for your project, you can manually add a new line into your
-`composer.json` then use the previous method to **only** install this vendor.
+`composer.json` then use the previous method to **only** install/update this vendor.
 But there is a much convenient way to proceed.
 
 The [`require`](http://getcomposer.org/doc/03-cli.md#require) command will make
 those actions for you:
 
-    $ composer require "foo/bar:1.0.0"
+```bash
+$ composer require "foo/bar:1.0.0"
+```
+
+If you omit to specify the version Composer will **fetch the last stable**.
 
 This action can also be used to quickly start a new project. The
 [`init`](http://getcomposer.org/doc/03-cli.md#init) command include the
 `--require` option which will write the `composer.json` file with the given
 vendor(s) (note the `-n` option to not ask any interactive question):
 
-    $ composer init --require=foo/bar:1.0.0 -n
-    $ cat composer.json
-    {
-        "require": {
-            "foo/bar": "1.0.0"
-        }
+```bash
+$ composer init --require="foo/bar:1.0.0" -n
+$ cat composer.json
+{
+    "require": {
+        "foo/bar": "1.0.0"
     }
+}
+```
 
 ## 3. Easy fork
 
@@ -89,7 +101,9 @@ Speaking about `composer.json` initialization, did you ever used the
 [`create-project`](http://getcomposer.org/doc/03-cli.md#create-project)
 command?
 
-    $ composer create-project doctrine/orm path 2.2.0
+```bash
+$ composer create-project doctrine/orm path 2.2.0
+```
 
 This will automatically clone the repository and checkout the given version.
 That may be usefull to quickly clone a library without searching the original
@@ -118,29 +132,31 @@ the `install` and `update` command.
 Here is a demonstration (I use the `--profile` option to show the execution
 time):
 
-    $ composer init --require="twig/twig:1.*" -n --profile
-    Memory usage: 3.94MB (peak: 4.08MB), time: 0s
+```nohighlight
+$ composer init --require="twig/twig:1.*" -n --profile
+Memory usage: 3.94MB (peak: 4.08MB), time: 0s
 
-    $ composer install --profile
-    Loading composer repositories with package information
-    Installing dependencies
-      - Installing twig/twig (v1.12.2)
-        Downloading: 100%
+$ composer install --profile
+Loading composer repositories with package information
+Installing dependencies
+  - Installing twig/twig (v1.12.2)
+    Downloading: 100%
 
-    Writing lock file
-    Generating autoload files
-    Memory usage: 10.13MB (peak: 12.65MB), time: 4.71s
+Writing lock file
+Generating autoload files
+Memory usage: 10.13MB (peak: 12.65MB), time: 4.71s
 
-    $ rm -rf vendor
+$ rm -rf vendor
 
-    $ composer install --profile
-    Loading composer repositories with package information
-    Installing dependencies from lock file
-      - Installing twig/twig (v1.12.2)
-        Loading from cache
+$ composer install --profile
+Loading composer repositories with package information
+Installing dependencies from lock file
+  - Installing twig/twig (v1.12.2)
+    Loading from cache
 
-    Generating autoload files
-    Memory usage: 4.96MB (peak: 5.57MB), time: 0.45s
+Generating autoload files
+Memory usage: 4.96MB (peak: 5.57MB), time: 0.45s
+```
 
 Here, the archive for `twig/twig:1.12.2` has been stored into
 `~/.composer/cache/files/twig/twig/1.12.2.0-v1.12.2.zip` and used the second
@@ -154,32 +170,40 @@ vendor directory to test the behaviour of your application with that change
 (eg. a bug fix). The `--prefer-source` option will force cloning sources
 instead of downloading an archive:
 
-    $ composer update symfony/yaml --prefer-source
+```nohighlight
+$ composer update symfony/yaml --prefer-source
+```
 
 Then to see modified files in your vendor:
 
-    $ composer status -v
-    You have changes in the following dependencies:
-    /path/to/app/vendor/symfony/yaml/Symfony/Component/Yaml:
-        M Dumper.php
+```nohighlight
+$ composer status -v
+You have changes in the following dependencies:
+/path/to/app/vendor/symfony/yaml/Symfony/Component/Yaml:
+    M Dumper.php
+```
 
 Composer will also tells you when you try to update a vendor that has been
 modified, and asks if you want to discard the changes:
 
-    $ composer update
-    Loading composer repositories with package information
-    Updating dependencies
-      - Updating symfony/symfony v2.2.0 (v2.2.0- => v2.2.0)
-        The package has modified files:
-        M Dumper.php
-        Discard changes [y,n,v,s,?]?
+```nohighlight
+$ composer update
+Loading composer repositories with package information
+Updating dependencies
+  - Updating symfony/symfony v2.2.0 (v2.2.0- => v2.2.0)
+    The package has modified files:
+    M Dumper.php
+    Discard changes [y,n,v,s,?]?
+```
 
 ## Be ready for production
 
 Just a reminder, before deploying your code in production, don't forget to optimize
 the autoloader:
 
-    $ composer dump-autoload --optimize
+```nohighlight
+$ composer dump-autoload --optimize
+```
 
 This can also be used while installing packages with the `--optimize-autoloader` option.
 Without that optimization, you may notice a [performance loss from 20 to 25%](http://www.ricardclau.com/2013/03/apc-vs-zend-optimizer-benchmarks-with-symfony2/).
