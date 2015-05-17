@@ -1,18 +1,23 @@
 #!/bin/bash
 
-#git config user.name "Matthieu Moquet"
-#git config user.email "matthieu@moquet.net"
-
 # Update gh-pages branch
 git branch -D gh-pages
-git checkout -b gh-pages master
+git checkout -b gh-pages HEAD
+
+# Clean folder
+rm -rf output_prod
 
 # Compile assets
 gulp icons
 gulp build --prod
-git add -f assets/dist
+
+# Build website
+sculpin generate --env=prod
+
+# Commit
+git add -f output_prod
 git commit -m "Build GH pages"
 
 # Push & reset
-git push -f origin gh-pages
-git checkout master
+git push origin `git subtree split --prefix output_prod HEAD`:gh-pages --force
+git checkout -

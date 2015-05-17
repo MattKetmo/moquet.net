@@ -1,0 +1,11 @@
+{
+    "name": "mattketmo/moquet.net",
+    "description": "MattKetmo personal pages",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Matthieu Moquet",
+            "email": "matthieu@moquet.net"
+        }
+    ]
+}

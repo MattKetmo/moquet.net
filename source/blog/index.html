@@ -1,0 +1,45 @@
+---
+layout: base
+title: Blog
+generator: pagination
+pagination:
+  max_per_page: 20
+use:
+  - posts
+---
+
+{% include 'partials/about-header.html' %}
+
+<section class="BlogPostList" id="blog">
+  <div class="Layout">
+    <h2 class="BlogPostList-title">
+      Blog
+    </h2>
+
+    <ul class="BlogPostList-list">
+      {% for post in page.pagination.items %}
+        {% include 'partials/blog-post-item.html' %}
+      {% endfor %}
+    </ul>
+
+    {% if page.pagination.previous_page or page.pagination.next_page %}
+      <nav class="BlogPostList-button">
+        {% if page.pagination.previous_page %}
+          <a href="{{ page.pagination.previous_page.url }}" class="Button">
+            <i class="icon-arrow-left"></i>
+            Newer Posts
+          </a>
+        {% endif %}
+
+        {% if page.pagination.next_page %}
+          <a href="{{ page.pagination.next_page.url }}" class="Button">
+            Older Posts
+            <i class="icon-arrow-right"></i>
+          </a>
+        {% endif %}
+      </nav>
+    {% endif %}
+  </div>
+</section>
+
+{% include 'partials/footer.html' %}

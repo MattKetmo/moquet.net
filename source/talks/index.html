@@ -1,0 +1,60 @@
+---
+layout: base
+title: Talks
+title: Matthieu Moquet
+generator: pagination
+pagination:
+  provider: data.talks
+  max_per_page: 16
+use:
+  - talks
+---
+
+{% include 'partials/about-header.html' %}
+
+<section class="TalkList" id="talks">
+  <div class="Layout">
+    <h2 class="TalkList-title">
+      Talks
+    </h2>
+
+    <ul class="TalkList-list">
+      {% for talk in page.pagination.items %}
+        <li class="TalkItem">
+          <a href="{{ talk.url }}">
+            <div class="TalkItem-container">
+              <div class="TalkItem-overlay"></div>
+              <h3 class="TalkItem-title">
+                {{ talk.title }}
+              </h3>
+              <img src="/assets/public/images/talks/{{ talk.thumbnail }}" alt="{{ talk.title }}" class="TalkItem-thumbnail">
+            </div>
+            <p class="TalkItem-meta">
+              {{ talk.event }}
+            </p>
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+
+    {% if page.pagination.previous_page or page.pagination.next_page %}
+      <nav class="BlogPostList-button">
+        {% if page.pagination.previous_page %}
+          <a href="{{ page.pagination.previous_page.url }}" class="Button">
+            <i class="icon-arrow-left"></i>
+            Newer Talks
+          </a>
+        {% endif %}
+
+        {% if page.pagination.next_page %}
+          <a href="{{ page.pagination.next_page.url }}" class="Button">
+            Older Talks
+            <i class="icon-arrow-right"></i>
+          </a>
+        {% endif %}
+      </nav>
+    {% endif %}
+  </div>
+</section>
+
+{% include 'partials/footer.html' %}

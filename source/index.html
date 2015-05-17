@@ -1,0 +1,131 @@
+---
+layout: base
+use:
+  - posts
+  - talks
+---
+
+{% include 'partials/about-header.html' %}
+
+<section class="BlogPostList" id="blog">
+  <div class="Layout">
+    <h2 class="BlogPostList-title">
+      Blog
+    </h2>
+
+    <ul class="BlogPostList-list">
+      {% for post in data.posts | slice(0, 10) %}
+        {% include 'partials/blog-post-item.html' %}
+      {% endfor %}
+    </ul>
+
+    {% if data.posts | length > 10 %}
+      <div class="BlogPostList-button">
+        <a href="/blog/" class="Button">
+          View all
+          <i class="icon-arrow-right"></i>
+        </a>
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+
+<section class="TalkList" id="talks">
+  <div class="Layout">
+    <h2 class="TalkList-title">
+      Talks
+    </h2>
+
+    <ul class="TalkList-list">
+      {% for talk in data.talks|slice(0, 12) %}
+        {% include 'partials/talk-item.html' %}
+      {% endfor %}
+    </ul>
+
+    {% if data.talks | length > 12 %}
+      <div class="BlogPostList-button">
+        <a href="/talks/" class="Button">
+          View all
+          <i class="icon-arrow-right"></i>
+        </a>
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+<section class="DrawingList" id="drawings">
+  <div class="Layout">
+    <h2 class="DrawingList-title">
+      Drawings
+    </h2>
+
+    <p class="DrawingList-description">
+      Did I tell you drawing was a passion when I was child?
+      Here are below some I did several years ago.
+      You can find a few more of my drawing on my dedicated
+      <a href="https://plus.google.com/photos/+MatthieuMoquet/albums/5684939403743189713">Google+ Album</a>.
+    </p>
+  </div>
+
+  <ul class="DrawingList-list">
+    <li class="DrawingItem">
+      <img class="DrawingItem-image" src="/uploads/drawings/wolf.jpg" alt="Drawing">
+    </li>
+
+    <li class="DrawingItem">
+      <img class="DrawingItem-image" src="/uploads/drawings/50cent.jpg" alt="Drawing">
+    </li>
+
+    <li class="DrawingItem">
+      <img class="DrawingItem-image" src="/uploads/drawings/jamal.jpg" alt="Drawing">
+    </li>
+
+    <li class="DrawingItem">
+      <img class="DrawingItem-image" src="/uploads/drawings/xavier.jpg" alt="Drawing">
+    </li>
+
+    <li class="DrawingItem">
+      <img class="DrawingItem-image" src="/uploads/drawings/shak_basketball.jpg" alt="Drawing">
+    </li>
+
+    <li class="DrawingItem">
+      <img class="DrawingItem-image" src="/uploads/drawings/style2ouf.jpg" alt="Drawing">
+    </li>
+
+    <li class="DrawingItem">
+      <img class="DrawingItem-image" src="/uploads/drawings/superbreaker.jpg" alt="Drawing">
+    </li>
+
+    <li class="DrawingItem">
+      <img class="DrawingItem-image" src="/uploads/drawings/math_cp1.jpg" alt="Drawing">
+    </li>
+
+    <li class="DrawingItem">
+      <img class="DrawingItem-image" src="/uploads/drawings/math_cp2.jpg" alt="Drawing">
+    </li>
+
+    <li class="DrawingItem">
+      <img class="DrawingItem-image" src="/uploads/drawings/platines_dj.jpg" alt="Drawing">
+    </li>
+
+    <li class="DrawingItem">
+      <img class="DrawingItem-image" src="/uploads/drawings/clash_trone.jpg" alt="Drawing">
+    </li>
+
+    <li class="DrawingItem">
+      <img class="DrawingItem-image" src="/uploads/drawings/sanka.jpg" alt="Drawing">
+    </li>
+  </ul>
+
+  <!--
+  <div class="DrawingList-button">
+    <a href="https://plus.google.com/photos/+MatthieuMoquet/albums/5684939403743189713" class="Button">
+      View more
+      <i class="icon-arrow-right"></i>
+    </a>
+  </div>
+  -->
+</section>
+
+{% include 'partials/footer.html' %}

@@ -1,0 +1,45 @@
+{% extends 'base' %}
+
+{% block content_wrapper %}
+<a href="/" class="BackLink isLight">
+  <i class="icon-logo"></i>
+</a>
+
+<article class="BlogPostContainer">
+  <header class="BlogPostHeader">
+    <div class="Layout">
+      <h1 class="BlogPostHeader-title">
+        {{ page.title }}
+      </h1>
+
+      <p class="BlogPostHeader-meta">
+        {{ page.event }} —
+        <time datetime="{{ page.date|date('Y-m-d') }}">
+          {{ page.date|date('M Y') }}
+        </time>
+      </p>
+    </div>
+  </header>
+
+  <div class="BlogPostContent Type Layout">
+    <div class="block type">
+      <script
+          async
+          class="speakerdeck-embed"
+          data-id="{{ page.speakerdeck }}"
+          data-ratio="1.33333333333333"
+          src="//speakerdeck.com/assets/embed.js">
+      </script>
+    </div>
+  </div>
+
+  <div class="BlogPostContent Type Layout">
+    {{ page.blocks.content|raw }}
+  </div>
+
+  {% include 'partials/comments.html' %}
+</article>
+
+{% include 'partials/footer.html' %}
+
+{% endblock %}
