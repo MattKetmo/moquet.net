@@ -20,20 +20,7 @@ use:
 
     <ul class="TalkList-list">
       {% for talk in page.pagination.items %}
-        <li class="TalkItem">
-          <a href="{{ talk.url }}">
-            <div class="TalkItem-container">
-              <div class="TalkItem-overlay"></div>
-              <h3 class="TalkItem-title">
-                {{ talk.title }}
-              </h3>
-              <img src="/assets/public/images/talks/{{ talk.thumbnail }}" alt="{{ talk.title }}" class="TalkItem-thumbnail">
-            </div>
-            <p class="TalkItem-meta">
-              {{ talk.event }}
-            </p>
-          </a>
-        </li>
+        {% include 'partials/talk-item.html' %}
       {% endfor %}
     </ul>
 
