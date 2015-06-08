@@ -2,9 +2,20 @@
 
 {% block meta_description %}
 {% spaceless %}
-  This is the content of my talk &quot;{{ page.title }}&quot; presented at {{ page.event }} on {{ page.date|date('M Y') }}.
+  This is the content of the talk &quot;{{ page.title }}&quot; presented at &quot;{{ page.event }}&quot; on {{ page.date|date('F Y') }}.
 {% endspaceless %}
 {% endblock %}
+
+{% block meta %}
+{{ parent() }}
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:creator" content="{{ site.twitter }}" />
+<meta name="twitter:title" content="{{ page.title }}" />
+<meta name="twitter:description" content="{{ block('meta_description') }}" />
+<meta name="twitter:url" content="{{ site.url }}{{ page.url }}/" />
+<meta name="twitter:image" content="{{ site.url }}/uploads/talks/{{ page.thumbnail }}" />
+{% endblock %}
+
 
 {% block content_wrapper %}
 <a href="/" class="BackLink isLight">
