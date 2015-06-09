@@ -41,11 +41,11 @@
   <div class="BlogPostContent Type Layout">
     <div class="block type">
       <script
-          async
-          class="speakerdeck-embed"
-          data-id="{{ page.speakerdeck }}"
-          data-ratio="1.33333333333333"
-          src="//speakerdeck.com/assets/embed.js">
+        async
+        class="speakerdeck-embed"
+        data-id="{{ page.speakerdeck }}"
+        data-ratio="1.33333333333333"
+        src="//speakerdeck.com/assets/embed.js">
       </script>
     </div>
   </div>
@@ -53,6 +53,13 @@
   <div class="BlogPostContent Type Layout">
     {{ page.blocks.content|raw }}
   </div>
+
+  <p class="BlogPostFooter Layout">
+    <a class="Button twitter js-twitter-share" title="Share this post" href="https://twitter.com/share?text={{ page.title }}&url={{ site.url }}{{ page.url }}&via={{ site.twitter }}&related={{ site.twitter }}" target="_blank">
+      <i class="icon-twitter"></i>
+      <span>Share via Twitter</span>
+    </a>
+  </p>
 
   {% include 'partials/comments.html' %}
 </article>
