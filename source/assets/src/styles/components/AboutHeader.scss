@@ -1,6 +1,8 @@
 .AboutHeader {
   // background-color: #383838;
-  background-color: #363942;
+  // background-color: #363942;
+  // background-color: #171d25;
+  background-color: $color-bg-dark;
   color: #f0f0f0;
   padding: 50px 0;
 
@@ -21,7 +23,7 @@
     }
 
     img {
-      border: 8px solid lighten(#363942, 10);
+      border: 8px solid lighten($color-bg-dark, 15);
       max-width: 100%;
     }
   }
