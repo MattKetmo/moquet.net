@@ -1,12 +1,11 @@
 {% extends 'base' %}
 
 {% block meta %}
-{{ parent() }}
-<meta name="twitter:card" content="summary" />
-<meta name="twitter:creator" content="@{{ site.twitter }}" />
-<meta name="twitter:title" content="{{ page.title }}" />
-<meta name="twitter:description" content="{{ block('meta_description') }}" />
-<meta name="twitter:url" content="{{ site.url }}{{ page.url }}/" />
+  {{ parent() }}
+
+  {% include 'partials/twitter-meta.html' with {twitter: {
+    'description': block('meta_description'),
+  }} %}
 {% endblock %}
 
 {% block content_wrapper %}

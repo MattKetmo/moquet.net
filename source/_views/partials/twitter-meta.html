@@ -1,0 +1,11 @@
+{% set twitter = {
+  'card': 'summary',
+  'site': '@' ~ site.twitter,
+  'creator': '@' ~ site.twitter,
+  'title': page.title,
+  'url': site.url ~ page.url ~ '/'
+}|merge(twitter|default({})) %}
+
+{% for property, value in twitter %}
+  <meta name="twitter:{{ property }}" content="{{ value }}" />
+{% endfor %}
