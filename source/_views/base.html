@@ -1,8 +1,5 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
-<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
-<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<html lang="en">
 <head>
   <title>{% block title page.title|default(site.title) %}</title>
 
@@ -30,7 +27,11 @@
   <link rel="stylesheet" type="text/css" href="/assets/dist/css/main.css">
   {% endblock %}
 </head>
-<body class="preload">
+<body class="no-js">
+  <script>
+    document.body.classList.remove('no-js')
+    document.body.classList.add('js', 'preload')
+  </script>
 
   {% block content_wrapper %}
     {% block content '' %}
