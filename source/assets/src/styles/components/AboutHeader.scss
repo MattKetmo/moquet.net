@@ -85,7 +85,7 @@
     }
   }
   &-links {
-    transition: all 450ms ease-out;
+    transition: all 500ms cubic-bezier(0.000, 0.000, 0.5, 1.5);
     transition-delay: 350ms;
     transform: translateX(0);
     transform: scale(1);
