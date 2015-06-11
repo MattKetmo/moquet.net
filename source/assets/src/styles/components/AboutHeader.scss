@@ -67,7 +67,8 @@
     transform: scale(1);
     opacity: 1;
 
-    .preload & {
+    .preload &,
+    .postload & {
       transform: scale(0.5);
       opacity: 0;
     }
@@ -79,7 +80,8 @@
     transform: scale(1);
     opacity: 1;
 
-    .preload & {
+    .preload &,
+    .postload & {
       transform: scale(0.7);
       opacity: 0;
     }
@@ -91,7 +93,8 @@
     transform: scale(1);
     opacity: 1;
 
-    .preload & {
+    .preload &,
+    .postload & {
       transform: translateX(-150px);
       opacity: 0;
     }

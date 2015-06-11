@@ -28,18 +28,20 @@
     </div>
   </header>
 
-  <div class="BlogPostContent Type Layout">
-    {{ page.blocks.content|raw }}
+  <div class="BlogPostContentWrapper">
+    <div class="BlogPostContent Type Layout">
+      {{ page.blocks.content|raw }}
+    </div>
+
+    <p class="BlogPostFooter Layout">
+      <a class="Button twitter js-twitter-share" title="Share this post" href="https://twitter.com/share?text={{ page.title }}&url={{ site.url }}{{ page.url }}&via={{ site.twitter }}&related={{ site.twitter }}" target="_blank">
+        <i class="icon-twitter"></i>
+        <span>Share this post</span>
+      </a>
+    </p>
+
+    {% include 'partials/comments.html' %}
   </div>
-
-  <p class="BlogPostFooter Layout">
-    <a class="Button twitter js-twitter-share" title="Share this post" href="https://twitter.com/share?text={{ page.title }}&url={{ site.url }}{{ page.url }}&via={{ site.twitter }}&related={{ site.twitter }}" target="_blank">
-      <i class="icon-twitter"></i>
-      <span>Share this post</span>
-    </a>
-  </p>
-
-  {% include 'partials/comments.html' %}
 </article>
 
 {% include 'partials/footer.html' %}

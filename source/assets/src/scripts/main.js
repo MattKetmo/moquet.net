@@ -4,7 +4,10 @@ $(function() {
 
 // Start translation only after page load
 // @see http://css-tricks.com/transitions-only-after-page-load/
-$('body').removeClass("preload");
+var $body = $('body');
+setTimeout(function() {
+  $body.removeClass("preload");
+}, 0);
 
 // Blog post
 $('.Type').find('h1, h2, h3, h4, h5').anchorify({
@@ -31,6 +34,20 @@ $('.js-twitter-share').on('click', function(e) {
 // Start highlight.js
 hljs.initHighlightingOnLoad();
 
+
+// Postload animation
+$('a').on('click', function(e) {
+  var $this = $(this);
+  var href = $this.attr('href');
+
+  if (href.indexOf('/') === 0) {
+    e.preventDefault();
+    $body.addClass('postload');
+    setTimeout(function() {
+      window.location.href = href;
+    }, 500);
+  }
+});
 
 });
 
