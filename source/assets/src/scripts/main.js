@@ -36,18 +36,18 @@ hljs.initHighlightingOnLoad();
 
 
 // Postload animation
-$('a').on('click', function(e) {
-  var $this = $(this);
-  var href = $this.attr('href');
-
-  if (href.indexOf('/') === 0) {
-    e.preventDefault();
-    $body.addClass('postload');
-    setTimeout(function() {
-      window.location.href = href;
-    }, 500);
-  }
-});
+//$('a').on('click', function(e) {
+//  var $this = $(this);
+//  var href = $this.attr('href');
+//
+//  if (href.indexOf('/') === 0) {
+//    e.preventDefault();
+//    $body.addClass('postload');
+//    setTimeout(function() {
+//      window.location.href = href;
+//    }, 500);
+//  }
+//});
 
 });
 
