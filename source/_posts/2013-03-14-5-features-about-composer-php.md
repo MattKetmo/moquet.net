@@ -113,7 +113,7 @@ URI of the sources.
 
 Did you know that **dist packages are now cached** in your home directory?
 
-I previously [wrote an article](http://moquet.net/blog/proxify-composer-php/)
+I previously [wrote an article](/blog/proxify-composer-php/)
 to compare solutions for caching vendors between multiple projects to save time
 when cloning a repository. I even created [my own command][stone] to clone vendors
 into your global composer configuration to reuse it when necessary.
