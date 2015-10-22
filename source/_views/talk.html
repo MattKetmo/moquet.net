@@ -55,7 +55,7 @@
     </div>
 
     <p class="BlogPostFooter Layout">
-      <a class="Button twitter js-twitter-share" title="Share this post" href="https://twitter.com/share?text={{ page.title }}&url={{ site.url }}{{ page.url }}&via={{ site.twitter }}&related={{ site.twitter }}" target="_blank">
+      <a class="Button twitter js-twitter-share" title="Share this post" href="https://twitter.com/share?text={{ page.title|url_encode }}&url={{ site.url|url_encode }}{{ page.url|url_encode }}&via={{ site.twitter }}&related={{ site.twitter }}" target="_blank">
         <i class="icon-twitter"></i>
         <span>Share via Twitter</span>
       </a>
