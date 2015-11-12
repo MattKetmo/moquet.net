@@ -38,7 +38,7 @@ use:
     </h2>
 
     <ul class="TalkList-list">
-      {% for talk in data.talks|slice(0, 12) %}
+      {% for talk in data.talks|slice(0, 9) %}
         {% include 'partials/talk-item.html' %}
       {% endfor %}
     </ul>
