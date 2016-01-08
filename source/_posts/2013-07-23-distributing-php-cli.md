@@ -165,6 +165,14 @@ look somthing like `1.0.0-1-gae87139` (ie. use of tag + commit hash).
 
 ## Auto updates
 
+<div class="note info"><p>
+<b>Edit Jan. 2016</b>: I now recommend you to also read this great blog post
+<a href="https://mwop.net/blog/2015-12-14-secure-phar-automation.html">"Secure PHAR Automation"</a>
+by <a href="https://twitter.com/mwop">@mwop</a> which makes use of the
+<a href="https://github.com/padraic/phar-updater">padraic/phar-updater</a>
+library and GitHub pages to automate and sign your PHAR file.
+</p></div>
+
 Now that we have our PHAR, it would be awesome to add a command to auto update
 the app. Think of something like `composer self-update`,
 but as usual with minimal code.
