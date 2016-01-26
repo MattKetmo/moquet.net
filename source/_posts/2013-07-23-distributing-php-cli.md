@@ -88,7 +88,7 @@ is launched via `./bin/compile` and produces the `composer.phar` file.
 
 Now we want the same thing for our app, but without writing any line of PHP.
 That would be redundant for each project.
-This is where the [Box Project](http://box-project.org/) comes in.
+This is where the [Box Project](http://box-project.github.io/box2/) comes in.
 The idea behing this tool is to replace the usual `compile` script with
 a simple JSON file.
 
@@ -143,7 +143,7 @@ on our main launcher `bin/cliph`:
 $application = new Application('Cliph', '@package_version@');
 ```
 
-Time to see the result. [Install Box](https://github.com/kherge/Box#as-a-phar-recommended)
+Time to see the result. [Install Box](https://github.com/box-project/box2#as-a-phar-recommended)
 if you did not already, then run:
 
     $ box build
