@@ -44,7 +44,7 @@
           async
           class="speakerdeck-embed"
           data-id="{{ page.speakerdeck }}"
-          data-ratio="1.33333333333333"
+          data-ratio="{{ page.speakerdeck_ratio|default(1.33333333333333)}}"
           src="//speakerdeck.com/assets/embed.js">
         </script>
       </div>
