@@ -1,12 +1,12 @@
 var gulp = require('gulp');
 var gutil = require('gulp-util');
 
-var clean = require('gulp-clean');
 var concat = require('gulp-concat');
+var del = require('del');
 var iconfont = require('gulp-iconfont');
 var iconfontCSS = require('gulp-iconfont-css');
-var plumber = require('gulp-plumber')
-var sass = require('gulp-sass')
+var plumber = require('gulp-plumber');
+var sass = require('gulp-sass');
 var uglify = require('gulp-uglify');
 
 //
@@ -26,11 +26,8 @@ gulp.task('default', function() {
 //
 // Clean
 //
-gulp.task('clean', function(cb) {
-  gulp
-    .src(distDir, {read: false})
-    .pipe(clean())
-    .on('end', cb);
+gulp.task('clean', function() {
+  return del(distDir);
 });
 
 //

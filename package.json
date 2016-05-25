@@ -2,8 +2,8 @@
   "name": "moquet.net",
   "repository": "git://github.com:mattketmo/moquet.net.git",
   "devDependencies": {
+    "del": "^2.2.0",
     "gulp": "^3.9.1",
-    "gulp-clean": "^0.3.2",
     "gulp-concat": "^2.6.0",
     "gulp-iconfont": "^8.0.0",
     "gulp-iconfont-css": "^2.1.0",
