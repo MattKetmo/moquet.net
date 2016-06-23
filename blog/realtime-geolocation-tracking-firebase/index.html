@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Realtime geolocation tracking with Firebase</title>
+
+      <meta charset="UTF-8">
+  <meta content="IE=edge" http-equiv="X-UA-Compatible">
+  <meta content="Matthieu Moquet" name="author">
+  <meta content="Here is how I created the locat.me service. It is a simple realtime geolocation tracking using Firebase and Mapbox." name="description">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  
+
+  
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@MattKetmo" />
+  <meta name="twitter:creator" content="@MattKetmo" />
+  <meta name="twitter:title" content="Realtime geolocation tracking with Firebase" />
+  <meta name="twitter:url" content="https://moquet.net/blog/realtime-geolocation-tracking-firebase/" />
+  <meta name="twitter:description" content="Here is how I created the locat.me service. It is a simple realtime geolocation tracking using Firebase and Mapbox." />
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/public/favicon/apple-touch-icon-180x180.png">
+  <link rel="icon" type="image/png" href="/assets/public/favicon/favicon-192x192.png" sizes="192x192">
+  <link rel="icon" type="image/png" href="/assets/public/favicon/favicon-160x160.png" sizes="160x160">
+  <link rel="icon" type="image/png" href="/assets/public/favicon/favicon-96x96.png" sizes="96x96">
+  <link rel="icon" type="image/png" href="/assets/public/favicon/favicon-16x16.png" sizes="16x16">
+  <link rel="icon" type="image/png" href="/assets/public/favicon/favicon-32x32.png" sizes="32x32">
+
+  
+  <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="Matthieu Moquet">
+
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,900">
+  <link rel="stylesheet" type="text/css" href="/assets/dist/css/main.css">
+  </head>
+<body class="no-js">
+  <script>
+    document.body.classList.remove('no-js')
+    document.body.classList.add('js', 'preload')
+  </script>
+
+  <a href="/" class="BackLink isLight">
+  <i class="icon-logo"></i>
+</a>
+
+<article class="BlogPostContainer">
+  <header class="BlogPostHeader">
+    <div class="Layout">
+      <h1 class="BlogPostHeader-title">
+        Realtime geolocation tracking with Firebase
+      </h1>
+
+      <p class="BlogPostHeader-meta">
+        <time datetime="2015-04-16">
+          16 Apr 2015
+        </time>
+      </p>
+    </div>
+  </header>
+
+  <div class="BlogPostContentWrapper">
+    <div class="BlogPostContent Type Layout">
+      <p>I went recently to Google Paris offices to attend an <a href="http://www.meetup.com/AngularJS-Paris/events/221083701/">Angular meetup</a>
+sponsorised by <a href="https://www.firebase.com/">Firebase</a>.
+Although I've already heard about Firebase in the past (mainly when they got <a href="https://www.firebase.com/blog/2014-10-21-firebase-joins-google.html">acquired by Google</a>)
+I've never tried it myself to see what it is capable of.
+Here is a quick experiment I did to play with it.</p>
+
+<p class="banner-container">
+  <img
+    class="Image center responsize isRounded"
+    src="/uploads/blog/2015-04-16-realtime-geolocation-tracking-firebase/locatme-banner.png"
+    alt="Locat.me banner"/>
+</p>
+
+<h2 id="firebase">Firebase</h2>
+
+<p>Firebase is a <strong>Database as a Service</strong> which lets you <strong>store and synchronize</strong> data in (near) real-time.</p>
+
+<p>As it focuses mostly on frontend and mobile apps you will find an <strong>SDK</strong> for Android, iOS and JavaScript.
+But it also exposes a <strong>REST API</strong> so you can do basic CRUD operations from your backend.</p>
+
+<p>The SDK allows you to establish a connection to their backend and receive notifications as soon as
+data is updated. By "real-time" they ensure you to receive those events in less than 200ms.
+They use <a href="https://developer.mozilla.org/fr/docs/WebSockets">WebSockets</a> if available or fallback
+to long polling if not.</p>
+
+<p>They also propose other features like <a href="https://www.firebase.com/docs/web/guide/offline-capabilities.html">offline capabilities</a>
+(similar to what PouchDB offers) and delegated Authentication (via Google/Twitter/Facebook connect).
+I won't go much into details but invite you to <a href="https://www.firebase.com/docs/">read the docs</a>
+or signup to try the <a href="https://www.firebase.com/how-it-works.html">quick tutorial</a> for more details.</p>
+
+<h2 id="introducing-locat.me">Introducing Locat.me</h2>
+
+<p>By using such technology you can develop an Uber-like application very easily, they said.
+I was eager to test it.
+Their admin dashboard is quite intuitive and the API is so simple that you can do powerful
+thing quickly.</p>
+
+<p>My proof of concept is very basic but it may be useful in some situations.</p>
+
+<p>It's an app you can use to <strong>easily locate your friends</strong> when you have an appointment
+but you don't have an accurate meeting point.
+You know they are close but you have difficulties in explaining where you are exactly
+(it could be a parallel street or just somewhere else in the park).</p>
+
+<p>How the app works is very simple:</p>
+
+<ul>
+<li><strong>go to</strong> <a href="http://locat.me/">locat.me</a> with a browser and <strong>accept</strong> to share your current position
+(it uses the HTML5 <a href="https://developer.mozilla.org/en-US/docs/Web/API/Geolocation/Using_geolocation">Geolocation API</a>)</li>
+<li><strong>copy</strong> the URL (a unique id has been generated in the hash) and <strong>send</strong> it to your friend
+(eg. use the "Share" option from your browser to send an SMS)</li>
+</ul>
+
+<p>And that's it!</p>
+
+<p>Now each time someone will go on that URL a new (anonymous) marker will be added
+and the map will be refreshed without you do anything.
+Blue point is your position while orange ones are others.</p>
+
+<p>
+  <a href="/uploads/blog/2015-04-16-realtime-geolocation-tracking-firebase/locatme-screenshot.png">
+    <img
+      class="Image center responsize"
+      src="/uploads/blog/2015-04-16-realtime-geolocation-tracking-firebase/locatme-screenshot.png"
+      alt="Locat.me Screenshot"
+      width="300px" />
+  </a>
+</p>
+
+<p>You can also use a custom identifier to share. Useful for named events
+(for instance <a href="http://locat.me/#my_meetup">locat.me/#my_meetup</a> or even <a href="http://locat.me/#MattKetmo">locat.me/#MattKetmo</a>)</p>
+
+<div class="note warning">
+  <p>
+    Note that since I'm using the free hacker plan of Firebase the maximum of
+    connected users simultaneously is limited to 50.
+  </p>
+</div>
+
+<div class="note info">
+  <p>
+    About the domain name, this is a gift from Gandi which offered some free domains for their 15th birthday.
+    As I won a <code>.me</code> I decided to use it for that occasion (unfortunatly every cool and short domain names
+    were already taken so I needed to sacrifice the final "e" letter).
+  </p>
+</div>
+
+<h2 id="just-code-it">Just code it</h2>
+
+<p>Now that I explained the main idea it's time to play with it.
+The code is really trivial.
+I think it took me less than an hour while watching a stupid movie on TV to get something working.</p>
+
+<p>To display the map and the markers I used <a href="https://www.mapbox.com/">Mapbox</a>.
+First time I played with it too.
+But my usage is very simple. This is what I just need to know:</p>
+
+<pre><code class="js">// Load the map canvas in the #map block
+var map = L.mapbox.map('map', 'examples.map-i86nkdio')
+
+map.on('ready', function() {
+
+  // Add a new marker on the map
+  var marker = L.marker([latitude, longitude]).addTo(map)
+
+  // Update the marker position
+  marker.setLatLng([latitude, longitude])
+
+})
+</code></pre>
+
+<p>Second thing I need to handle is the URL hash (ie. the map identifier).
+Here I just generate a new one unless it already exists.</p>
+
+<pre><code class="js">// Read the current hash
+var mapId = location.hash.replace(/^#/, '');
+
+// If not set generate a new one
+if (!mapId) {
+  mapId = (Math.random() + 1).toString(36).substring(2, 12);
+  location.hash = mapId;
+}
+</code></pre>
+
+<p>This hash will help me to group markers together.
+I will use Firebase to read and write the geolocations under the <code>/maps/{mapId}</code> endpoint.</p>
+
+<p>
+  <a href="/uploads/blog/2015-04-16-realtime-geolocation-tracking-firebase/screenshot-firebase-admin.png">
+    <img
+      class="Image center responsize"
+      src="/uploads/blog/2015-04-16-realtime-geolocation-tracking-firebase/screenshot-firebase-admin.png"
+      alt="Firebase admin screenshot"
+      style="max-height:550px" />
+  </a>
+</p>
+
+<p>As you can see on this admin panel screenshot every marker is stored under the path
+<code>/maps/{mapId}/{markerId}</code>. It has a <code>coord</code> attribute with a latitude and a longitude
+as well as a timestamp to know its last update date.</p>
+
+<p>I've also set the security rules to avoid people fetching every map ids.
+You can only read and write on path <code>/maps/{mapId}</code> but not directly on <code>/maps</code>.</p>
+
+<pre><code class="json">{
+  "rules": {
+    "maps": {
+      "$map": {
+        ".read": true,
+        ".write": true
+      }
+    }
+  }
+}
+</code></pre>
+
+<p>The marker identifiers are unique per browser.
+I used a simple UUID generator function and save it in current <a href="https://developer.mozilla.org/en-US/docs/Web/API/Storage/LocalStorage">LocalStorage</a>.
+It allows user to refresh the page without creating another marker on the map.</p>
+
+<pre><code class="js">// Get current UUID
+var myUuid = localStorage.getItem('myUuid');
+
+// Create a new one for newcomers
+if (!myUuid) {
+  myUuid = guid();
+  localStorage.setItem('myUuid', myUuid);
+}
+</code></pre>
+
+<p>Now the main action is to get user's current location and store it on Firebase.
+I'm using the HTML5 Geolocation API which provide a <a href="https://developer.mozilla.org/en-US/docs/Web/API/Geolocation/Using_geolocation#Watching_the_current_position">watch function</a>
+to be notified of his positions.</p>
+
+<pre><code class="js">// Access to Firebase instance of current map
+var markersRef = new Firebase('https://locatme.firebaseio.com/maps/' + mapId);
+
+// Current position is stored under `myUuid` node
+navigator.geolocation.watchPosition(function(position) {
+  markersRef.child(myUuid).set({
+    coords: {
+      latitude: position.coords.latitude,
+      longitude: position.coords.longitude,
+    },
+    timestamp: Math.floor(Date.now() / 1000)
+  })
+})
+</code></pre>
+
+<p>Now the only thing left is to add markers on the map.
+To do this I listen on every events happening on the current map endpoint.
+In the example below <code>addPoint()</code>, <code>putPoint()</code> and <code>removePoint()</code> are
+simple functions to add, update or remove a marker in the map.</p>
+
+<pre><code class="js">markersRef.on('child_added', function(childSnapshot) {
+  var uuid = childSnapshot.key()
+  var position = childSnapshot.val()
+
+  addPoint(uuid, position)
+})
+
+markersRef.on('child_changed', function(childSnapshot) {
+  var uuid = childSnapshot.key()
+  var position = childSnapshot.val()
+
+  putPoint(uuid, position)
+})
+
+markersRef.on('child_removed', function(oldChildSnapshot) {
+  var uuid = oldChildSnapshot.key()
+
+  removePoint(uuid)
+})
+</code></pre>
+
+<p>That's pretty much it. It was easy, right?</p>
+
+<p>If you want to hack on it, checkout the code on <a href="https://github.com/MattKetmo/firemap/blob/v1.0.0/app.js">github.com/MattKetmo/firemap</a>.
+You can also find other demo applications of Firebase at <a href="https://firebase.github.io/">firebase.github.io</a>,
+like this <a href="https://geofire.firebaseapp.com/sfVehicles/index.html">real-time bus tracking in San Francisco</a>.</p>
+
+    </div>
+
+    <p class="BlogPostFooter Layout">
+      <a class="Button twitter js-twitter-share" title="Share this post" href="https://twitter.com/share?text=Realtime+geolocation+tracking+with+Firebase&url=https%3A%2F%2Fmoquet.net%2Fblog%2Frealtime-geolocation-tracking-firebase&via=MattKetmo&related=MattKetmo" target="_blank">
+        <i class="icon-twitter"></i>
+        <span>Share this post</span>
+      </a>
+    </p>
+
+    <section class="Comments Layout">
+  <div id="disqus_thread"></div>
+  <script type="text/javascript">
+    var disqus_shortname = 'mattketmo';
+
+    (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+</section>
+  </div>
+</article>
+
+<section class="Footer">
+  <div class="Layout">
+    <div class="Footer-column">
+      <i class="icon-logo"></i>
+      <a href="/">
+        Matthieu Moquet
+      </a>
+      —
+      <a href="https://twitter.com/MattKetmo" title="Twitter">
+        @MattKetmo
+      </a>
+    </div>
+
+    <div class="Footer-column">
+      <a href="https://twitter.com/MattKetmo" title="Twitter">
+        <i class="icon-twitter"></i>
+      </a>
+      <a href="https://github.com/MattKetmo" title="GitHub">
+        <i class="icon-github"></i>
+      </a>
+      <!--
+      <a href="https://plus.google.com/u/0/112952330011857430726" title="Google+" class="google" rel="author">
+        <i class="icon-googleplus"></i>
+      </a>
+      -->
+      <a href="http://fr.linkedin.com/in/matthieumoquet" title="LinkedIn">
+        <i class="icon-linkedin"></i>
+      </a>
+    </div>
+  </div>
+</section>
+
+
+    <script src="/assets/dist/js/main.js"></script>
+  
+  <script>
+  var _gaq=[['_setAccount','UA-23657373-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+</body>
+</html>

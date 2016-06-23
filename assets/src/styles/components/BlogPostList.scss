@@ -1,0 +1,37 @@
+.BlogPostList {
+  padding: 10px 0 30px;
+  background-color: #fff;
+
+  &-title {
+    @include font-size(22);
+    font-weight: 400;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: #444;
+    margin: 20px 0;
+  }
+
+  &-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  &-button {
+    margin-top: 15px;
+    text-align: center;
+  }
+
+  // Animations
+  transition: all 400ms ease-out;
+  transition-delay: 250ms;
+  transform: translateY(0);
+  -webkit-transform-origin: 0 0;
+  opacity: 1;
+
+  .preload &,
+  .postload & {
+    opacity: 0;
+    transform: translateY(100px);
+  }
+}

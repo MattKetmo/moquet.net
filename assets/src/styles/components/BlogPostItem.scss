@@ -1,0 +1,43 @@
+.BlogPostItem {
+  padding: 15px 0 20px;
+  border-bottom: 1px solid #eee;
+
+  &:first-of-type {
+    padding-top: 5px
+  }
+  &:last-of-type {
+    border-bottom: 0;
+    //padding-bottom: 5px
+  }
+
+  &-title {
+    @include font-size(38);
+    line-height: 1.1em;
+    margin: 0;
+
+    @media screen and (max-width: 650px) {
+      @include font-size(32);
+    }
+
+    a {
+      color: $color-dark;
+
+      &:hover {
+        color: $color-primary;
+      }
+    }
+  }
+
+  &-excerpt {
+    @include font-size(22);
+    font-weight: 300;
+    margin: 10px 0;
+  }
+
+  &-meta {
+    @include font-size(18);
+    // font-weight: 300;
+    color: #aaa;
+    margin: 0;
+  }
+}

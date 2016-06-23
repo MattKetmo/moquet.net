@@ -1,0 +1,18 @@
+.Image {
+  &.responsize {
+    max-width: 100%;
+  }
+
+  &.isCircle {
+    border-radius: 50%;
+  }
+
+  &.isRounded {
+    border-radius: 2px;
+  }
+
+  &.center {
+    margin: 0 auto;
+    display: block;
+  }
+}

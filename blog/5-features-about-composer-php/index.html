@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>5 features to know about Composer PHP</title>
+
+      <meta charset="UTF-8">
+  <meta content="IE=edge" http-equiv="X-UA-Compatible">
+  <meta content="Matthieu Moquet" name="author">
+  <meta content="Some tips on Composer about vendor install, caching and optimization. Also understand the &quot;lock file is not up to date with the latest changes&quot; warning." name="description">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  
+
+  
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@MattKetmo" />
+  <meta name="twitter:creator" content="@MattKetmo" />
+  <meta name="twitter:title" content="5 features to know about Composer PHP" />
+  <meta name="twitter:url" content="https://moquet.net/blog/5-features-about-composer-php/" />
+  <meta name="twitter:description" content="Some tips on Composer about vendor install, caching and optimization. Also understand the &amp;quot;lock file is not up to date with the latest changes&amp;quot; warning." />
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/public/favicon/apple-touch-icon-180x180.png">
+  <link rel="icon" type="image/png" href="/assets/public/favicon/favicon-192x192.png" sizes="192x192">
+  <link rel="icon" type="image/png" href="/assets/public/favicon/favicon-160x160.png" sizes="160x160">
+  <link rel="icon" type="image/png" href="/assets/public/favicon/favicon-96x96.png" sizes="96x96">
+  <link rel="icon" type="image/png" href="/assets/public/favicon/favicon-16x16.png" sizes="16x16">
+  <link rel="icon" type="image/png" href="/assets/public/favicon/favicon-32x32.png" sizes="32x32">
+
+  
+  <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="Matthieu Moquet">
+
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,900">
+  <link rel="stylesheet" type="text/css" href="/assets/dist/css/main.css">
+  </head>
+<body class="no-js">
+  <script>
+    document.body.classList.remove('no-js')
+    document.body.classList.add('js', 'preload')
+  </script>
+
+  <a href="/" class="BackLink isLight">
+  <i class="icon-logo"></i>
+</a>
+
+<article class="BlogPostContainer">
+  <header class="BlogPostHeader">
+    <div class="Layout">
+      <h1 class="BlogPostHeader-title">
+        5 features to know about Composer PHP
+      </h1>
+
+      <p class="BlogPostHeader-meta">
+        <time datetime="2013-03-14">
+          14 Mar 2013
+        </time>
+      </p>
+    </div>
+  </header>
+
+  <div class="BlogPostContentWrapper">
+    <div class="BlogPostContent Type Layout">
+      <p>Here are some tips you should know when using Composer the dependency manager for PHP.</p>
+
+<h2 id="1.-update-only-one-vendor">1. Update only one vendor</h2>
+
+<p>You want to update only one specific library, without updating all your
+dependencies? That's easy, just add the vendor name as argument to the
+<a href="http://getcomposer.org/doc/03-cli.md#update"><code>update</code></a> command:</p>
+
+<pre><code class="bash">$ composer update foo/bar
+</code></pre>
+
+<p>This will only install or update the library (plus its dependencies) and
+overwrite the <code>composer.lock</code>.</p>
+
+<p>Nevertheless, this is also very usefull to fix a warning message I'm sure you
+know very well:</p>
+
+<p><code class="pre" style="background:#ffe680;color:#303030">
+Warning: The lock file is not up to date with the latest changes in composer.json,
+you may be getting outdated dependencies, run update to update them.
+</code></p>
+
+<p><em>« Damn it composer, what's wrong with my vendors? »</em>. Don't panic! This is
+what you should expect if you just have edited the <code>composer.json</code> file. For
+instance, if you <strong>add or update a detail</strong> like the library description,
+authors, extra parameters, or even put a trailing whitespace, this will change
+the <strong>md5sum</strong> of the file. Then Composer will warn you if this hash differs from
+the one stored in the <code>composer.lock</code>.</p>
+
+<pre><code class="json">{
+    "hash": "0bcd1234f87401a9669eb5264b8e32a7",
+    "packages": [
+       "..."
+    ]
+}
+</code></pre>
+
+<p>Ok, so how to proceed? The <code>update</code> command is the one which update the lock file.
+But if I just add a description, I may not want to update any library.
+In that case use the <code>--lock</code> parameter.</p>
+
+<pre><code class="bash">$ composer update --lock
+</code></pre>
+
+<p>Thus Composer won't upgrade your vendors.
+It will <strong>only update the lock file hash</strong> to suppress the warning.
+However it may also install the packages you have not yet installed
+(if you have not done the <code>install</code> command previously), but no package upgrade is performed.</p>
+
+<p>Note that trying to update a vendor that doesn't exist will have the same effect.</p>
+
+<pre><code class="bash">$ composer update foobar
+</code></pre>
+
+<h2 id="2.-add-a-library-without-editing-your-composer.json">2. Add a library without editing your composer.json</h2>
+
+<p>To add a new vendor for your project, you can manually add a new line into your
+<code>composer.json</code> then use the previous method to <strong>only</strong> install/update this vendor.
+But there is a much convenient way to proceed.</p>
+
+<p>The <a href="http://getcomposer.org/doc/03-cli.md#require"><code>require</code></a> command will make
+those actions for you:</p>
+
+<pre><code class="bash">$ composer require "foo/bar:1.0.0"
+</code></pre>
+
+<p>If you omit to specify the version Composer will <strong>fetch the last stable</strong>.</p>
+
+<p>This action can also be used to quickly start a new project. The
+<a href="http://getcomposer.org/doc/03-cli.md#init"><code>init</code></a> command include the
+<code>--require</code> option which will write the <code>composer.json</code> file with the given
+vendor(s) (note the <code>-n</code> option to not ask any interactive question):</p>
+
+<pre><code class="bash">$ composer init --require="foo/bar:1.0.0" -n
+$ cat composer.json
+{
+    "require": {
+        "foo/bar": "1.0.0"
+    }
+}
+</code></pre>
+
+<h2 id="3.-easy-fork">3. Easy fork</h2>
+
+<p>Speaking about <code>composer.json</code> initialization, did you ever used the
+<a href="http://getcomposer.org/doc/03-cli.md#create-project"><code>create-project</code></a>
+command?</p>
+
+<pre><code class="bash">$ composer create-project doctrine/orm path 2.2.0
+</code></pre>
+
+<p>This will automatically clone the repository and checkout the given version.
+That may be usefull to quickly clone a library without searching the original
+URI of the sources.</p>
+
+<h2 id="4.-prefer-dist-packages-and-cache-them">4. Prefer dist packages and cache them</h2>
+
+<p>Did you know that <strong>dist packages are now cached</strong> in your home directory?</p>
+
+<p>I previously <a href="/blog/proxify-composer-php/">wrote an article</a>
+to compare solutions for caching vendors between multiple projects to save time
+when cloning a repository. I even created <a href="https://github.com/mattketmo/stone">my own command</a> to clone vendors
+into your global composer configuration to reuse it when necessary.</p>
+
+<p>Since <a href="https://github.com/composer/composer/pull/1282">November 2012</a>, Composer
+automatically stores the archive when you download a dist package. By default,
+dist packages are used for tagged versions, for instance <code>"symfony/symfony":
+"v2.1.4"</code>, or even a wildcard or range version like <code>"2.1.*"</code> or
+<code>"&gt;=2.2,&lt;2.3-dev"</code> if you use <code>stable</code> as your <code>minimum-stability</code>.</p>
+
+<p>But dist packages can also work with branches (ie. <code>dev-master</code>) as Github
+allows to download an archive from a git reference. To force downloading
+archive instead of cloning sources, use the <code>--prefer-dist</code> option included in
+the <code>install</code> and <code>update</code> command.</p>
+
+<p>Here is a demonstration (I use the <code>--profile</code> option to show the execution
+time):</p>
+
+<pre><code class="nohighlight">$ composer init --require="twig/twig:1.*" -n --profile
+Memory usage: 3.94MB (peak: 4.08MB), time: 0s
+
+$ composer install --profile
+Loading composer repositories with package information
+Installing dependencies
+  - Installing twig/twig (v1.12.2)
+    Downloading: 100%
+
+Writing lock file
+Generating autoload files
+Memory usage: 10.13MB (peak: 12.65MB), time: 4.71s
+
+$ rm -rf vendor
+
+$ composer install --profile
+Loading composer repositories with package information
+Installing dependencies from lock file
+  - Installing twig/twig (v1.12.2)
+    Loading from cache
+
+Generating autoload files
+Memory usage: 4.96MB (peak: 5.57MB), time: 0.45s
+</code></pre>
+
+<p>Here, the archive for <code>twig/twig:1.12.2</code> has been stored into
+<code>~/.composer/cache/files/twig/twig/1.12.2.0-v1.12.2.zip</code> and used the second
+time I reinstalled the package.</p>
+
+<h2 id="5.-prefer-source-to-edit-your-vendors">5. Prefer source to edit your vendors</h2>
+
+<p>For practical reasons, you may prefer cloning sources instead of downloading
+packages. For instance, this can be useful to edit a library directly in the
+vendor directory to test the behaviour of your application with that change
+(eg. a bug fix). The <code>--prefer-source</code> option will force cloning sources
+instead of downloading an archive:</p>
+
+<pre><code class="nohighlight">$ composer update symfony/yaml --prefer-source
+</code></pre>
+
+<p>Then to see modified files in your vendor:</p>
+
+<pre><code class="nohighlight">$ composer status -v
+You have changes in the following dependencies:
+/path/to/app/vendor/symfony/yaml/Symfony/Component/Yaml:
+    M Dumper.php
+</code></pre>
+
+<p>Composer will also tells you when you try to update a vendor that has been
+modified, and asks if you want to discard the changes:</p>
+
+<pre><code class="nohighlight">$ composer update
+Loading composer repositories with package information
+Updating dependencies
+  - Updating symfony/symfony v2.2.0 (v2.2.0- =&gt; v2.2.0)
+    The package has modified files:
+    M Dumper.php
+    Discard changes [y,n,v,s,?]?
+</code></pre>
+
+<h2 id="be-ready-for-production">Be ready for production</h2>
+
+<p>Just a reminder, before deploying your code in production, don't forget to optimize
+the autoloader:</p>
+
+<pre><code class="nohighlight">$ composer dump-autoload --optimize
+</code></pre>
+
+<p>This can also be used while installing packages with the <code>--optimize-autoloader</code> option.
+Without that optimization, you may notice a <a href="http://www.ricardclau.com/2013/03/apc-vs-zend-optimizer-benchmarks-with-symfony2/">performance loss from 20 to 25%</a>.</p>
+
+<p>Of course, if you need any help or details for a command, read to the
+<a href="http://getcomposer.org">official documentation</a> or watch this awesome
+<a href="http://composer.json.jolicode.com/">interactive cheatsheet</a> made by JoliCode.</p>
+
+    </div>
+
+    <p class="BlogPostFooter Layout">
+      <a class="Button twitter js-twitter-share" title="Share this post" href="https://twitter.com/share?text=5+features+to+know+about+Composer+PHP&url=https%3A%2F%2Fmoquet.net%2Fblog%2F5-features-about-composer-php&via=MattKetmo&related=MattKetmo" target="_blank">
+        <i class="icon-twitter"></i>
+        <span>Share this post</span>
+      </a>
+    </p>
+
+    <section class="Comments Layout">
+  <div id="disqus_thread"></div>
+  <script type="text/javascript">
+    var disqus_shortname = 'mattketmo';
+
+    (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+</section>
+  </div>
+</article>
+
+<section class="Footer">
+  <div class="Layout">
+    <div class="Footer-column">
+      <i class="icon-logo"></i>
+      <a href="/">
+        Matthieu Moquet
+      </a>
+      —
+      <a href="https://twitter.com/MattKetmo" title="Twitter">
+        @MattKetmo
+      </a>
+    </div>
+
+    <div class="Footer-column">
+      <a href="https://twitter.com/MattKetmo" title="Twitter">
+        <i class="icon-twitter"></i>
+      </a>
+      <a href="https://github.com/MattKetmo" title="GitHub">
+        <i class="icon-github"></i>
+      </a>
+      <!--
+      <a href="https://plus.google.com/u/0/112952330011857430726" title="Google+" class="google" rel="author">
+        <i class="icon-googleplus"></i>
+      </a>
+      -->
+      <a href="http://fr.linkedin.com/in/matthieumoquet" title="LinkedIn">
+        <i class="icon-linkedin"></i>
+      </a>
+    </div>
+  </div>
+</section>
+
+
+    <script src="/assets/dist/js/main.js"></script>
+  
+  <script>
+  var _gaq=[['_setAccount','UA-23657373-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+</body>
+</html>

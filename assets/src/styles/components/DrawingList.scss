@@ -1,0 +1,53 @@
+.DrawingList {
+  padding: 10px 0 0;
+  //background-color: #e5e5e5;
+  background-color: #258bcb;
+
+  &-title {
+    @include font-size(22);
+    font-weight: 400;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    //color: #444;
+    color: #fafafa;
+    margin: 20px 0;
+  }
+
+  &-list {
+    @include clearfix();
+
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    //border: 1px solid #eee;
+    //border-right: 1px solid #ddd;
+    //border-bottom: 1px solid #ccc;
+    //border-radius: 2px;
+
+    max-width: 1700px;
+    margin: auto;
+    background-color: #fff;
+  }
+
+  &-description {
+    @include font-size(18);
+    line-height: 1.4em;
+    margin-bottom: 30px;
+    color: #fafafa;
+
+    a {
+      color: #fafafa;
+      //font-weight: bold;
+      text-decoration: underline;
+
+      &:hover {
+        color: #fff;
+      }
+    }
+  }
+
+  &-button {
+    margin-top: 25px;
+    text-align: center;
+  }
+}

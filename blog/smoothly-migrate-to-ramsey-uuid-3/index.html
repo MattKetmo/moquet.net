@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Smoothly migrate to ramsey/uuid 3.x</title>
+
+      <meta charset="UTF-8">
+  <meta content="IE=edge" http-equiv="X-UA-Compatible">
+  <meta content="Matthieu Moquet" name="author">
+  <meta content="Presentation of the mattketmo/uuid-2x-bridge hack to allow using ramsey/uuid:3.x even if one of your dependencies requires version 2.x" name="description">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  
+
+  
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@MattKetmo" />
+  <meta name="twitter:creator" content="@MattKetmo" />
+  <meta name="twitter:title" content="Smoothly migrate to ramsey/uuid 3.x" />
+  <meta name="twitter:url" content="https://moquet.net/blog/smoothly-migrate-to-ramsey-uuid-3/" />
+  <meta name="twitter:description" content="Presentation of the mattketmo/uuid-2x-bridge hack to allow using ramsey/uuid:3.x even if one of your dependencies requires version 2.x" />
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/public/favicon/apple-touch-icon-180x180.png">
+  <link rel="icon" type="image/png" href="/assets/public/favicon/favicon-192x192.png" sizes="192x192">
+  <link rel="icon" type="image/png" href="/assets/public/favicon/favicon-160x160.png" sizes="160x160">
+  <link rel="icon" type="image/png" href="/assets/public/favicon/favicon-96x96.png" sizes="96x96">
+  <link rel="icon" type="image/png" href="/assets/public/favicon/favicon-16x16.png" sizes="16x16">
+  <link rel="icon" type="image/png" href="/assets/public/favicon/favicon-32x32.png" sizes="32x32">
+
+  
+  <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="Matthieu Moquet">
+
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,900">
+  <link rel="stylesheet" type="text/css" href="/assets/dist/css/main.css">
+  </head>
+<body class="no-js">
+  <script>
+    document.body.classList.remove('no-js')
+    document.body.classList.add('js', 'preload')
+  </script>
+
+  <a href="/" class="BackLink isLight">
+  <i class="icon-logo"></i>
+</a>
+
+<article class="BlogPostContainer">
+  <header class="BlogPostHeader">
+    <div class="Layout">
+      <h1 class="BlogPostHeader-title">
+        Smoothly migrate to ramsey/uuid 3.x
+      </h1>
+
+      <p class="BlogPostHeader-meta">
+        <time datetime="2015-12-23">
+          23 Dec 2015
+        </time>
+      </p>
+    </div>
+  </header>
+
+  <div class="BlogPostContentWrapper">
+    <div class="BlogPostContent Type Layout">
+      <p>When dealing with UUID generation in PHP, developers usually decide to use the famous <a href="https://github.com/ramsey/uuid">ramsey/uuid</a> library.
+95% of the time the only method used is <code>Ramsey\Uuid\Uuid::uuid4()</code> which generates a random UUID (the <a href="https://en.wikipedia.org/wiki/Universally_unique_identifier#Version_4_.28random.29">version 4</a> in the UUID specification). Despite I'm not fan of static methods, this does the job pretty well.</p>
+
+<h2 id="the-namespace-issue">The namespace issue</h2>
+
+<p>A lot of applications and libraries started to use <code>ramsey/uuid</code> in version 2. At that time the package had a different name (<code>rhumsaa/uuid</code>) and every class was under the <code>Rhumsaa</code> namespace.
+<a href="https://github.com/ramsey">Ben Ramsey</a> renamed the package first (the <code>rhumsaa/uuid</code> name is now deprecated) but only changed namespace since version 3.0. Which means libraries started using the <code>ramsey/uuid</code> with version 2.x (the <code>Rhumsaa</code> namespace) and make it incompatible with version 3.x (the <code>Ramsey</code> namespace).</p>
+
+<p>Thus if you want to use <code>ramsey/uuid: ^3.0</code> but one of your dependencies is still using version <code>2.x</code> then you're screwed.
+If the package <code>ramsey/uuid</code> was created for versions <code>3.0+</code> <strong>only</strong> we could have had both requirements (like Guzzle did between version 3 and 4). But unfortunatly that's not the case.</p>
+
+<p>Updating version of <code>ramsey/uuid</code> in a project is an easy task: just grep and sed the <code>Rhumsaa</code> namespace. But if you change the requirements on a library which uses it on its public API, then you're creating a <strong>non-BC change</strong> and need to publish a new major version of your library. That change may have huge impact on users who depend on it. And if those users depend on another lib which requires a different version of the uuid lib then it's a mess. They will need to coordinate all updates at the same time.</p>
+
+<p>However it looks pretty easy to resolve this issue. We "just" need to ensure the <code>Rhumsaa\Uuid\Uuid</code> class still exists.</p>
+
+<h2 id="the-hack">The hack</h2>
+
+<p>To address this issue I created a tiny composer package which exposes the <code>Rhumsaa\Uuid\Uuid</code> class (which simply inherit of <code>Ramsey\Uuid\Uuid</code>) and declares to composer it can replace the <code>ramsey/uuid:2.x</code> package. The package is available at <a href="https://github.com/MattKetmo/uuid-2x-bridge"><code>mattketmo/uuid-2x-bridge</code></a>.</p>
+
+<p>Then if you want to use <code>ramsey/uuid:^3.0</code> in your app but one of your dependencies is still using <code>Rhumsaa\Uuid\Uuid</code>, then simply run:</p>
+
+<pre><code class="bash">composer require "mattketmo/uuid-2x-bridge:*@dev"
+</code></pre>
+
+<p>Note that will only works if the libraries just need the main <code>Uuid</code> class. For Doctrine type and console component the packages <a href="https://github.com/ramsey/uuid-doctrine"><code>uuid-doctrine</code></a> and <a href="https://github.com/ramsey/uuid-console"><code>uuid-console</code></a> can be installed separately.</p>
+
+<p>You can read the discussion in this <a href="https://github.com/prooph/common/pull/47">pull request</a> which led me to do this hack. It's not very beautiful, but it works.</p>
+
+<h2 id="a-note-on-package-dependencies">A note on package dependencies</h2>
+
+<p>Now that users have a way to not wait their dependencies update the <code>ramsey/uuid</code> requirement, all libraries can take the time for their next major version release to do the update.</p>
+
+<p>But I want to point out the risk for library maintainers to depend on specific version of a package.
+If you own a widly used library, try as much a possible to not require other libraries directly. Most of the time an abstraction or an adapter will be enough. For instance the team behind the <a href="https://github.com/qandidate-labs/broadway">Broadway</a> library created the <a href="https://github.com/qandidate-labs/broadway-uuid-generator">broadway-uuid-generator</a> to not depend direclty on Ramsey's implementation (and also to not rely on a static method call).</p>
+
+<p>Even if it won't work for every usage, try to minimalize that risk. Ultimately that's what some <a href="http://www.php-fig.org/psr/psr-3/">P</a><a href="http://www.php-fig.org/psr/psr-6/">S</a><a href="http://www.php-fig.org/psr/psr-7/">R</a> are for, <a href="http://cdn.meme.am/instances/500x/63628685.jpg">isn't it?</a> ;).</p>
+
+<p>In other words, <strong>think twice before forcing to your users a new dependency</strong>.</p>
+
+    </div>
+
+    <p class="BlogPostFooter Layout">
+      <a class="Button twitter js-twitter-share" title="Share this post" href="https://twitter.com/share?text=Smoothly+migrate+to+ramsey%2Fuuid+3.x&url=https%3A%2F%2Fmoquet.net%2Fblog%2Fsmoothly-migrate-to-ramsey-uuid-3&via=MattKetmo&related=MattKetmo" target="_blank">
+        <i class="icon-twitter"></i>
+        <span>Share this post</span>
+      </a>
+    </p>
+
+    <section class="Comments Layout">
+  <div id="disqus_thread"></div>
+  <script type="text/javascript">
+    var disqus_shortname = 'mattketmo';
+
+    (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+</section>
+  </div>
+</article>
+
+<section class="Footer">
+  <div class="Layout">
+    <div class="Footer-column">
+      <i class="icon-logo"></i>
+      <a href="/">
+        Matthieu Moquet
+      </a>
+      —
+      <a href="https://twitter.com/MattKetmo" title="Twitter">
+        @MattKetmo
+      </a>
+    </div>
+
+    <div class="Footer-column">
+      <a href="https://twitter.com/MattKetmo" title="Twitter">
+        <i class="icon-twitter"></i>
+      </a>
+      <a href="https://github.com/MattKetmo" title="GitHub">
+        <i class="icon-github"></i>
+      </a>
+      <!--
+      <a href="https://plus.google.com/u/0/112952330011857430726" title="Google+" class="google" rel="author">
+        <i class="icon-googleplus"></i>
+      </a>
+      -->
+      <a href="http://fr.linkedin.com/in/matthieumoquet" title="LinkedIn">
+        <i class="icon-linkedin"></i>
+      </a>
+    </div>
+  </div>
+</section>
+
+
+    <script src="/assets/dist/js/main.js"></script>
+  
+  <script>
+  var _gaq=[['_setAccount','UA-23657373-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+</body>
+</html>

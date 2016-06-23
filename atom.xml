@@ -1,0 +1,1540 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title><![CDATA[Matthieu Moquet (@MattKetmo) - Personal Pages]]></title>
+  <link href="https://moquet.net/atom.xml" rel="self"/>
+  <link href="https://moquet.net/"/>
+  <updated>2016-06-23T09:43:11+00:00</updated>
+  <id>https://moquet.net/</id>
+      <author>
+      <name><![CDATA[Matthieu Moquet]]></name>      <email><![CDATA[matthieu@moquet.net]]></email>    </author>
+    <generator uri="http://sculpin.io/">Sculpin</generator>
+      <entry>
+      <title type="html"><![CDATA[Smoothly migrate to ramsey/uuid 3.x]]></title>
+      <link href="https://moquet.net/blog/smoothly-migrate-to-ramsey-uuid-3"/>
+      <updated>2015-12-23T00:00:00+00:00</updated>
+      <id>https://moquet.net/blog/smoothly-migrate-to-ramsey-uuid-3</id>
+      <content type="html"><![CDATA[<p>When dealing with UUID generation in PHP, developers usually decide to use the famous <a href="https://github.com/ramsey/uuid">ramsey/uuid</a> library.
+95% of the time the only method used is <code>Ramsey\Uuid\Uuid::uuid4()</code> which generates a random UUID (the <a href="https://en.wikipedia.org/wiki/Universally_unique_identifier#Version_4_.28random.29">version 4</a> in the UUID specification). Despite I'm not fan of static methods, this does the job pretty well.</p>
+
+<h2 id="the-namespace-issue">The namespace issue</h2>
+
+<p>A lot of applications and libraries started to use <code>ramsey/uuid</code> in version 2. At that time the package had a different name (<code>rhumsaa/uuid</code>) and every class was under the <code>Rhumsaa</code> namespace.
+<a href="https://github.com/ramsey">Ben Ramsey</a> renamed the package first (the <code>rhumsaa/uuid</code> name is now deprecated) but only changed namespace since version 3.0. Which means libraries started using the <code>ramsey/uuid</code> with version 2.x (the <code>Rhumsaa</code> namespace) and make it incompatible with version 3.x (the <code>Ramsey</code> namespace).</p>
+
+<p>Thus if you want to use <code>ramsey/uuid: ^3.0</code> but one of your dependencies is still using version <code>2.x</code> then you're screwed.
+If the package <code>ramsey/uuid</code> was created for versions <code>3.0+</code> <strong>only</strong> we could have had both requirements (like Guzzle did between version 3 and 4). But unfortunatly that's not the case.</p>
+
+<p>Updating version of <code>ramsey/uuid</code> in a project is an easy task: just grep and sed the <code>Rhumsaa</code> namespace. But if you change the requirements on a library which uses it on its public API, then you're creating a <strong>non-BC change</strong> and need to publish a new major version of your library. That change may have huge impact on users who depend on it. And if those users depend on another lib which requires a different version of the uuid lib then it's a mess. They will need to coordinate all updates at the same time.</p>
+
+<p>However it looks pretty easy to resolve this issue. We "just" need to ensure the <code>Rhumsaa\Uuid\Uuid</code> class still exists.</p>
+
+<h2 id="the-hack">The hack</h2>
+
+<p>To address this issue I created a tiny composer package which exposes the <code>Rhumsaa\Uuid\Uuid</code> class (which simply inherit of <code>Ramsey\Uuid\Uuid</code>) and declares to composer it can replace the <code>ramsey/uuid:2.x</code> package. The package is available at <a href="https://github.com/MattKetmo/uuid-2x-bridge"><code>mattketmo/uuid-2x-bridge</code></a>.</p>
+
+<p>Then if you want to use <code>ramsey/uuid:^3.0</code> in your app but one of your dependencies is still using <code>Rhumsaa\Uuid\Uuid</code>, then simply run:</p>
+
+<pre><code class="bash">composer require "mattketmo/uuid-2x-bridge:*@dev"
+</code></pre>
+
+<p>Note that will only works if the libraries just need the main <code>Uuid</code> class. For Doctrine type and console component the packages <a href="https://github.com/ramsey/uuid-doctrine"><code>uuid-doctrine</code></a> and <a href="https://github.com/ramsey/uuid-console"><code>uuid-console</code></a> can be installed separately.</p>
+
+<p>You can read the discussion in this <a href="https://github.com/prooph/common/pull/47">pull request</a> which led me to do this hack. It's not very beautiful, but it works.</p>
+
+<h2 id="a-note-on-package-dependencies">A note on package dependencies</h2>
+
+<p>Now that users have a way to not wait their dependencies update the <code>ramsey/uuid</code> requirement, all libraries can take the time for their next major version release to do the update.</p>
+
+<p>But I want to point out the risk for library maintainers to depend on specific version of a package.
+If you own a widly used library, try as much a possible to not require other libraries directly. Most of the time an abstraction or an adapter will be enough. For instance the team behind the <a href="https://github.com/qandidate-labs/broadway">Broadway</a> library created the <a href="https://github.com/qandidate-labs/broadway-uuid-generator">broadway-uuid-generator</a> to not depend direclty on Ramsey's implementation (and also to not rely on a static method call).</p>
+
+<p>Even if it won't work for every usage, try to minimalize that risk. Ultimately that's what some <a href="http://www.php-fig.org/psr/psr-3/">P</a><a href="http://www.php-fig.org/psr/psr-6/">S</a><a href="http://www.php-fig.org/psr/psr-7/">R</a> are for, <a href="http://cdn.meme.am/instances/500x/63628685.jpg">isn't it?</a> ;).</p>
+
+<p>In other words, <strong>think twice before forcing to your users a new dependency</strong>.</p>
+]]></content>
+    </entry>
+      <entry>
+      <title type="html"><![CDATA[Realtime geolocation tracking with Firebase]]></title>
+      <link href="https://moquet.net/blog/realtime-geolocation-tracking-firebase"/>
+      <updated>2015-04-16T00:00:00+00:00</updated>
+      <id>https://moquet.net/blog/realtime-geolocation-tracking-firebase</id>
+      <content type="html"><![CDATA[<p>I went recently to Google Paris offices to attend an <a href="http://www.meetup.com/AngularJS-Paris/events/221083701/">Angular meetup</a>
+sponsorised by <a href="https://www.firebase.com/">Firebase</a>.
+Although I've already heard about Firebase in the past (mainly when they got <a href="https://www.firebase.com/blog/2014-10-21-firebase-joins-google.html">acquired by Google</a>)
+I've never tried it myself to see what it is capable of.
+Here is a quick experiment I did to play with it.</p>
+
+<p class="banner-container">
+  <img
+    class="Image center responsize isRounded"
+    src="/uploads/blog/2015-04-16-realtime-geolocation-tracking-firebase/locatme-banner.png"
+    alt="Locat.me banner"/>
+</p>
+
+<h2 id="firebase">Firebase</h2>
+
+<p>Firebase is a <strong>Database as a Service</strong> which lets you <strong>store and synchronize</strong> data in (near) real-time.</p>
+
+<p>As it focuses mostly on frontend and mobile apps you will find an <strong>SDK</strong> for Android, iOS and JavaScript.
+But it also exposes a <strong>REST API</strong> so you can do basic CRUD operations from your backend.</p>
+
+<p>The SDK allows you to establish a connection to their backend and receive notifications as soon as
+data is updated. By "real-time" they ensure you to receive those events in less than 200ms.
+They use <a href="https://developer.mozilla.org/fr/docs/WebSockets">WebSockets</a> if available or fallback
+to long polling if not.</p>
+
+<p>They also propose other features like <a href="https://www.firebase.com/docs/web/guide/offline-capabilities.html">offline capabilities</a>
+(similar to what PouchDB offers) and delegated Authentication (via Google/Twitter/Facebook connect).
+I won't go much into details but invite you to <a href="https://www.firebase.com/docs/">read the docs</a>
+or signup to try the <a href="https://www.firebase.com/how-it-works.html">quick tutorial</a> for more details.</p>
+
+<h2 id="introducing-locat.me">Introducing Locat.me</h2>
+
+<p>By using such technology you can develop an Uber-like application very easily, they said.
+I was eager to test it.
+Their admin dashboard is quite intuitive and the API is so simple that you can do powerful
+thing quickly.</p>
+
+<p>My proof of concept is very basic but it may be useful in some situations.</p>
+
+<p>It's an app you can use to <strong>easily locate your friends</strong> when you have an appointment
+but you don't have an accurate meeting point.
+You know they are close but you have difficulties in explaining where you are exactly
+(it could be a parallel street or just somewhere else in the park).</p>
+
+<p>How the app works is very simple:</p>
+
+<ul>
+<li><strong>go to</strong> <a href="http://locat.me/">locat.me</a> with a browser and <strong>accept</strong> to share your current position
+(it uses the HTML5 <a href="https://developer.mozilla.org/en-US/docs/Web/API/Geolocation/Using_geolocation">Geolocation API</a>)</li>
+<li><strong>copy</strong> the URL (a unique id has been generated in the hash) and <strong>send</strong> it to your friend
+(eg. use the "Share" option from your browser to send an SMS)</li>
+</ul>
+
+<p>And that's it!</p>
+
+<p>Now each time someone will go on that URL a new (anonymous) marker will be added
+and the map will be refreshed without you do anything.
+Blue point is your position while orange ones are others.</p>
+
+<p>
+  <a href="/uploads/blog/2015-04-16-realtime-geolocation-tracking-firebase/locatme-screenshot.png">
+    <img
+      class="Image center responsize"
+      src="/uploads/blog/2015-04-16-realtime-geolocation-tracking-firebase/locatme-screenshot.png"
+      alt="Locat.me Screenshot"
+      width="300px" />
+  </a>
+</p>
+
+<p>You can also use a custom identifier to share. Useful for named events
+(for instance <a href="http://locat.me/#my_meetup">locat.me/#my_meetup</a> or even <a href="http://locat.me/#MattKetmo">locat.me/#MattKetmo</a>)</p>
+
+<div class="note warning">
+  <p>
+    Note that since I'm using the free hacker plan of Firebase the maximum of
+    connected users simultaneously is limited to 50.
+  </p>
+</div>
+
+<div class="note info">
+  <p>
+    About the domain name, this is a gift from Gandi which offered some free domains for their 15th birthday.
+    As I won a <code>.me</code> I decided to use it for that occasion (unfortunatly every cool and short domain names
+    were already taken so I needed to sacrifice the final "e" letter).
+  </p>
+</div>
+
+<h2 id="just-code-it">Just code it</h2>
+
+<p>Now that I explained the main idea it's time to play with it.
+The code is really trivial.
+I think it took me less than an hour while watching a stupid movie on TV to get something working.</p>
+
+<p>To display the map and the markers I used <a href="https://www.mapbox.com/">Mapbox</a>.
+First time I played with it too.
+But my usage is very simple. This is what I just need to know:</p>
+
+<pre><code class="js">// Load the map canvas in the #map block
+var map = L.mapbox.map('map', 'examples.map-i86nkdio')
+
+map.on('ready', function() {
+
+  // Add a new marker on the map
+  var marker = L.marker([latitude, longitude]).addTo(map)
+
+  // Update the marker position
+  marker.setLatLng([latitude, longitude])
+
+})
+</code></pre>
+
+<p>Second thing I need to handle is the URL hash (ie. the map identifier).
+Here I just generate a new one unless it already exists.</p>
+
+<pre><code class="js">// Read the current hash
+var mapId = location.hash.replace(/^#/, '');
+
+// If not set generate a new one
+if (!mapId) {
+  mapId = (Math.random() + 1).toString(36).substring(2, 12);
+  location.hash = mapId;
+}
+</code></pre>
+
+<p>This hash will help me to group markers together.
+I will use Firebase to read and write the geolocations under the <code>/maps/{mapId}</code> endpoint.</p>
+
+<p>
+  <a href="/uploads/blog/2015-04-16-realtime-geolocation-tracking-firebase/screenshot-firebase-admin.png">
+    <img
+      class="Image center responsize"
+      src="/uploads/blog/2015-04-16-realtime-geolocation-tracking-firebase/screenshot-firebase-admin.png"
+      alt="Firebase admin screenshot"
+      style="max-height:550px" />
+  </a>
+</p>
+
+<p>As you can see on this admin panel screenshot every marker is stored under the path
+<code>/maps/{mapId}/{markerId}</code>. It has a <code>coord</code> attribute with a latitude and a longitude
+as well as a timestamp to know its last update date.</p>
+
+<p>I've also set the security rules to avoid people fetching every map ids.
+You can only read and write on path <code>/maps/{mapId}</code> but not directly on <code>/maps</code>.</p>
+
+<pre><code class="json">{
+  "rules": {
+    "maps": {
+      "$map": {
+        ".read": true,
+        ".write": true
+      }
+    }
+  }
+}
+</code></pre>
+
+<p>The marker identifiers are unique per browser.
+I used a simple UUID generator function and save it in current <a href="https://developer.mozilla.org/en-US/docs/Web/API/Storage/LocalStorage">LocalStorage</a>.
+It allows user to refresh the page without creating another marker on the map.</p>
+
+<pre><code class="js">// Get current UUID
+var myUuid = localStorage.getItem('myUuid');
+
+// Create a new one for newcomers
+if (!myUuid) {
+  myUuid = guid();
+  localStorage.setItem('myUuid', myUuid);
+}
+</code></pre>
+
+<p>Now the main action is to get user's current location and store it on Firebase.
+I'm using the HTML5 Geolocation API which provide a <a href="https://developer.mozilla.org/en-US/docs/Web/API/Geolocation/Using_geolocation#Watching_the_current_position">watch function</a>
+to be notified of his positions.</p>
+
+<pre><code class="js">// Access to Firebase instance of current map
+var markersRef = new Firebase('https://locatme.firebaseio.com/maps/' + mapId);
+
+// Current position is stored under `myUuid` node
+navigator.geolocation.watchPosition(function(position) {
+  markersRef.child(myUuid).set({
+    coords: {
+      latitude: position.coords.latitude,
+      longitude: position.coords.longitude,
+    },
+    timestamp: Math.floor(Date.now() / 1000)
+  })
+})
+</code></pre>
+
+<p>Now the only thing left is to add markers on the map.
+To do this I listen on every events happening on the current map endpoint.
+In the example below <code>addPoint()</code>, <code>putPoint()</code> and <code>removePoint()</code> are
+simple functions to add, update or remove a marker in the map.</p>
+
+<pre><code class="js">markersRef.on('child_added', function(childSnapshot) {
+  var uuid = childSnapshot.key()
+  var position = childSnapshot.val()
+
+  addPoint(uuid, position)
+})
+
+markersRef.on('child_changed', function(childSnapshot) {
+  var uuid = childSnapshot.key()
+  var position = childSnapshot.val()
+
+  putPoint(uuid, position)
+})
+
+markersRef.on('child_removed', function(oldChildSnapshot) {
+  var uuid = oldChildSnapshot.key()
+
+  removePoint(uuid)
+})
+</code></pre>
+
+<p>That's pretty much it. It was easy, right?</p>
+
+<p>If you want to hack on it, checkout the code on <a href="https://github.com/MattKetmo/firemap/blob/v1.0.0/app.js">github.com/MattKetmo/firemap</a>.
+You can also find other demo applications of Firebase at <a href="https://firebase.github.io/">firebase.github.io</a>,
+like this <a href="https://geofire.firebaseapp.com/sfVehicles/index.html">real-time bus tracking in San Francisco</a>.</p>
+]]></content>
+    </entry>
+      <entry>
+      <title type="html"><![CDATA[SymfonyCon Warsaw 2013 in a nutshell]]></title>
+      <link href="https://moquet.net/blog/symfonycon-warsaw-2013"/>
+      <updated>2013-12-16T00:00:00+00:00</updated>
+      <id>https://moquet.net/blog/symfonycon-warsaw-2013</id>
+      <content type="html"><![CDATA[<p>The first <a href="http://warsaw2013.symfony.com/">SymfonyCon</a>
+in Warsaw has just finished, and I must admit that was great.
+Congrats to the SensioLabs team and especially
+<a href="https://twitter.com/ansobach">Anne-Sophie</a> for the organization.
+The <a href="http://warsaw2013.symfony.com/venue">venue was incredible</a>
+with a <a href="https://twitter.com/kriswallsmith/status/411050365753507840">big conference room</a>,
+and more than 600 people were attending the main talks.
+First time a Symfony conference is sold out more than two weeks before the due date.</p>
+
+<p>Here is an extract of the notes I took during those two days.
+As usual, talks were splitted into two tracks.
+So I have nothing to say for half ones, except a link to the <strong>slides</strong>.</p>
+
+<p><em>By the way, if you find a typo, feel free to <a href="https://github.com/MattKetmo/moquet.net/blob/gh-pages/_posts/2013-12-13-symfonycon-warsaw-2013.markdown">fork and edit this post</a>,
+or <a href="https://twitter.com/MattKetmo">ping me on Twitter</a>.
+Thank you!</em></p>
+
+<h2 id="opening-keynote">Opening keynote</h2>
+
+<p><em>Fabien Potencier</em> — <a href="https://speakerdeck.com/fabpot/symfonycon-2013-keynote">slides</a></p>
+
+<p>It's a ritual, every Symfony conference starts by <a href="https://twitter.com/fabpot">fabpot</a>'s keynote.
+Fabien began with some statistics about famous PHP libraries around
+the Symfony ecosystem, and reminded us last features of the <a href="http://symfony.com">symfony.com</a>
+website like the <a href="http://symfony.com/projects">projects page</a>,
+the easy way to edit page and the <a href="http://symfony.com/roadmap">roapmap notifications</a>.</p>
+
+<p>Then, as the Symfony "<a href="https://twitter.com/fabpot/status/6619944506630144">lead merger</a>",
+he spoke about his way to process pull-requests on GitHub.
+He wrote a <code>gh</code> command-line with nice features like the ability to change PRs'
+destination branch — you know, bug fixes must be done on the oldest
+maintained branch while new features on master —, squash git commits,
+update commit message with a label and add the full issue thread.
+This looks to be an amazing swiss knife and I hope it will be open-sourced shortly.</p>
+
+<p>Lastly, he introduces the launch of a new tool called <a href="http://ubot.io">ubot.io</a>
+— <em>edit 2013-12-18:</em> it has been renamed to <a href="http://fabbot.io/">fabbot.io</a>.
+This is mainly an automatisation tool to detect typos and CS on pull-requests.
+Think of it as bot combining both <a href="https://github.com/stof">stof</a>
+and <a href="https://github.com/pborreli">pborreli</a> super powers.</p>
+
+<p>Then two others speakers did a brief talk during the keynote:
+<a href="https://twitter.com/javiereguiluz">Javier Eguiluz</a> and <a href="https://twitter.com/julienPauli">Julien Pauli</a>
+who both joined SensioLabs recently.</p>
+
+<p>Javier mainly spoted five ideas to improve the Symfony community via its website:</p>
+
+<ul>
+<li>Improve the <a href="http://symfony.com/download">Symfony download experience</a></li>
+<li>Unify conversations from GoogleGroup to GitHub</li>
+<li>Merge all less known blogs (eg. Twig, Swiftmailer) into <a href="http://symfony.com/blog/">symfony.com/blog</a></li>
+<li>Create new pages for communities, with members &amp; events</li>
+<li>Avoid having too much bundle for one thing — this is currently a (top-secret) project
+in progress and did not expand much on this topic</li>
+</ul>
+
+<p>Julien, the release manager of PHP 5.5 and ex-collegue from <a href="http://www.blablacar.com">BlaBlaCar</a>,
+talked about the performance part he's going to focus on.
+He's actually working on a rewrite of the Pimple library.
+Some improvements had been made on the PHP code, but he's also working
+on C-extensions to handle the low level parts. This is not a total rewrite of
+the PHP library into a C library, but rather a hook of the slowest parts — like
+does the <a href="http://twig.sensiolabs.org/doc/installation.html#installing-the-c-extension">C-extension of Twig</a>.</p>
+
+<h2 id="how-to-automatize-your-infrastructure-with-chef">How to automatize your infrastructure with Chef</h2>
+
+<p><em>Grégoire Pineau</em> — <a href="http://lyrixx.github.io/SFCon-Warsaw2013-Automation/">slides</a></p>
+
+<p>This was an interesting talk about the existing tools you can use
+to automatise your deployment workflow. There are many way to deploy
+an application, whether it is done from your laptop or a dedicated server.
+With such tools, you avoid human errors and better focus on business values.
+The keys are to deploy small changeset, deploy often, and use <a href="http://marc.weistroff.net/2012/01/09/simple-feature-flags-symfony2">feature flags</a>
+to deploy partially.</p>
+
+<p>Several tools were mentionned:
+- <a href="https://github.com/capistrano/capistrano">Capistrano</a>, plus <a href="http://capifony.org/">Capifony</a> to deploy easily
+- <a href="http://fabfile.org">Fabric</a>, usefull for repetitive tasks or one-shot batch command
+- <a href="http://www.ansibleworks.com/">Ansible</a>
+- <a href="http://www.getchef.com/chef/">Chef</a> and <a href="http://puppetlabs.com/">Puppet</a> two (more or less equivalent) provisioning tools
+- <a href="http://www.vagrantup.com/">Vagrant</a> to provision virtual machines
+  (don't forget <a href="http://www.whitewashing.de/2013/08/19/speedup_symfony2_on_vagrant_boxes.html">this tip</a>
+  when using Symfony2)</p>
+
+<p>Grégoire is currently using Chef to deploy at SensioLabs.
+I would like to have more concret examples but one talk wouldn't be enough.</p>
+
+<h2 id="diving-deep-into-twig">Diving deep into Twig</h2>
+
+<p><em>Matthias Noback</em> — <a href="http://fr.slideshare.net/matthiasnoback/diving-deep-into-twig">slides</a></p>
+
+<h2 id="build-awesome-rest-apis-with-symfony2">Build Awesome REST APIs With Symfony2</h2>
+
+<p><em>William Durand</em>, <em>Lukas Kahwe Smith</em> — <a href="https://speakerdeck.com/willdurand/build-awesome-rest-apis-with-symfony2">slides</a></p>
+
+<p>Here William and Lukas showed us how to build a REST API using
+some Symfony bundles and PHP libraries:</p>
+
+<ul>
+<li><a href="https://github.com/schmittjoh/JMSSerializerBundle">JMSSerializerBundle</a>:
+a key component for serializing data into several formats</li>
+<li><a href="https://github.com/FriendsOfSymfony/FOSRestBundle">FOSRestBundle</a>:
+like the <a href="https://github.com/sensiolabs/SensioFrameworkExtraBundle/">SensioExtraBundle</a>,
+it provides some nice listeners to handle data serialization on kernel view event,
+and an automatic routing generation</li>
+<li><a href="https://github.com/willdurand/BazingaHateoasBundle">BazingaHateoasBundle</a>:
+to handle hypermedia links in response</li>
+<li><a href="https://github.com/hautelook/TemplatedUriBundle">HautelookTemplatedUriBundle</a></li>
+<li><a href="https://github.com/nelmio/NelmioApiDocBundle">NelmioApiBundle</a>:
+to automatically generate a beautiful documentation from your code</li>
+<li><a href="https://github.com/liip/liipcacheControlBundle">LiipCacheControlBundle</a></li>
+<li><a href="https://github.com/willdurand/Negotiation">Negotiation</a>:
+a content negociation library, to handle request format while not using the URI extension</li>
+</ul>
+
+<p>If you haven't already done it, I recomand you to read William's blog post
+about <a href="http://williamdurand.fr/2012/08/02/rest-apis-with-symfony2-the-right-way/">doing a REST API with Symfony</a>.</p>
+
+<h2 id="simplify-your-code-with-annotations">Simplify your code with annotations</h2>
+
+<p><em>Piotr Pasich</em> — <a href="http://fr.slideshare.net/piotrpasich/simplify-your-code-with-annotations-symfonycon-warsaw-2013">slides</a></p>
+
+<h2 id="increase-productivity-with-doctrine2-extensions">Increase productivity with Doctrine2 extensions</h2>
+
+<p><em>Gediminas Morkevicius</em></p>
+
+<p>Gediminas is the author of the <a href="https://github.com/l3pp4rd/DoctrineExtensions">DoctrineExtension library</a>.
+Here he talked about some features of those extensions.
+Personally, I didn't really enjoy this talk.
+I don't know if he did not sleep for a week,
+but the intonation in his voice was quite insupportable and made me almost sleep.
+Also, as I already knew the library, I didn't learn that much.</p>
+
+<h2 id="pitching-symfony-to-your-client">Pitching Symfony to your Client</h2>
+
+<p><em>John La</em> — <a href="http://www.funnygarbage.com/pitchSymfony">slides</a></p>
+
+<h2 id="how-kris-writes-symfony-apps">How Kris Writes Symfony Apps</h2>
+
+<p><em>Kris Wallsmith</em> — <a href="http://fr.slideshare.net/kriswallsmith/how-kris-writessymfonyappssymfonycon">slides</a></p>
+
+<p>Kris told us how he writes a Symfony application.
+From a <code>composer create-project</code> to the code in a controller,
+he shows all different steps he uses to do.
+What I can say is that Kris loves annotations, MongoDB, thin controllers,
+simple models, event listeners, and princesses.</p>
+
+<p>He usually uses <a href="https://github.com/schmittjoh/JMSDiExtraBundle">JMSDiExtraBundle</a>
+for DIC configuration, require.js for handling sort of DIC in JavaScript,
+and prefers Voters than ACL (see also <a href="#drop_ace_use_voters">Marie's talk</a> about that topic).</p>
+
+<p>Kris is very pleasant to listen, and even won the best speaker award.</p>
+
+<h2 id="symfony2-content-management-in-40-minutes">Symfony2 Content Management in 40 minutes</h2>
+
+<p><em>David Buchmann</em> — <a href="http://davidbu.ch/slides/20131212-symfonycon-cmf.html">slides</a>, <a href="https://github.com/dbu/conference-tutorial/pulls?direction=asc">code sample</a></p>
+
+<h2 id="cool-like-frontend-developer%3A-grunt%2C-requirejs%2C-bower-and-other-tools">Cool like Frontend Developer: Grunt, RequireJS, Bower and other Tools</h2>
+
+<p><em>Ryan Weaver</em> —
+<a href="http://www.slideshare.net/weaverryan/cool-like-frontend-developer-grunt-requirejs-bower-and-other-tools-29177248">slides</a>,
+<a href="https://github.com/knpuniversity/symfonycon-frontend">code sample</a></p>
+
+<p>Today's tools for frontend guys are lots more evolved than 5 years ago.
+Here Ryan taught us — the backend guys — how powerful they can be.
+He did a great introduction to <a href="http://bower.io/">Bower</a>, <a href="http://requirejs.org/">RequireJS</a>,
+and <a href="http://gruntjs.com/">Grunt</a>, all powered by NodeJS.</p>
+
+<p>A lot of (new) information has been explained in a few time.
+I think that may be a lot for people who never used it before, but even
+if the speech was fast, Ryan is a good teacher.</p>
+
+<p>Personally, I was looking forward this talk in order to know how other people
+integrate such tools in a Symfony application. I must admit I'm getting
+rid of Assetic and I will spend a bit more time configuring correctly
+all the asset part in my applications.
+If you're curious too, look at <a href="https://github.com/knpuniversity/symfonycon-frontend">Ryan's code example</a>
+or even at this <a href="https://github.com/kbond/symfony-grunt-edition">Symfony Grunt Edition</a>
+made in the meantime by Kevin Bond.</p>
+
+<h2 id="community-building-with-mentoring%3A-what-makes-people-crazy-happy-to-work-on-an-open-source-project%3F">Community Building with Mentoring: What makes people crazy happy to work on an open source project?</h2>
+
+<p><em>Cathy Theys</em> — <a href="https://github.com/YesCT/warsaw">slides</a></p>
+
+<h2 id="async-php-with-react">Async PHP with React</h2>
+
+<p><em>Jeremy Mikola</em> — <a href="https://speakerdeck.com/jmikola/async-php-with-react">slides</a></p>
+
+<p>Main purpose of this talk was to demonstrate how to build an event-driven
+PHP application. You may know how NodeJS works via its "Event Loop" to get
+non-blocking IO.
+Here Jeremy exposed the basic architecture of such asynchronous
+application and the way you can do it via processus.</p>
+
+<p>PHP have the socket and stream APIs, but they're not very pleasant to use.
+That's where <a href="http://reactphp.org/">ReactPHP</a> comes in. Keep in mind to always avoid
+blocking IO when using React — which is not the default of most operations.</p>
+
+<p>This was really a nice talk about async and IO vs. CPU, but sometimes a bit hard
+to follow for <a href="http://www.memecenter.com/fun/144660/Alcohol-is-poison">a friday morning</a>.</p>
+
+<h2 id="symfony2-forms%3A-past%2C-present%2C-future">Symfony2 Forms: Past, Present, Future</h2>
+
+<p><em>Bernhard Schussek</em> — <a href="https://speakerdeck.com/bschussek/symfony2-forms-past-present-future">slides</a></p>
+
+<h2 id="drop-ace%2C-use-voters">Drop ACE, use voters</h2>
+
+<p><em>Marie Minasyan</em> — <a href="http://slid.es/marieminasyan/drop-ace-use-role-voters">slides</a></p>
+
+<p>Marie did a great job on teaching the different methods to implement a
+security access control in a standard Symfony app.
+She first showed us how the Access Control Engine can be complicated.
+Then she compared with a Voter implementation, which is much easier to code and test.</p>
+
+<p>For French guys, I also recommend reading this
+<a href="http://devblog.lexik.fr/non-classe/faciliter-la-gestion-des-droits-dacces-avec-les-voters-2488">blog post</a> from Lexik team,
+or <a href="http://kriswallsmith.net/post/15994931191/symfony2-security-voters">this one</a> in English from Kris Wallsmith.</p>
+
+<h2 id="proxy-pattern-in-php">Proxy pattern in PHP</h2>
+
+<p><em>Marco Pivetta</em> — <a href="http://ocramius.github.io/presentations/proxy-pattern-in-php/#/">slides</a></p>
+
+<h2 id="mastering-the-security-component%27s-authentication-mechanism">Mastering the Security component's authentication mechanism</h2>
+
+<p><em>Joseph Rouff</em> — <a href="https://speakerdeck.com/rouffj/mastering-the-security-components-authentication-mechanism">slides</a>,
+<a href="https://github.com/rouffj/HowtoSecurityBundle">code sample</a></p>
+
+<p>Joseph made an excellent <em>live tutorial</em> on how to create your own security system.
+This talk is very educational if you haven't looked deeply into the security
+component. I strongly encourage you to view the (upcoming) video — or
+<a href="http://www.youtube.com/watch?v=eVaz_mMuDjw">this existing one</a> in French.</p>
+
+<h2 id="symfony-components-in-the-wild">Symfony components in the wild</h2>
+
+<p><em>Jakub Zalas</em> — <a href="https://speakerdeck.com/jakzal/symfony-components-in-the-wild-symfonycon-2013">slides</a></p>
+
+<h2 id="application-monitoring-with-heka-and-statsd">Application monitoring with Heka and statsd</h2>
+
+<p><em>Jordi Boggiano</em> — <a href="http://slides.seld.be/?file=2013-12-13+Application+monitoring+with+Heka+and+statsd.html">slides</a></p>
+
+<p>Jordi started quite recently to take an interest in application &amp; architecture monitoring.
+Monitoring becomes more and more important when building complex apps with many "moving parts".
+Lead developer of Composer, he presented us the tool he chose to monitor
+<a href="http://packagist.org">packagist.org</a>.</p>
+
+<p>Actually there are many tools on the market.
+Each one serving a specific goal, for instance:
+- System: Collectd, Cacti, Nagios, Ganglia, Munin
+- Performance: Statsd, Sentry
+- Error reporting: NewRelic
+- Log aggregator: Graylog, Loggly, Splunk, Logstash, Syslog</p>
+
+<p>It may be overkill to keep track of several tools.
+That's why he chose to look at <a href="https://github.com/mozilla-services/heka">Heka</a>
+in order to have only one (nice) dashboard with all metrics.</p>
+
+<p>Heka is like a generic middleware which will be able to read from
+many inputs (eg. syslog, nginx log, app log, etc.), apply some decoders and filters,
+and then write to any datastore.
+For instance all logs could be stored on elasticsearch and visualized via
+the <a href="http://demo.kibana.org/">Kibana</a> UI.
+Note that Heka can also be put on a cluster.</p>
+
+<p>This project is relativly young, but in active development by Mozilla.
+It worse keeping an eye on it.</p>
+
+<h2 id="taming-runaway-silex-apps">Taming Runaway Silex Apps</h2>
+
+<p><em>Dave Marshall</em> — <a href="https://speakerdeck.com/davedevelopment/taming-runaway-silex-apps-symfonycon-warsaw-2013">slides</a></p>
+
+<h2 id="decouple-your-application-with-domain-events">Decouple your application with (Domain-)Events</h2>
+
+<p><em>Benjamin Eberlei</em> — <a href="http://qafoo.com/talks/13_12_symfonycon_domain_events.pdf">slides</a></p>
+
+<p>This talk was about avoiding high coupling &amp; legacy code.
+This is quite a common subject nowaday.
+Each developer try to find the best solution to write clean and decoupled code.
+So did Kris in <a href="#how_kris_writes_symfony_apps">his previous talk</a>.
+Here Benjamin explained his approach using the event dispatcher.</p>
+
+<p>The main difficulty is to find the right boundaries between the different
+parts of your application.
+You must extract the different events that can occur.
+Doing "event storming" with your team can help you a lot.</p>
+
+<p>Also, avoid using services from other bundles, but prefer interfaces.
+Every action of your controller should have a dedicated event.
+Different approaches were suggested here, each with pros and cons.</p>
+
+<h2 id="how-to-build-console-applications">How to build Console Applications</h2>
+
+<p><em>Daniel Gomes</em> — <a href="https://speakerdeck.com/danielcsgomes/how-to-build-console-applications-symfonycon-2013">slides</a></p>
+
+<h2 id="lighting-talks">Lighting Talks</h2>
+
+<p>Lighting talks are good way to encourage developers to present their work.
+There were a dizain of short speeches — less than 7 minutes each.</p>
+
+<p>First talks were made par <a href="https://github.com/Sylius/Sylius">Sylius</a>
+and <a href="https://github.com/Payum/Payum">Payum</a> lead developers.
+We also have a speech about HTTP cache in ezPublish, and <a href="https://twitter.com/drrotmos">Magnus</a>
+showed us a way to defer a process in your Symfony app with php-fpm using
+<a href="https://github.com/fervo/FervoDeferredEventBundle">FervoDeferredEventBundle</a>.
+Regarding fabpot, he spoiled us with futur improvements on the Console component
+(<a href="https://speakerdeck.com/fabpot/symfonycon-2013-lightning-talk-about-the-console-in-2-dot-5">slides</a>).</p>
+
+<p>Second day of lighting talks has started with
+<a href="https://twitter.com/so_php_ie">Sophie Beaupuis</a> who made a demo
+of a Zend software to easily package and deploy any PHP application.
+Then Nicolas Grekas talked about the <a href="https://github.com/nicolas-grekas/Patchwork-UTF8">Patchwork-UTF8</a>
+library, <a href="https://twitter.com/mmoreram">Marc Morera</a> introduced
+the <a href="https://github.com/mmoreram/GearmanBundle">GearmanBundle</a>
+(<a href="http://fr.slideshare.net/MarcMorera/gearman-bundle-warsaw-2013-ed">slides</a>),
+and David de Boer explained his strategy to invalidate HTTP cache using
+<a href="https://github.com/driebit/DriebitHttpCacheBundle">DriebitHttpCacheBundle</a>.
+By the way, he started to work on a <a href="https://github.com/ddeboer/FOSHttpCacheBundle">new FOS bundle</a>
+to combine both DriebitHttpCacheBundle and LiipCacheControlBundle.</p>
+
+<p><a href="https://github.com/liuggio">Liuggio</a> talked about an important topic on <em>avoiding the monolithic</em>
+using a decoupled, flexible and tailored architecture (<a href="http://www.slideshare.net/liuggio/leaphly-fight-monolothic-today">slides</a>).
+I just looked over his <a href="http://welcometothebundle.com/">website</a> and saw several interessing posts.
+He's also author of <a href="http://leaphly.org/">Leaphly</a>, a nice shopping cart for developer.</p>
+
+<p>The lighting talks session has been closed by the amazing
+Jeremy Mikola who spoke about… <em>lights</em>!
+I can't describe his talk but that was very fun and very well played.
+I hope there will be a video.</p>
+
+<p>I won't talk about the award ceremony, and the hacking days which will be
+covered on Symfony website. Thanks again for this huge event,
+and see you next year in Madrid.</p>
+]]></content>
+    </entry>
+      <entry>
+      <title type="html"><![CDATA[Distributing a PHP CLI app with ease]]></title>
+      <link href="https://moquet.net/blog/distributing-php-cli"/>
+      <updated>2013-07-23T00:00:00+00:00</updated>
+      <id>https://moquet.net/blog/distributing-php-cli</id>
+      <content type="html"><![CDATA[<p>Something I love with PHP is how easily you can build a CLI application.
+Some libraries like the Symfony Console Component has greatly
+improved this process. Also, the ability to package a whole application
+into a single PHAR container make the distribution and usage even
+easier.</p>
+
+<p>Such as <a href="http://getcomposer.org/"><code>composer</code></a> or <a href="http://cs.sensiolabs.org/"><code>php-cs-fixer</code></a>,
+let's see how to quickly build a PHAR file for your application
+with self-update capabilities.</p>
+
+<h2 id="the-symfony-console">The Symfony Console</h2>
+
+<p>First we need to create our CLI app. Let's call it <a href="https://github.com/MattKetmo/cliph">Cliph</a>.
+For the example, we will build a typical <a href="http://symfony.com/doc/current/components/index.html">Symfony console</a>
+app with one « <em>hello world</em> » command.
+Basically this results <a href="https://github.com/MattKetmo/cliph/commit/cd38f2438fe049033fe83d60c711d365cd68e261">in only 2 files</a>.
+The first one is the command in the <code>src</code> folder:</p>
+
+<pre><code class="php">&lt;?php
+
+namespace Cliph\Command;
+
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+
+class HelloCommand extends Command
+{
+    protected function configure()
+    {
+        $this
+            -&gt;setName('hello')
+            -&gt;setDescription('Say hello')
+        ;
+    }
+
+    protected function execute(InputInterface $input, OutputInterface $output)
+    {
+        $output-&gt;writeln('Hello World');
+    }
+}
+</code></pre>
+
+<p>And the second is the launcher in <code>bin/cliph</code>:</p>
+
+<pre><code class="php">#!/usr/bin/env php
+&lt;?php
+
+require __DIR__.'/../vendor/autoload.php';
+
+use Cliph\Command;
+use Symfony\Component\Console\Application;
+
+$application = new Application('Cliph', '0.1-dev');
+$application-&gt;add(new Command\HelloCommand());
+$application-&gt;run();
+</code></pre>
+
+<p>Our application is now ready to run:</p>
+
+<pre><code>$ ./bin/cliph --version
+Cliph version 0.1-dev
+
+$ ./bin/cliph hello
+Hello World
+</code></pre>
+
+<h2 id="the-box-project">The Box Project</h2>
+
+<p>The next step is to package all the sources into one single executable
+<a href="http://www.php.net/manual/en/intro.phar.php">PHAR</a> file.</p>
+
+<p>If you tried to build a PHAR file for your own CLI app, you may
+already have read the <a href="https://github.com/composer/composer/blob/1.0.0-alpha7/src/Composer/Compiler.php"><code>Compiler.php</code> script from Composer</a>. This script
+is launched via <code>./bin/compile</code> and produces the <code>composer.phar</code> file.</p>
+
+<p>Now we want the same thing for our app, but without writing any line of PHP.
+That would be redundant for each project.
+This is where the <a href="http://box-project.github.io/box2/">Box Project</a> comes in.
+The idea behing this tool is to replace the usual <code>compile</code> script with
+a simple JSON file.</p>
+
+<p>The JSON file contains the location of the PHP files to combine, and
+the executable to run. This is typically what we need for our app:</p>
+
+<pre><code class="json">{
+    "chmod": "0755",
+    "directories": [
+        "src"
+    ],
+    "files": [
+        "LICENSE"
+    ],
+    "finder": [
+        {
+            "name": "*.php",
+            "exclude": ["Tests"],
+            "in": "vendor"
+        }
+    ],
+    "git-version": "package_version",
+    "main": "bin/cliph",
+    "output": "cliph.phar",
+    "stub": true
+}
+</code></pre>
+
+<p>As you notice, you can specify the source files using three different directives:</p>
+
+<ul>
+<li><code>directories</code>: to import a whole directory, typically the source folder</li>
+<li><code>files</code>: ideal to import in single file — here the license</li>
+<li><code>finder</code>: if you want more advanced filters, this use the
+<a href="http://symfony.com/doc/current/components/finder.html">Symfony Finder component</a>.
+This is very handy to exclude some useless files like the tests.</li>
+</ul>
+
+<p>Then come the options to customise the PHAR file. The <code>output</code> specifies
+the name of the script; the <code>main</code> is the launcher script; we use <code>chmod</code>
+to make it executable by default; and of course the <code>stub</code> must be enabled
+for a CLI app.</p>
+
+<p>Finally you may wonder what the <code>git-version</code> stands for. The value of this
+parameter is used to replace any string in the source files. Here, any string
+<code>@package_version@</code> is replaced by a version number based on the git
+repository. To take advantage of this, we place it as the version parameter
+on our main launcher <code>bin/cliph</code>:</p>
+
+<pre><code class="php">&lt;?php
+//...
+$application = new Application('Cliph', '@package_version@');
+</code></pre>
+
+<p>Time to see the result. <a href="https://github.com/box-project/box2#as-a-phar-recommended">Install Box</a>
+if you did not already, then run:</p>
+
+<pre><code>$ box build
+Building...
+$ ./cliph.phar --version
+Cliph version ad2fc07
+</code></pre>
+
+<p>Simple, isn't it? It's even better if use git tags to have a proper version number:</p>
+
+<pre><code>$ git tag 1.0.0
+$ box build
+Building...
+$ ./cliph.phar --version
+Cliph version 1.0.0
+</code></pre>
+
+<p>Box will automatically use the git tag number if any, or fallback to the
+commit hash. If a tag was created on a previous commit, the version may
+look somthing like <code>1.0.0-1-gae87139</code> (ie. use of tag + commit hash).</p>
+
+<h2 id="auto-updates">Auto updates</h2>
+
+<div class="note info"><p>
+<b>Edit Jan. 2016</b>: I now recommend you to also read this great blog post
+<a href="https://mwop.net/blog/2015-12-14-secure-phar-automation.html">"Secure PHAR Automation"</a>
+by <a href="https://twitter.com/mwop">@mwop</a> which makes use of the
+<a href="https://github.com/padraic/phar-updater">padraic/phar-updater</a>
+library and GitHub pages to automate and sign your PHAR file.
+</p></div>
+
+<p>Now that we have our PHAR, it would be awesome to add a command to auto update
+the app. Think of something like <code>composer self-update</code>,
+but as usual with minimal code.</p>
+
+<p>The library which will help us this time is <a href="https://github.com/herrera-io/php-phar-update">php-phar-update</a>.
+This library handles the whole update process.
+To make it work, we need to instanciate a <code>Manager</code> object from a <code>Manifest</code>
+then run the update method.
+The <code>Manifest</code> contains all the possible updates. Ideally it
+reads a remote JSON file which contains the list of all available versions.
+To host the <code>manifest.json</code> file, we will use GitHub pages.</p>
+
+<p>Here is what look like our update command:</p>
+
+<pre><code class="php">&lt;?php
+
+namespace Cliph\Command;
+
+use Herrera\Phar\Update\Manager;
+use Herrera\Phar\Update\Manifest;
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+
+class UpdateCommand extends Command
+{
+    const MANIFEST_FILE = 'http://mattketmo.github.io/cliph/manifest.json';
+
+    protected function configure()
+    {
+        $this
+            -&gt;setName('update')
+            -&gt;setDescription('Updates cliph.phar to the latest version')
+        ;
+    }
+
+    protected function execute(InputInterface $input, OutputInterface $output)
+    {
+        $manager = new Manager(Manifest::loadFile(self::MANIFEST_FILE));
+        $manager-&gt;update($this-&gt;getApplication()-&gt;getVersion(), true);
+    }
+}
+</code></pre>
+
+<p>Only two lines of code. Awesome, right? The first parameter of the <code>update</code>
+method is the current version number (in order to compare with available versions),
+while the second allows to download major version.
+Here is the <a href="https://github.com/MattKetmo/cliph/commit/b3555f4c81f27002893845d96fb69a79f757f47d">full diff</a>
+of that new update feature.</p>
+
+<p>Let's tag our new functionnality, and re-build the PHAR:</p>
+
+<pre><code>$ git tag 1.1.0
+
+$ box build
+Building...
+
+$ ./cliph.phar
+Cliph version 1.1.0
+
+Available commands:
+  hello   Say hello
+  help    Displays help for a command
+  list    Lists commands
+  update  Updates cliph.phar to the latest version
+</code></pre>
+
+<p>Now we just have to put a <code>manifest.json</code>
+plus the build PHAR into the <a href="https://help.github.com/articles/creating-project-pages-manually#lets-get-crackin"><code>gh-pages</code> branch</a>
+and deploy it to GitHub. Note that I used the <code>openssl sha1 &lt;file&gt;</code> command to
+get the hash of the PHAR file.</p>
+
+<pre><code>$ cat manifest.json
+[
+    {
+        "name": "cliph.phar",
+        "sha1": "fbcded58df0ea838c17d56a5e3cdace56127d538",
+        "url": "http://mattketmo.github.io/cliph/downloads/my-cli-1.1.0.phar",
+        "version": "1.1.0"
+    }
+]
+$ tree
+.
+├── downloads
+│   └── cliph-1.1.0.phar
+└── manifest.json
+</code></pre>
+
+<p>Yeah, we've just acheived the update command step.
+To try it, let's upgrade Cliph version to 1.1.1 with that <a href="https://github.com/MattKetmo/cliph/commit/c808ae0b5467e6a0d3d91ba9ef75e492a4a4974a">new commit</a>,
+and the corresponding <a href="https://github.com/MattKetmo/cliph/commit/e0744142c5b4fd1e454d45bdc31c6f2ffd62ea1c">manifest.json</a>.
+Then, from a <code>1.1.0</code> vesion of our app, run the <code>update</code> command:</p>
+
+<pre><code>$ ./cliph.phar --version
+Cliph version 1.1.0
+
+$ ./cliph.phar update
+Updated to the latest version
+
+$ ./cliph.phar --version
+Cliph version 1.1.1
+</code></pre>
+
+<h2 id="sign-your-application">Sign your application</h2>
+
+<p>Now as a bonus part, we would like to sign our application.
+PHAR files can be signed with a set of public &amp; private keys — using for instance OpenSSL.
+The archive is built with the private key, and to run the file
+the public key must be put next to it:</p>
+
+<p>« <em>If the phar archive is saved as <code>/path/to/my.phar</code>, the public key must be
+saved as <code>/path/to/my.phar.pubkey</code>, or phar will be unable to verify the
+signature.</em> » — <a href="http://php.net/manual/en/phar.using.intro.php">php.net</a></p>
+
+<p>To generate an OpenSSL private key, you have choice to directly use the <code>openssl</code>
+command, or the <code>box key:create</code>. Then, to sign the PHAR the only thing to do is
+to add the <code>key</code> option into your <code>box.json</code> file:</p>
+
+<pre><code class="json">{
+    "chmod": "0755",
+    "...": "...",
+    "stub": true,
+    "key": "private.key"
+}
+</code></pre>
+
+<p>Then if you run a <code>box build</code> you will see a new file <code>cliph.phar.pubkey</code>.
+If you try to move or remove this file, you will get a <code>PharException</code>.</p>
+
+<p>Note that if you have set a passphrase for your private key, you must report
+it in the <code>box.json</code> (<code>"key-pass": "mypass"</code>). But if you do so, please don't
+version this file.
+Instead use a <code>box.json.dist</code> and overwrite it in your local environment.
+However I must admit I'm not really fan of that solution.
+In my opinion, an option in the <code>box</code> command would be clever
+(eg. <code>box build --key private.key -p</code>).</p>
+
+<h2 id="automation">Automation</h2>
+
+<p>Last thing we want to do is to automate the whole process.
+For the example, I wrote a stupid <a href="https://github.com/MattKetmo/cliph/commit/5897c317f2a6a54208482540ef33d7316407a984">bash script</a>
+which handle all the actions described in this post (git tag, box build, copy to gh-pages, update manifest).
+It works with <a href="https://github.com/micha/jsawk"><code>jsawk</code></a> to manipulate the JSON file.</p>
+
+<p>Now I just have to run:</p>
+
+<pre><code class="bash">$ ./bump-version.sh 1.3.0
+</code></pre>
+
+<p>And a new PHAR file is automatically created with the given version number,
+and pushed to the <code>gh-pages</code>.</p>
+
+<p>Thus we've finally learned in a few steps how to make our CLI app easily distributable.
+The Box project is really something you have to look at if you are
+building PHAR files. And of course, you can adapt the "self-update" part to your need.
+Big thanks to <a href="https://github.com/kherge">Kevin Herrera</a> for those tools,
+that's very helpful.</p>
+]]></content>
+    </entry>
+      <entry>
+      <title type="html"><![CDATA[5 features to know about Composer PHP]]></title>
+      <link href="https://moquet.net/blog/5-features-about-composer-php"/>
+      <updated>2013-03-14T00:00:00+00:00</updated>
+      <id>https://moquet.net/blog/5-features-about-composer-php</id>
+      <content type="html"><![CDATA[<p>Here are some tips you should know when using Composer the dependency manager for PHP.</p>
+
+<h2 id="1.-update-only-one-vendor">1. Update only one vendor</h2>
+
+<p>You want to update only one specific library, without updating all your
+dependencies? That's easy, just add the vendor name as argument to the
+<a href="http://getcomposer.org/doc/03-cli.md#update"><code>update</code></a> command:</p>
+
+<pre><code class="bash">$ composer update foo/bar
+</code></pre>
+
+<p>This will only install or update the library (plus its dependencies) and
+overwrite the <code>composer.lock</code>.</p>
+
+<p>Nevertheless, this is also very usefull to fix a warning message I'm sure you
+know very well:</p>
+
+<p><code class="pre" style="background:#ffe680;color:#303030">
+Warning: The lock file is not up to date with the latest changes in composer.json,
+you may be getting outdated dependencies, run update to update them.
+</code></p>
+
+<p><em>« Damn it composer, what's wrong with my vendors? »</em>. Don't panic! This is
+what you should expect if you just have edited the <code>composer.json</code> file. For
+instance, if you <strong>add or update a detail</strong> like the library description,
+authors, extra parameters, or even put a trailing whitespace, this will change
+the <strong>md5sum</strong> of the file. Then Composer will warn you if this hash differs from
+the one stored in the <code>composer.lock</code>.</p>
+
+<pre><code class="json">{
+    "hash": "0bcd1234f87401a9669eb5264b8e32a7",
+    "packages": [
+       "..."
+    ]
+}
+</code></pre>
+
+<p>Ok, so how to proceed? The <code>update</code> command is the one which update the lock file.
+But if I just add a description, I may not want to update any library.
+In that case use the <code>--lock</code> parameter.</p>
+
+<pre><code class="bash">$ composer update --lock
+</code></pre>
+
+<p>Thus Composer won't upgrade your vendors.
+It will <strong>only update the lock file hash</strong> to suppress the warning.
+However it may also install the packages you have not yet installed
+(if you have not done the <code>install</code> command previously), but no package upgrade is performed.</p>
+
+<p>Note that trying to update a vendor that doesn't exist will have the same effect.</p>
+
+<pre><code class="bash">$ composer update foobar
+</code></pre>
+
+<h2 id="2.-add-a-library-without-editing-your-composer.json">2. Add a library without editing your composer.json</h2>
+
+<p>To add a new vendor for your project, you can manually add a new line into your
+<code>composer.json</code> then use the previous method to <strong>only</strong> install/update this vendor.
+But there is a much convenient way to proceed.</p>
+
+<p>The <a href="http://getcomposer.org/doc/03-cli.md#require"><code>require</code></a> command will make
+those actions for you:</p>
+
+<pre><code class="bash">$ composer require "foo/bar:1.0.0"
+</code></pre>
+
+<p>If you omit to specify the version Composer will <strong>fetch the last stable</strong>.</p>
+
+<p>This action can also be used to quickly start a new project. The
+<a href="http://getcomposer.org/doc/03-cli.md#init"><code>init</code></a> command include the
+<code>--require</code> option which will write the <code>composer.json</code> file with the given
+vendor(s) (note the <code>-n</code> option to not ask any interactive question):</p>
+
+<pre><code class="bash">$ composer init --require="foo/bar:1.0.0" -n
+$ cat composer.json
+{
+    "require": {
+        "foo/bar": "1.0.0"
+    }
+}
+</code></pre>
+
+<h2 id="3.-easy-fork">3. Easy fork</h2>
+
+<p>Speaking about <code>composer.json</code> initialization, did you ever used the
+<a href="http://getcomposer.org/doc/03-cli.md#create-project"><code>create-project</code></a>
+command?</p>
+
+<pre><code class="bash">$ composer create-project doctrine/orm path 2.2.0
+</code></pre>
+
+<p>This will automatically clone the repository and checkout the given version.
+That may be usefull to quickly clone a library without searching the original
+URI of the sources.</p>
+
+<h2 id="4.-prefer-dist-packages-and-cache-them">4. Prefer dist packages and cache them</h2>
+
+<p>Did you know that <strong>dist packages are now cached</strong> in your home directory?</p>
+
+<p>I previously <a href="/blog/proxify-composer-php/">wrote an article</a>
+to compare solutions for caching vendors between multiple projects to save time
+when cloning a repository. I even created <a href="https://github.com/mattketmo/stone">my own command</a> to clone vendors
+into your global composer configuration to reuse it when necessary.</p>
+
+<p>Since <a href="https://github.com/composer/composer/pull/1282">November 2012</a>, Composer
+automatically stores the archive when you download a dist package. By default,
+dist packages are used for tagged versions, for instance <code>"symfony/symfony":
+"v2.1.4"</code>, or even a wildcard or range version like <code>"2.1.*"</code> or
+<code>"&gt;=2.2,&lt;2.3-dev"</code> if you use <code>stable</code> as your <code>minimum-stability</code>.</p>
+
+<p>But dist packages can also work with branches (ie. <code>dev-master</code>) as Github
+allows to download an archive from a git reference. To force downloading
+archive instead of cloning sources, use the <code>--prefer-dist</code> option included in
+the <code>install</code> and <code>update</code> command.</p>
+
+<p>Here is a demonstration (I use the <code>--profile</code> option to show the execution
+time):</p>
+
+<pre><code class="nohighlight">$ composer init --require="twig/twig:1.*" -n --profile
+Memory usage: 3.94MB (peak: 4.08MB), time: 0s
+
+$ composer install --profile
+Loading composer repositories with package information
+Installing dependencies
+  - Installing twig/twig (v1.12.2)
+    Downloading: 100%
+
+Writing lock file
+Generating autoload files
+Memory usage: 10.13MB (peak: 12.65MB), time: 4.71s
+
+$ rm -rf vendor
+
+$ composer install --profile
+Loading composer repositories with package information
+Installing dependencies from lock file
+  - Installing twig/twig (v1.12.2)
+    Loading from cache
+
+Generating autoload files
+Memory usage: 4.96MB (peak: 5.57MB), time: 0.45s
+</code></pre>
+
+<p>Here, the archive for <code>twig/twig:1.12.2</code> has been stored into
+<code>~/.composer/cache/files/twig/twig/1.12.2.0-v1.12.2.zip</code> and used the second
+time I reinstalled the package.</p>
+
+<h2 id="5.-prefer-source-to-edit-your-vendors">5. Prefer source to edit your vendors</h2>
+
+<p>For practical reasons, you may prefer cloning sources instead of downloading
+packages. For instance, this can be useful to edit a library directly in the
+vendor directory to test the behaviour of your application with that change
+(eg. a bug fix). The <code>--prefer-source</code> option will force cloning sources
+instead of downloading an archive:</p>
+
+<pre><code class="nohighlight">$ composer update symfony/yaml --prefer-source
+</code></pre>
+
+<p>Then to see modified files in your vendor:</p>
+
+<pre><code class="nohighlight">$ composer status -v
+You have changes in the following dependencies:
+/path/to/app/vendor/symfony/yaml/Symfony/Component/Yaml:
+    M Dumper.php
+</code></pre>
+
+<p>Composer will also tells you when you try to update a vendor that has been
+modified, and asks if you want to discard the changes:</p>
+
+<pre><code class="nohighlight">$ composer update
+Loading composer repositories with package information
+Updating dependencies
+  - Updating symfony/symfony v2.2.0 (v2.2.0- =&gt; v2.2.0)
+    The package has modified files:
+    M Dumper.php
+    Discard changes [y,n,v,s,?]?
+</code></pre>
+
+<h2 id="be-ready-for-production">Be ready for production</h2>
+
+<p>Just a reminder, before deploying your code in production, don't forget to optimize
+the autoloader:</p>
+
+<pre><code class="nohighlight">$ composer dump-autoload --optimize
+</code></pre>
+
+<p>This can also be used while installing packages with the <code>--optimize-autoloader</code> option.
+Without that optimization, you may notice a <a href="http://www.ricardclau.com/2013/03/apc-vs-zend-optimizer-benchmarks-with-symfony2/">performance loss from 20 to 25%</a>.</p>
+
+<p>Of course, if you need any help or details for a command, read to the
+<a href="http://getcomposer.org">official documentation</a> or watch this awesome
+<a href="http://composer.json.jolicode.com/">interactive cheatsheet</a> made by JoliCode.</p>
+]]></content>
+    </entry>
+      <entry>
+      <title type="html"><![CDATA[Proxify Composer for PHP]]></title>
+      <link href="https://moquet.net/blog/proxify-composer-php"/>
+      <updated>2012-08-06T00:00:00+00:00</updated>
+      <id>https://moquet.net/blog/proxify-composer-php</id>
+      <content type="html"><![CDATA[<p>Every PHP developer who use modern libraries or frameworks should know
+<a href="http://getcomposer.org/">Composer</a>. Composer is a dependency manager for PHP which allows you to
+declare the dependent libraries your project needs and it will install them in
+your project for you.</p>
+
+<p>Unlike system like PEAR, Composer is only "project-aware". This means your
+dependencies must be installed for each of your project. This is essential
+because your projects can depend on different version of a same library. In the
+other hand it can be quite painful to download or git-clone many times all the
+vendors from a (far far away) remote server. This is especially true when you:</p>
+
+<ul>
+<li>are working on <strong>many projects</strong> at the same time</li>
+<li>regulary <code>rm -rf vendor/</code> to be sure to <strong>remove</strong> the old dependencies (or
+because Composer just got a bug :))</li>
+<li>work on a project where everyone is using the same <strong>local network</strong> (that's
+true when you work in a company)</li>
+</ul>
+
+<p>Since Composer approaches the date of the first stable version, the second
+argument is becoming obsolete. Nevertheless, I want to focus on the last
+point.</p>
+
+<p>When you use a development version of a framework or library, you generally
+want to get it from the sources. For instance, if you want to start a new
+project with the 2.1 version of the <a href="http://symfony.com/">Symfony</a> fullstack framework (for now,
+<code>2.1.*</code> is an alias for <code>dev-master</code>), you have to git-clone the sources from
+GitHub. From an European network, it takes quite long to fetch a repository
+hosted on a US server:</p>
+
+<pre><code>$ time git clone git://github.com/symfony/symfony.git
+Cloning into symfony...
+remote: Counting objects: 140968, done.
+remote: Compressing objects: 100% (43619/43619), done.
+remote: Total 140968 (delta 89494), reused 132229 (delta 81990)
+Receiving objects: 100% (140968/140968), 20.97 MiB | 198 KiB/s, done.
+Resolving deltas: 100% (89494/89494), done.
+
+real    2m15.30s
+user    0m1.47s
+sys     0m3.00s
+</code></pre>
+
+<p>More than 2 minutes is necessary to clone our main vendor (hopefully we don't
+use SVN anymore). In addition to other libraries like <a href="https://github.com/doctrine/doctrine2">Doctrine</a> or <a href="http://github.com/fabpot/Twig">Twig</a>,
+the installation of all vendors could easily take 5 minutes or more. The
+objective of this article would be to find a solution to install the same
+vendors, in less than 15 seconds.</p>
+
+<p>This would be really usefull to <strong>save time and bandwidth</strong> not only for the
+developers, but also for CI systems (<a href="http://jenkins-ci.org/">Jenkins</a>/<a href="http://travis-ci.org/">Travis</a>), or PaaS solution
+like <a href="http://henrik.bjrnskov.dk/using-composer-on-pagodabox/">PagodaBox</a> or <a href="http://bergie.iki.fi/blog/using_composer_to_manage_dependencies_in_heroku_php_apps/">Heroku</a> which run a <code>composer install</code> each time you
+deploy a new code.</p>
+
+<p>As Git is a decentralized system, it is relativly easy to create a proxy ---
+ie. a local clone of the repository --- which everyone could use instead of the
+original one.</p>
+
+<h2 id="using-gitpod">Using Gitpod</h2>
+
+<p><a href="https://github.com/sitaramc/gitpod">Gitpod</a> is a local caching server for Git. Its operation is very simple:
+once you've cloned a repository, each time you git-fetch it, it will git-fetch
+the original repository first. Thus, the first time will be as long as you if
+you git-fetched the original repository, while the second will be
+instantaneous.</p>
+
+<p>The following example shows how I set up Gitpod to work with Composer.</p>
+
+<p>According to the <a href="https://github.com/sitaramc/gitpod#readme">documentation</a>,
+you first need to create a <code>gp</code> user on your <code>gp-server</code> (it could be your
+localhost, or a different server on your local network), and copy or clone the
+binaries into its home directory:</p>
+
+<pre><code># useradd gp
+# git clone git://github.com/sitaramc/gitpod.git /home/gp/bin
+</code></pre>
+
+<p>Then change its default shell:</p>
+
+<pre><code># chsh gp -s /home/gp/bin/gitpod
+</code></pre>
+
+<p>Now you can proxify any git repository from your shell by simply running:</p>
+
+<pre><code>$ ssh gp@gp-server clone URL reponame
+</code></pre>
+
+<p>The result with the <a href="https://github.com/symfony/symfony">Symfony repository</a>:</p>
+
+<pre><code>$ ssh gp@gp-server clone git://github.com/symfony/symfony.git symfony
+running: git clone --progress --mirror git://github.com/symfony/symfony.git
+Cloning into bare repository symfony.git...
+...skipping cloning command...
+
+$ time git clone git://gp@gp-server/symfony.git
+Cloning into symfony-new...
+fetching from git://github.com/symfony/symfony.git
+remote: Counting objects: 141630, done.
+remote: Compressing objects: 100% (41715/41715), done.
+remote: Total 141630 (delta 89896), reused 135418 (delta 84468)
+Receiving objects: 100% (141630/141630), 21.11 MiB | 14.19 MiB/s, done.
+Resolving deltas: 100% (89896/89896), done.
+
+real    0m9.090s
+user    0m2.152s
+sys     0m1.776s
+</code></pre>
+
+<p>It takes less than 10 seconds to clone the Symfony sources into my local
+computer (once I previously cloned it in Gitpod).</p>
+
+<p>To use this git repository with into your project, just add the corresponding
+repository section into your <code>composer.json</code>:</p>
+
+<pre><code class="json">{
+    "require": {
+        "symfony/symfony": "dev-master"
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url":  "git://gp@gp-server/symfony.git"
+        }
+    ]
+}
+</code></pre>
+
+<p>Now the <code>php composer.phar install</code> command will directly clone your local
+repository instead of fetching GitHub.</p>
+
+<p>Not to end up with lots of unmeaningful repositories in your <code>composer.json</code>,
+you can use <a href="http://getcomposer.org/doc/articles/handling-private-packages-with-satis.md">Satis</a> to reference all of your local proxies. Satis is usefull
+when you want to declare private repositories for your project, but in this
+case you can use it to <strong>overload</strong> any public repository with your proxy.
+Then you only have to add the Satis URI in your <code>composer.json</code>:</p>
+
+<pre><code class="json">{
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "http://packages.example.org/"
+        }
+    ],
+    "require": {
+        "symfony/symfony": "2.1.*"
+    }
+}
+</code></pre>
+
+<h2 id="using-broker">Using Broker</h2>
+
+<p>I recently discovered <a href="https://github.com/researchgate/broker">Broker</a>, a PHP application which creates a full
+repository proxy for Composer.</p>
+
+<p>Like the previous method, you have to initialize your proxy with the desired
+vendors before running a <code>composer install</code> in your project. However Broker
+has the advantage to directly take your <code>composer.json</code> as the reference, and
+download all your vendors <strong>as Composer do</strong>. So it not only works for git
+repositories, but also with archives (and everything Composer can manage).
+Finally, it operates like Packagist or Satis, by providing a <code>packages.json</code>
+with just the libraries you need.</p>
+
+<p>To make it work, the <a href="https://github.com/researchgate/broker#readme">README</a>
+is really clear:</p>
+
+<pre><code>$ git clone git://github.com/researchgate/broker.git
+$ cd broker
+$ curl -s https://getcomposer.org/installer | php
+$ php composer.phar install
+$ php broker.php broker:add project_name path/to/project/composer.json
+</code></pre>
+
+<p>This will download all your vendors into the <code>repositories/project_name</code>
+folder. Once you've set up your server to point on the root directory of
+Broker, you could had it to your <code>composer.json</code> file:</p>
+
+<pre><code class="json">{
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "http://broker-server/repositories/project_name"
+        }
+    ],
+    "require": {
+        "symfony/symfony": "2.1.*"
+    }
+}
+</code></pre>
+
+<p>I would recommend this method which is much easier than the previous one, and
+also much more powerfull as it is provided for Composer. However, keep in mind
+to update your proxy repositories first before running a <code>composer update</code>.</p>
+
+<h2 id="the-missing-option">The missing option</h2>
+
+<p>Both of the previous methods work, but they have the same major incovenient:
+you have to modify the <code>composer.json</code> to use the proxy. In the case of
+a private project for your company it is not a real problem as every developer
+will use the company proxy. But it can be more problematic on an open source
+project as the file will <strong>no longer be shareable.</strong></p>
+
+<p>In my opinion, that would be a nice option for Composer to use a local proxy:</p>
+
+<pre><code>$ php composer.php install --proxy http://composer-proxy.local/
+</code></pre>
+
+<p>Or event use a local folder to download the vendors before copying them to
+your project:</p>
+
+<pre><code>$ php composer.php install --proxy /path/to/cache
+</code></pre>
+
+<p>In that case, Composer will explicitly tell the proxy what vendors to
+clone/download, and then it will download/copy the needed ones in your
+project. Thereby, every developer using the same proxy will save time and
+bandwidth, and even you, if you are working on several projects on your
+machine, will be able to download vendors only once.</p>
+
+<p>What do you think about that?</p>
+]]></content>
+    </entry>
+      <entry>
+      <title type="html"><![CDATA[How to create a blog in less than a minute]]></title>
+      <link href="https://moquet.net/blog/create-a-blog-in-less-than-a-minute"/>
+      <updated>2012-08-01T00:00:00+00:00</updated>
+      <id>https://moquet.net/blog/create-a-blog-in-less-than-a-minute</id>
+      <content type="html"><![CDATA[<blockquote>
+  <p>Yo dawg! I heard you like blogs. So I started a blog and blogged about how to
+  create a new blog. So you can learn to blog while reading this blog.</p>
+</blockquote>
+
+<p>Hi everyone! I'm Matthieu Moquet, a french PHP web developer, currently
+working on the future of the awesome <a href="http://www.blablacar.com/">BlaBlaCar</a> startup. To introduce myself
+in a few words, I'm a <a href="http://symfony.com/">Symfony</a> lover, an <a href="http://developer.android.com/">Android</a> fanboy, an intensive
+<a href="http://git-scm.com/">git</a> &amp; <a href="http://www.vim.org/">vim</a> user, and this blog will be all about that.</p>
+
+<p>For my very first article, let's see <strong>how this blog was created</strong>, in a very
+simple way, using <a href="http://github.com/mojombo/jekyll">Jekyll</a>.</p>
+
+<p>Jekyll is a simple <strong>static site generator</strong>. It will transform all your HTML
+&amp; markdown/textile content into ordered HTML files. It allows you write articles in
+simple text files and create static HTML pages, but without repeating the
+layout of your site.</p>
+
+<h2 id="prerequisites">Prerequisites</h2>
+
+<p>You must:</p>
+
+<ul>
+<li>be able to <a href="https://github.com/mojombo/jekyll/wiki/Install">install Jekyll</a>: <code>sudo gem install jekyll</code></li>
+<li>know basic markup languages such as <a href="http://en.wikipedia.org/wiki/HTML">HTML</a>, <a href="http://en.wikipedia.org/wiki/Markdown">Markdown</a>, and <a href="http://en.wikipedia.org/wiki/YAML">Yaml</a></li>
+<li>know Git and have an account on <a href="http://github.com">Github</a> (optional but useful to make it
+online)</li>
+</ul>
+
+<h2 id="initialize-the-structure">Initialize the structure</h2>
+
+<p>First we're going to create the basic structure of our app. The content of each
+folder we need is described in <a href="https://github.com/mojombo/jekyll/wiki/usage">Jekyll Usage page</a>:</p>
+
+<pre><code>$ mkdir _layouts _posts
+$ touch index.html _config.yml _layouts/{default,post}.html
+</code></pre>
+
+<p>You can customize the default <a href="https://github.com/mojombo/jekyll/wiki/configuration">configuration</a> by editing the
+<code>_config.yml</code> file. For now, let's configure the permalinks of each post, with
+the date and the slug. There is an option to make pretty URLs automatically:</p>
+
+<pre><code>permalink: pretty
+</code></pre>
+
+<h2 id="create-a-basic-layout">Create a basic layout</h2>
+
+<p>Let's have something to watch! We'll now create the layouts and the homepage.</p>
+
+<ul>
+<li><code>_layouts/default.html</code> will contain our main layout (header, body &amp; footer)</li>
+<li><code>_layouts/post.html</code> will overload the default one to had the structure of
+the article (a title, some metadata and a body)</li>
+<li><code>index.html</code> will contain what we want to show on our homepage (for instance,
+the list of all blog posts)</li>
+</ul>
+
+<p>Now what about the content? Jekyll offers you <a href="https://github.com/mojombo/jekyll/wiki/Template-Data">several variables</a> to
+display your content. It uses the <a href="https://github.com/shopify/liquid/wiki/liquid-for-designers">Liquid templating</a> system to display
+them. If you're familiar with templating engine like Twig or Jinja, you should
+feel confortable with it.</p>
+
+<p>The <em>inheritance</em> system works by using the <code>content</code> variable in the layout
+file, which will be replaced by the content of the file using this layout.
+Specifying a layout can be done in the <a href="https://github.com/mojombo/jekyll/wiki/YAML-Front-Matter">Front Matter</a> of any file.</p>
+
+<p>Lets see an example of a basic structure:</p>
+
+<p><code>_layouts/default.html</code>: defines the basic structure</p>
+
+<pre><code class="html">&lt;!DOCTYPE HTML&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;My Blog&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    {{ content }}
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<p><code>index.html</code>: defines the homepage where we list all blog articles</p>
+
+<pre><code class="html">---
+layout: default
+---
+
+&lt;h1&gt;Blog post&lt;/h1&gt;
+
+&lt;ul&gt;
+    {% for post in site.posts %}
+        &lt;li&gt;
+            {{ post.date|date_to_string }} »
+            &lt;a href="{{ post.url }}"&gt;{{ post.title }}&lt;/a&gt;
+        &lt;/li&gt;
+    {% endfor %}
+&lt;/ul&gt;
+</code></pre>
+
+<p><code>_layouts/post.html</code>: defines the post layout</p>
+
+<pre><code class="html">---
+layout: default
+---
+
+&lt;article class="post"&gt;
+    &lt;header&gt;
+        &lt;h2&gt;{{ page.title }}&lt;/h2&gt;
+        &lt;time datetime="{{ page.date|date: "%Y-%m-%d" }}"&gt;
+            {{ page.date|date_to_string }}
+        &lt;/time&gt;
+    &lt;/header&gt;
+
+    &lt;div class="entry"&gt;
+        {{ content }}
+    &lt;/div&gt;
+&lt;/article&gt;
+</code></pre>
+
+<p>And then I just have to add a new markdown file in the <code>_posts</code> directory
+(following the convention <code>YYYY-MM-DD-slug-of-the-post.markdown</code>) to add a new
+blog post:</p>
+
+<pre><code class="html">---
+layout: post
+title: This is an example
+---
+
+Hi folks! This is an example of content.
+</code></pre>
+
+<p>That's it! We've created a blog in a few lines. You're now ready to <a href="https://help.github.com/articles/using-jekyll-with-pages">push it
+online on GitHub</a>.</p>
+
+<h2 id="go-further">Go further</h2>
+
+<p>Of course, Jekyll has a lot more features not presented in this article. The
+best way to learn is to have a look at the many <a href="https://github.com/mojombo/jekyll/wiki/Sites">sites using
+Jekyll</a>.</p>
+
+<p>Here are some quick improvements you can do:</p>
+
+<ul>
+<li>enable <strong>RSS feeds</strong> by adding an <a href="https://github.com/MattKetmo/mattketmo.github.com/blob/master/atom.xml">atom.xml</a> file</li>
+<li>enable dynamic comments with services like <a href="http://disqus.com/">Disqus</a> or <a href="http://www.livefyre.com/">Livefyre</a> (javascript only)</li>
+<li>use code highlight with <a href="https://github.com/mojombo/jekyll/wiki/Liquid-Extensions">Pygments</a></li>
+</ul>
+
+<p>There are also plenty of <a href="https://github.com/mojombo/jekyll/wiki/Plugins">plugins</a> (written in ruby) you can use.</p>
+
+<p>To simplify the installation of Jekyll, you can even use <a href="http://jekyllbootstrap.com/">JekyllBootstrap</a> which
+will initialize the structure for you and put it on your Github account. It
+has several themes you can use if you don't want to play with CSS.</p>
+
+<p>I also recommend to read <a href="http://tom.preston-werner.com/2008/11/17/blogging-like-a-hacker.html">how Jekyll was born</a>, a nice article by its
+creator which will give you a better understanding of the spirit of static blog
+generators like Jekyll.</p>
+]]></content>
+    </entry>
+  </feed>

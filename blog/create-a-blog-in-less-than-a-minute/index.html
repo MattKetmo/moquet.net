@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>How to create a blog in less than a minute</title>
+
+      <meta charset="UTF-8">
+  <meta content="IE=edge" http-equiv="X-UA-Compatible">
+  <meta content="Matthieu Moquet" name="author">
+  <meta content="This is how I started this blog using Jekyll as static generator website." name="description">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  
+
+  
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@MattKetmo" />
+  <meta name="twitter:creator" content="@MattKetmo" />
+  <meta name="twitter:title" content="How to create a blog in less than a minute" />
+  <meta name="twitter:url" content="https://moquet.net/blog/create-a-blog-in-less-than-a-minute/" />
+  <meta name="twitter:description" content="This is how I started this blog using Jekyll as static generator website." />
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/public/favicon/apple-touch-icon-180x180.png">
+  <link rel="icon" type="image/png" href="/assets/public/favicon/favicon-192x192.png" sizes="192x192">
+  <link rel="icon" type="image/png" href="/assets/public/favicon/favicon-160x160.png" sizes="160x160">
+  <link rel="icon" type="image/png" href="/assets/public/favicon/favicon-96x96.png" sizes="96x96">
+  <link rel="icon" type="image/png" href="/assets/public/favicon/favicon-16x16.png" sizes="16x16">
+  <link rel="icon" type="image/png" href="/assets/public/favicon/favicon-32x32.png" sizes="32x32">
+
+  
+  <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="Matthieu Moquet">
+
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,900">
+  <link rel="stylesheet" type="text/css" href="/assets/dist/css/main.css">
+  </head>
+<body class="no-js">
+  <script>
+    document.body.classList.remove('no-js')
+    document.body.classList.add('js', 'preload')
+  </script>
+
+  <a href="/" class="BackLink isLight">
+  <i class="icon-logo"></i>
+</a>
+
+<article class="BlogPostContainer">
+  <header class="BlogPostHeader">
+    <div class="Layout">
+      <h1 class="BlogPostHeader-title">
+        How to create a blog in less than a minute
+      </h1>
+
+      <p class="BlogPostHeader-meta">
+        <time datetime="2012-08-01">
+          01 Aug 2012
+        </time>
+      </p>
+    </div>
+  </header>
+
+  <div class="BlogPostContentWrapper">
+    <div class="BlogPostContent Type Layout">
+      <blockquote>
+  <p>Yo dawg! I heard you like blogs. So I started a blog and blogged about how to
+  create a new blog. So you can learn to blog while reading this blog.</p>
+</blockquote>
+
+<p>Hi everyone! I'm Matthieu Moquet, a french PHP web developer, currently
+working on the future of the awesome <a href="http://www.blablacar.com/">BlaBlaCar</a> startup. To introduce myself
+in a few words, I'm a <a href="http://symfony.com/">Symfony</a> lover, an <a href="http://developer.android.com/">Android</a> fanboy, an intensive
+<a href="http://git-scm.com/">git</a> &amp; <a href="http://www.vim.org/">vim</a> user, and this blog will be all about that.</p>
+
+<p>For my very first article, let's see <strong>how this blog was created</strong>, in a very
+simple way, using <a href="http://github.com/mojombo/jekyll">Jekyll</a>.</p>
+
+<p>Jekyll is a simple <strong>static site generator</strong>. It will transform all your HTML
+&amp; markdown/textile content into ordered HTML files. It allows you write articles in
+simple text files and create static HTML pages, but without repeating the
+layout of your site.</p>
+
+<h2 id="prerequisites">Prerequisites</h2>
+
+<p>You must:</p>
+
+<ul>
+<li>be able to <a href="https://github.com/mojombo/jekyll/wiki/Install">install Jekyll</a>: <code>sudo gem install jekyll</code></li>
+<li>know basic markup languages such as <a href="http://en.wikipedia.org/wiki/HTML">HTML</a>, <a href="http://en.wikipedia.org/wiki/Markdown">Markdown</a>, and <a href="http://en.wikipedia.org/wiki/YAML">Yaml</a></li>
+<li>know Git and have an account on <a href="http://github.com">Github</a> (optional but useful to make it
+online)</li>
+</ul>
+
+<h2 id="initialize-the-structure">Initialize the structure</h2>
+
+<p>First we're going to create the basic structure of our app. The content of each
+folder we need is described in <a href="https://github.com/mojombo/jekyll/wiki/usage">Jekyll Usage page</a>:</p>
+
+<pre><code>$ mkdir _layouts _posts
+$ touch index.html _config.yml _layouts/{default,post}.html
+</code></pre>
+
+<p>You can customize the default <a href="https://github.com/mojombo/jekyll/wiki/configuration">configuration</a> by editing the
+<code>_config.yml</code> file. For now, let's configure the permalinks of each post, with
+the date and the slug. There is an option to make pretty URLs automatically:</p>
+
+<pre><code>permalink: pretty
+</code></pre>
+
+<h2 id="create-a-basic-layout">Create a basic layout</h2>
+
+<p>Let's have something to watch! We'll now create the layouts and the homepage.</p>
+
+<ul>
+<li><code>_layouts/default.html</code> will contain our main layout (header, body &amp; footer)</li>
+<li><code>_layouts/post.html</code> will overload the default one to had the structure of
+the article (a title, some metadata and a body)</li>
+<li><code>index.html</code> will contain what we want to show on our homepage (for instance,
+the list of all blog posts)</li>
+</ul>
+
+<p>Now what about the content? Jekyll offers you <a href="https://github.com/mojombo/jekyll/wiki/Template-Data">several variables</a> to
+display your content. It uses the <a href="https://github.com/shopify/liquid/wiki/liquid-for-designers">Liquid templating</a> system to display
+them. If you're familiar with templating engine like Twig or Jinja, you should
+feel confortable with it.</p>
+
+<p>The <em>inheritance</em> system works by using the <code>content</code> variable in the layout
+file, which will be replaced by the content of the file using this layout.
+Specifying a layout can be done in the <a href="https://github.com/mojombo/jekyll/wiki/YAML-Front-Matter">Front Matter</a> of any file.</p>
+
+<p>Lets see an example of a basic structure:</p>
+
+<p><code>_layouts/default.html</code>: defines the basic structure</p>
+
+<pre><code class="html">&lt;!DOCTYPE HTML&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;My Blog&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    {{ content }}
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<p><code>index.html</code>: defines the homepage where we list all blog articles</p>
+
+<pre><code class="html">---
+layout: default
+---
+
+&lt;h1&gt;Blog post&lt;/h1&gt;
+
+&lt;ul&gt;
+    {% for post in site.posts %}
+        &lt;li&gt;
+            {{ post.date|date_to_string }} »
+            &lt;a href="{{ post.url }}"&gt;{{ post.title }}&lt;/a&gt;
+        &lt;/li&gt;
+    {% endfor %}
+&lt;/ul&gt;
+</code></pre>
+
+<p><code>_layouts/post.html</code>: defines the post layout</p>
+
+<pre><code class="html">---
+layout: default
+---
+
+&lt;article class="post"&gt;
+    &lt;header&gt;
+        &lt;h2&gt;{{ page.title }}&lt;/h2&gt;
+        &lt;time datetime="{{ page.date|date: "%Y-%m-%d" }}"&gt;
+            {{ page.date|date_to_string }}
+        &lt;/time&gt;
+    &lt;/header&gt;
+
+    &lt;div class="entry"&gt;
+        {{ content }}
+    &lt;/div&gt;
+&lt;/article&gt;
+</code></pre>
+
+<p>And then I just have to add a new markdown file in the <code>_posts</code> directory
+(following the convention <code>YYYY-MM-DD-slug-of-the-post.markdown</code>) to add a new
+blog post:</p>
+
+<pre><code class="html">---
+layout: post
+title: This is an example
+---
+
+Hi folks! This is an example of content.
+</code></pre>
+
+<p>That's it! We've created a blog in a few lines. You're now ready to <a href="https://help.github.com/articles/using-jekyll-with-pages">push it
+online on GitHub</a>.</p>
+
+<h2 id="go-further">Go further</h2>
+
+<p>Of course, Jekyll has a lot more features not presented in this article. The
+best way to learn is to have a look at the many <a href="https://github.com/mojombo/jekyll/wiki/Sites">sites using
+Jekyll</a>.</p>
+
+<p>Here are some quick improvements you can do:</p>
+
+<ul>
+<li>enable <strong>RSS feeds</strong> by adding an <a href="https://github.com/MattKetmo/mattketmo.github.com/blob/master/atom.xml">atom.xml</a> file</li>
+<li>enable dynamic comments with services like <a href="http://disqus.com/">Disqus</a> or <a href="http://www.livefyre.com/">Livefyre</a> (javascript only)</li>
+<li>use code highlight with <a href="https://github.com/mojombo/jekyll/wiki/Liquid-Extensions">Pygments</a></li>
+</ul>
+
+<p>There are also plenty of <a href="https://github.com/mojombo/jekyll/wiki/Plugins">plugins</a> (written in ruby) you can use.</p>
+
+<p>To simplify the installation of Jekyll, you can even use <a href="http://jekyllbootstrap.com/">JekyllBootstrap</a> which
+will initialize the structure for you and put it on your Github account. It
+has several themes you can use if you don't want to play with CSS.</p>
+
+<p>I also recommend to read <a href="http://tom.preston-werner.com/2008/11/17/blogging-like-a-hacker.html">how Jekyll was born</a>, a nice article by its
+creator which will give you a better understanding of the spirit of static blog
+generators like Jekyll.</p>
+
+    </div>
+
+    <p class="BlogPostFooter Layout">
+      <a class="Button twitter js-twitter-share" title="Share this post" href="https://twitter.com/share?text=How+to+create+a+blog+in+less+than+a+minute&url=https%3A%2F%2Fmoquet.net%2Fblog%2Fcreate-a-blog-in-less-than-a-minute&via=MattKetmo&related=MattKetmo" target="_blank">
+        <i class="icon-twitter"></i>
+        <span>Share this post</span>
+      </a>
+    </p>
+
+    <section class="Comments Layout">
+  <div id="disqus_thread"></div>
+  <script type="text/javascript">
+    var disqus_shortname = 'mattketmo';
+
+    (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+</section>
+  </div>
+</article>
+
+<section class="Footer">
+  <div class="Layout">
+    <div class="Footer-column">
+      <i class="icon-logo"></i>
+      <a href="/">
+        Matthieu Moquet
+      </a>
+      —
+      <a href="https://twitter.com/MattKetmo" title="Twitter">
+        @MattKetmo
+      </a>
+    </div>
+
+    <div class="Footer-column">
+      <a href="https://twitter.com/MattKetmo" title="Twitter">
+        <i class="icon-twitter"></i>
+      </a>
+      <a href="https://github.com/MattKetmo" title="GitHub">
+        <i class="icon-github"></i>
+      </a>
+      <!--
+      <a href="https://plus.google.com/u/0/112952330011857430726" title="Google+" class="google" rel="author">
+        <i class="icon-googleplus"></i>
+      </a>
+      -->
+      <a href="http://fr.linkedin.com/in/matthieumoquet" title="LinkedIn">
+        <i class="icon-linkedin"></i>
+      </a>
+    </div>
+  </div>
+</section>
+
+
+    <script src="/assets/dist/js/main.js"></script>
+  
+  <script>
+  var _gaq=[['_setAccount','UA-23657373-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+</body>
+</html>

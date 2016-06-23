@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Distributing a PHP CLI app with ease</title>
+
+      <meta charset="UTF-8">
+  <meta content="IE=edge" http-equiv="X-UA-Compatible">
+  <meta content="Matthieu Moquet" name="author">
+  <meta content="An example of command line tool in PHP using Symfony and the Box project. This explains how to easily build a PHAR file and how to create an auto-update command." name="description">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  
+
+  
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@MattKetmo" />
+  <meta name="twitter:creator" content="@MattKetmo" />
+  <meta name="twitter:title" content="Distributing a PHP CLI app with ease" />
+  <meta name="twitter:url" content="https://moquet.net/blog/distributing-php-cli/" />
+  <meta name="twitter:description" content="An example of command line tool in PHP using Symfony and the Box project. This explains how to easily build a PHAR file and how to create an auto-update command." />
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/public/favicon/apple-touch-icon-180x180.png">
+  <link rel="icon" type="image/png" href="/assets/public/favicon/favicon-192x192.png" sizes="192x192">
+  <link rel="icon" type="image/png" href="/assets/public/favicon/favicon-160x160.png" sizes="160x160">
+  <link rel="icon" type="image/png" href="/assets/public/favicon/favicon-96x96.png" sizes="96x96">
+  <link rel="icon" type="image/png" href="/assets/public/favicon/favicon-16x16.png" sizes="16x16">
+  <link rel="icon" type="image/png" href="/assets/public/favicon/favicon-32x32.png" sizes="32x32">
+
+  
+  <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="Matthieu Moquet">
+
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,900">
+  <link rel="stylesheet" type="text/css" href="/assets/dist/css/main.css">
+  </head>
+<body class="no-js">
+  <script>
+    document.body.classList.remove('no-js')
+    document.body.classList.add('js', 'preload')
+  </script>
+
+  <a href="/" class="BackLink isLight">
+  <i class="icon-logo"></i>
+</a>
+
+<article class="BlogPostContainer">
+  <header class="BlogPostHeader">
+    <div class="Layout">
+      <h1 class="BlogPostHeader-title">
+        Distributing a PHP CLI app with ease
+      </h1>
+
+      <p class="BlogPostHeader-meta">
+        <time datetime="2013-07-23">
+          23 Jul 2013
+        </time>
+      </p>
+    </div>
+  </header>
+
+  <div class="BlogPostContentWrapper">
+    <div class="BlogPostContent Type Layout">
+      <p>Something I love with PHP is how easily you can build a CLI application.
+Some libraries like the Symfony Console Component has greatly
+improved this process. Also, the ability to package a whole application
+into a single PHAR container make the distribution and usage even
+easier.</p>
+
+<p>Such as <a href="http://getcomposer.org/"><code>composer</code></a> or <a href="http://cs.sensiolabs.org/"><code>php-cs-fixer</code></a>,
+let's see how to quickly build a PHAR file for your application
+with self-update capabilities.</p>
+
+<h2 id="the-symfony-console">The Symfony Console</h2>
+
+<p>First we need to create our CLI app. Let's call it <a href="https://github.com/MattKetmo/cliph">Cliph</a>.
+For the example, we will build a typical <a href="http://symfony.com/doc/current/components/index.html">Symfony console</a>
+app with one « <em>hello world</em> » command.
+Basically this results <a href="https://github.com/MattKetmo/cliph/commit/cd38f2438fe049033fe83d60c711d365cd68e261">in only 2 files</a>.
+The first one is the command in the <code>src</code> folder:</p>
+
+<pre><code class="php">&lt;?php
+
+namespace Cliph\Command;
+
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+
+class HelloCommand extends Command
+{
+    protected function configure()
+    {
+        $this
+            -&gt;setName('hello')
+            -&gt;setDescription('Say hello')
+        ;
+    }
+
+    protected function execute(InputInterface $input, OutputInterface $output)
+    {
+        $output-&gt;writeln('Hello World');
+    }
+}
+</code></pre>
+
+<p>And the second is the launcher in <code>bin/cliph</code>:</p>
+
+<pre><code class="php">#!/usr/bin/env php
+&lt;?php
+
+require __DIR__.'/../vendor/autoload.php';
+
+use Cliph\Command;
+use Symfony\Component\Console\Application;
+
+$application = new Application('Cliph', '0.1-dev');
+$application-&gt;add(new Command\HelloCommand());
+$application-&gt;run();
+</code></pre>
+
+<p>Our application is now ready to run:</p>
+
+<pre><code>$ ./bin/cliph --version
+Cliph version 0.1-dev
+
+$ ./bin/cliph hello
+Hello World
+</code></pre>
+
+<h2 id="the-box-project">The Box Project</h2>
+
+<p>The next step is to package all the sources into one single executable
+<a href="http://www.php.net/manual/en/intro.phar.php">PHAR</a> file.</p>
+
+<p>If you tried to build a PHAR file for your own CLI app, you may
+already have read the <a href="https://github.com/composer/composer/blob/1.0.0-alpha7/src/Composer/Compiler.php"><code>Compiler.php</code> script from Composer</a>. This script
+is launched via <code>./bin/compile</code> and produces the <code>composer.phar</code> file.</p>
+
+<p>Now we want the same thing for our app, but without writing any line of PHP.
+That would be redundant for each project.
+This is where the <a href="http://box-project.github.io/box2/">Box Project</a> comes in.
+The idea behing this tool is to replace the usual <code>compile</code> script with
+a simple JSON file.</p>
+
+<p>The JSON file contains the location of the PHP files to combine, and
+the executable to run. This is typically what we need for our app:</p>
+
+<pre><code class="json">{
+    "chmod": "0755",
+    "directories": [
+        "src"
+    ],
+    "files": [
+        "LICENSE"
+    ],
+    "finder": [
+        {
+            "name": "*.php",
+            "exclude": ["Tests"],
+            "in": "vendor"
+        }
+    ],
+    "git-version": "package_version",
+    "main": "bin/cliph",
+    "output": "cliph.phar",
+    "stub": true
+}
+</code></pre>
+
+<p>As you notice, you can specify the source files using three different directives:</p>
+
+<ul>
+<li><code>directories</code>: to import a whole directory, typically the source folder</li>
+<li><code>files</code>: ideal to import in single file — here the license</li>
+<li><code>finder</code>: if you want more advanced filters, this use the
+<a href="http://symfony.com/doc/current/components/finder.html">Symfony Finder component</a>.
+This is very handy to exclude some useless files like the tests.</li>
+</ul>
+
+<p>Then come the options to customise the PHAR file. The <code>output</code> specifies
+the name of the script; the <code>main</code> is the launcher script; we use <code>chmod</code>
+to make it executable by default; and of course the <code>stub</code> must be enabled
+for a CLI app.</p>
+
+<p>Finally you may wonder what the <code>git-version</code> stands for. The value of this
+parameter is used to replace any string in the source files. Here, any string
+<code>@package_version@</code> is replaced by a version number based on the git
+repository. To take advantage of this, we place it as the version parameter
+on our main launcher <code>bin/cliph</code>:</p>
+
+<pre><code class="php">&lt;?php
+//...
+$application = new Application('Cliph', '@package_version@');
+</code></pre>
+
+<p>Time to see the result. <a href="https://github.com/box-project/box2#as-a-phar-recommended">Install Box</a>
+if you did not already, then run:</p>
+
+<pre><code>$ box build
+Building...
+$ ./cliph.phar --version
+Cliph version ad2fc07
+</code></pre>
+
+<p>Simple, isn't it? It's even better if use git tags to have a proper version number:</p>
+
+<pre><code>$ git tag 1.0.0
+$ box build
+Building...
+$ ./cliph.phar --version
+Cliph version 1.0.0
+</code></pre>
+
+<p>Box will automatically use the git tag number if any, or fallback to the
+commit hash. If a tag was created on a previous commit, the version may
+look somthing like <code>1.0.0-1-gae87139</code> (ie. use of tag + commit hash).</p>
+
+<h2 id="auto-updates">Auto updates</h2>
+
+<div class="note info"><p>
+<b>Edit Jan. 2016</b>: I now recommend you to also read this great blog post
+<a href="https://mwop.net/blog/2015-12-14-secure-phar-automation.html">"Secure PHAR Automation"</a>
+by <a href="https://twitter.com/mwop">@mwop</a> which makes use of the
+<a href="https://github.com/padraic/phar-updater">padraic/phar-updater</a>
+library and GitHub pages to automate and sign your PHAR file.
+</p></div>
+
+<p>Now that we have our PHAR, it would be awesome to add a command to auto update
+the app. Think of something like <code>composer self-update</code>,
+but as usual with minimal code.</p>
+
+<p>The library which will help us this time is <a href="https://github.com/herrera-io/php-phar-update">php-phar-update</a>.
+This library handles the whole update process.
+To make it work, we need to instanciate a <code>Manager</code> object from a <code>Manifest</code>
+then run the update method.
+The <code>Manifest</code> contains all the possible updates. Ideally it
+reads a remote JSON file which contains the list of all available versions.
+To host the <code>manifest.json</code> file, we will use GitHub pages.</p>
+
+<p>Here is what look like our update command:</p>
+
+<pre><code class="php">&lt;?php
+
+namespace Cliph\Command;
+
+use Herrera\Phar\Update\Manager;
+use Herrera\Phar\Update\Manifest;
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+
+class UpdateCommand extends Command
+{
+    const MANIFEST_FILE = 'http://mattketmo.github.io/cliph/manifest.json';
+
+    protected function configure()
+    {
+        $this
+            -&gt;setName('update')
+            -&gt;setDescription('Updates cliph.phar to the latest version')
+        ;
+    }
+
+    protected function execute(InputInterface $input, OutputInterface $output)
+    {
+        $manager = new Manager(Manifest::loadFile(self::MANIFEST_FILE));
+        $manager-&gt;update($this-&gt;getApplication()-&gt;getVersion(), true);
+    }
+}
+</code></pre>
+
+<p>Only two lines of code. Awesome, right? The first parameter of the <code>update</code>
+method is the current version number (in order to compare with available versions),
+while the second allows to download major version.
+Here is the <a href="https://github.com/MattKetmo/cliph/commit/b3555f4c81f27002893845d96fb69a79f757f47d">full diff</a>
+of that new update feature.</p>
+
+<p>Let's tag our new functionnality, and re-build the PHAR:</p>
+
+<pre><code>$ git tag 1.1.0
+
+$ box build
+Building...
+
+$ ./cliph.phar
+Cliph version 1.1.0
+
+Available commands:
+  hello   Say hello
+  help    Displays help for a command
+  list    Lists commands
+  update  Updates cliph.phar to the latest version
+</code></pre>
+
+<p>Now we just have to put a <code>manifest.json</code>
+plus the build PHAR into the <a href="https://help.github.com/articles/creating-project-pages-manually#lets-get-crackin"><code>gh-pages</code> branch</a>
+and deploy it to GitHub. Note that I used the <code>openssl sha1 &lt;file&gt;</code> command to
+get the hash of the PHAR file.</p>
+
+<pre><code>$ cat manifest.json
+[
+    {
+        "name": "cliph.phar",
+        "sha1": "fbcded58df0ea838c17d56a5e3cdace56127d538",
+        "url": "http://mattketmo.github.io/cliph/downloads/my-cli-1.1.0.phar",
+        "version": "1.1.0"
+    }
+]
+$ tree
+.
+├── downloads
+│   └── cliph-1.1.0.phar
+└── manifest.json
+</code></pre>
+
+<p>Yeah, we've just acheived the update command step.
+To try it, let's upgrade Cliph version to 1.1.1 with that <a href="https://github.com/MattKetmo/cliph/commit/c808ae0b5467e6a0d3d91ba9ef75e492a4a4974a">new commit</a>,
+and the corresponding <a href="https://github.com/MattKetmo/cliph/commit/e0744142c5b4fd1e454d45bdc31c6f2ffd62ea1c">manifest.json</a>.
+Then, from a <code>1.1.0</code> vesion of our app, run the <code>update</code> command:</p>
+
+<pre><code>$ ./cliph.phar --version
+Cliph version 1.1.0
+
+$ ./cliph.phar update
+Updated to the latest version
+
+$ ./cliph.phar --version
+Cliph version 1.1.1
+</code></pre>
+
+<h2 id="sign-your-application">Sign your application</h2>
+
+<p>Now as a bonus part, we would like to sign our application.
+PHAR files can be signed with a set of public &amp; private keys — using for instance OpenSSL.
+The archive is built with the private key, and to run the file
+the public key must be put next to it:</p>
+
+<p>« <em>If the phar archive is saved as <code>/path/to/my.phar</code>, the public key must be
+saved as <code>/path/to/my.phar.pubkey</code>, or phar will be unable to verify the
+signature.</em> » — <a href="http://php.net/manual/en/phar.using.intro.php">php.net</a></p>
+
+<p>To generate an OpenSSL private key, you have choice to directly use the <code>openssl</code>
+command, or the <code>box key:create</code>. Then, to sign the PHAR the only thing to do is
+to add the <code>key</code> option into your <code>box.json</code> file:</p>
+
+<pre><code class="json">{
+    "chmod": "0755",
+    "...": "...",
+    "stub": true,
+    "key": "private.key"
+}
+</code></pre>
+
+<p>Then if you run a <code>box build</code> you will see a new file <code>cliph.phar.pubkey</code>.
+If you try to move or remove this file, you will get a <code>PharException</code>.</p>
+
+<p>Note that if you have set a passphrase for your private key, you must report
+it in the <code>box.json</code> (<code>"key-pass": "mypass"</code>). But if you do so, please don't
+version this file.
+Instead use a <code>box.json.dist</code> and overwrite it in your local environment.
+However I must admit I'm not really fan of that solution.
+In my opinion, an option in the <code>box</code> command would be clever
+(eg. <code>box build --key private.key -p</code>).</p>
+
+<h2 id="automation">Automation</h2>
+
+<p>Last thing we want to do is to automate the whole process.
+For the example, I wrote a stupid <a href="https://github.com/MattKetmo/cliph/commit/5897c317f2a6a54208482540ef33d7316407a984">bash script</a>
+which handle all the actions described in this post (git tag, box build, copy to gh-pages, update manifest).
+It works with <a href="https://github.com/micha/jsawk"><code>jsawk</code></a> to manipulate the JSON file.</p>
+
+<p>Now I just have to run:</p>
+
+<pre><code class="bash">$ ./bump-version.sh 1.3.0
+</code></pre>
+
+<p>And a new PHAR file is automatically created with the given version number,
+and pushed to the <code>gh-pages</code>.</p>
+
+<p>Thus we've finally learned in a few steps how to make our CLI app easily distributable.
+The Box project is really something you have to look at if you are
+building PHAR files. And of course, you can adapt the "self-update" part to your need.
+Big thanks to <a href="https://github.com/kherge">Kevin Herrera</a> for those tools,
+that's very helpful.</p>
+
+    </div>
+
+    <p class="BlogPostFooter Layout">
+      <a class="Button twitter js-twitter-share" title="Share this post" href="https://twitter.com/share?text=Distributing+a+PHP+CLI+app+with+ease&url=https%3A%2F%2Fmoquet.net%2Fblog%2Fdistributing-php-cli&via=MattKetmo&related=MattKetmo" target="_blank">
+        <i class="icon-twitter"></i>
+        <span>Share this post</span>
+      </a>
+    </p>
+
+    <section class="Comments Layout">
+  <div id="disqus_thread"></div>
+  <script type="text/javascript">
+    var disqus_shortname = 'mattketmo';
+
+    (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+</section>
+  </div>
+</article>
+
+<section class="Footer">
+  <div class="Layout">
+    <div class="Footer-column">
+      <i class="icon-logo"></i>
+      <a href="/">
+        Matthieu Moquet
+      </a>
+      —
+      <a href="https://twitter.com/MattKetmo" title="Twitter">
+        @MattKetmo
+      </a>
+    </div>
+
+    <div class="Footer-column">
+      <a href="https://twitter.com/MattKetmo" title="Twitter">
+        <i class="icon-twitter"></i>
+      </a>
+      <a href="https://github.com/MattKetmo" title="GitHub">
+        <i class="icon-github"></i>
+      </a>
+      <!--
+      <a href="https://plus.google.com/u/0/112952330011857430726" title="Google+" class="google" rel="author">
+        <i class="icon-googleplus"></i>
+      </a>
+      -->
+      <a href="http://fr.linkedin.com/in/matthieumoquet" title="LinkedIn">
+        <i class="icon-linkedin"></i>
+      </a>
+    </div>
+  </div>
+</section>
+
+
+    <script src="/assets/dist/js/main.js"></script>
+  
+  <script>
+  var _gaq=[['_setAccount','UA-23657373-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+</body>
+</html>

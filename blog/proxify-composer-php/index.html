@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Proxify Composer for PHP</title>
+
+      <meta charset="UTF-8">
+  <meta content="IE=edge" http-equiv="X-UA-Compatible">
+  <meta content="Matthieu Moquet" name="author">
+  <meta content="Some experimentations on using some proxy methods to make Composer dependencies installation faster." name="description">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  
+
+  
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@MattKetmo" />
+  <meta name="twitter:creator" content="@MattKetmo" />
+  <meta name="twitter:title" content="Proxify Composer for PHP" />
+  <meta name="twitter:url" content="https://moquet.net/blog/proxify-composer-php/" />
+  <meta name="twitter:description" content="Some experimentations on using some proxy methods to make Composer dependencies installation faster." />
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/public/favicon/apple-touch-icon-180x180.png">
+  <link rel="icon" type="image/png" href="/assets/public/favicon/favicon-192x192.png" sizes="192x192">
+  <link rel="icon" type="image/png" href="/assets/public/favicon/favicon-160x160.png" sizes="160x160">
+  <link rel="icon" type="image/png" href="/assets/public/favicon/favicon-96x96.png" sizes="96x96">
+  <link rel="icon" type="image/png" href="/assets/public/favicon/favicon-16x16.png" sizes="16x16">
+  <link rel="icon" type="image/png" href="/assets/public/favicon/favicon-32x32.png" sizes="32x32">
+
+  
+  <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="Matthieu Moquet">
+
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,900">
+  <link rel="stylesheet" type="text/css" href="/assets/dist/css/main.css">
+  </head>
+<body class="no-js">
+  <script>
+    document.body.classList.remove('no-js')
+    document.body.classList.add('js', 'preload')
+  </script>
+
+  <a href="/" class="BackLink isLight">
+  <i class="icon-logo"></i>
+</a>
+
+<article class="BlogPostContainer">
+  <header class="BlogPostHeader">
+    <div class="Layout">
+      <h1 class="BlogPostHeader-title">
+        Proxify Composer for PHP
+      </h1>
+
+      <p class="BlogPostHeader-meta">
+        <time datetime="2012-08-06">
+          06 Aug 2012
+        </time>
+      </p>
+    </div>
+  </header>
+
+  <div class="BlogPostContentWrapper">
+    <div class="BlogPostContent Type Layout">
+      <p>Every PHP developer who use modern libraries or frameworks should know
+<a href="http://getcomposer.org/">Composer</a>. Composer is a dependency manager for PHP which allows you to
+declare the dependent libraries your project needs and it will install them in
+your project for you.</p>
+
+<p>Unlike system like PEAR, Composer is only "project-aware". This means your
+dependencies must be installed for each of your project. This is essential
+because your projects can depend on different version of a same library. In the
+other hand it can be quite painful to download or git-clone many times all the
+vendors from a (far far away) remote server. This is especially true when you:</p>
+
+<ul>
+<li>are working on <strong>many projects</strong> at the same time</li>
+<li>regulary <code>rm -rf vendor/</code> to be sure to <strong>remove</strong> the old dependencies (or
+because Composer just got a bug :))</li>
+<li>work on a project where everyone is using the same <strong>local network</strong> (that's
+true when you work in a company)</li>
+</ul>
+
+<p>Since Composer approaches the date of the first stable version, the second
+argument is becoming obsolete. Nevertheless, I want to focus on the last
+point.</p>
+
+<p>When you use a development version of a framework or library, you generally
+want to get it from the sources. For instance, if you want to start a new
+project with the 2.1 version of the <a href="http://symfony.com/">Symfony</a> fullstack framework (for now,
+<code>2.1.*</code> is an alias for <code>dev-master</code>), you have to git-clone the sources from
+GitHub. From an European network, it takes quite long to fetch a repository
+hosted on a US server:</p>
+
+<pre><code>$ time git clone git://github.com/symfony/symfony.git
+Cloning into symfony...
+remote: Counting objects: 140968, done.
+remote: Compressing objects: 100% (43619/43619), done.
+remote: Total 140968 (delta 89494), reused 132229 (delta 81990)
+Receiving objects: 100% (140968/140968), 20.97 MiB | 198 KiB/s, done.
+Resolving deltas: 100% (89494/89494), done.
+
+real    2m15.30s
+user    0m1.47s
+sys     0m3.00s
+</code></pre>
+
+<p>More than 2 minutes is necessary to clone our main vendor (hopefully we don't
+use SVN anymore). In addition to other libraries like <a href="https://github.com/doctrine/doctrine2">Doctrine</a> or <a href="http://github.com/fabpot/Twig">Twig</a>,
+the installation of all vendors could easily take 5 minutes or more. The
+objective of this article would be to find a solution to install the same
+vendors, in less than 15 seconds.</p>
+
+<p>This would be really usefull to <strong>save time and bandwidth</strong> not only for the
+developers, but also for CI systems (<a href="http://jenkins-ci.org/">Jenkins</a>/<a href="http://travis-ci.org/">Travis</a>), or PaaS solution
+like <a href="http://henrik.bjrnskov.dk/using-composer-on-pagodabox/">PagodaBox</a> or <a href="http://bergie.iki.fi/blog/using_composer_to_manage_dependencies_in_heroku_php_apps/">Heroku</a> which run a <code>composer install</code> each time you
+deploy a new code.</p>
+
+<p>As Git is a decentralized system, it is relativly easy to create a proxy ---
+ie. a local clone of the repository --- which everyone could use instead of the
+original one.</p>
+
+<h2 id="using-gitpod">Using Gitpod</h2>
+
+<p><a href="https://github.com/sitaramc/gitpod">Gitpod</a> is a local caching server for Git. Its operation is very simple:
+once you've cloned a repository, each time you git-fetch it, it will git-fetch
+the original repository first. Thus, the first time will be as long as you if
+you git-fetched the original repository, while the second will be
+instantaneous.</p>
+
+<p>The following example shows how I set up Gitpod to work with Composer.</p>
+
+<p>According to the <a href="https://github.com/sitaramc/gitpod#readme">documentation</a>,
+you first need to create a <code>gp</code> user on your <code>gp-server</code> (it could be your
+localhost, or a different server on your local network), and copy or clone the
+binaries into its home directory:</p>
+
+<pre><code># useradd gp
+# git clone git://github.com/sitaramc/gitpod.git /home/gp/bin
+</code></pre>
+
+<p>Then change its default shell:</p>
+
+<pre><code># chsh gp -s /home/gp/bin/gitpod
+</code></pre>
+
+<p>Now you can proxify any git repository from your shell by simply running:</p>
+
+<pre><code>$ ssh gp@gp-server clone URL reponame
+</code></pre>
+
+<p>The result with the <a href="https://github.com/symfony/symfony">Symfony repository</a>:</p>
+
+<pre><code>$ ssh gp@gp-server clone git://github.com/symfony/symfony.git symfony
+running: git clone --progress --mirror git://github.com/symfony/symfony.git
+Cloning into bare repository symfony.git...
+...skipping cloning command...
+
+$ time git clone git://gp@gp-server/symfony.git
+Cloning into symfony-new...
+fetching from git://github.com/symfony/symfony.git
+remote: Counting objects: 141630, done.
+remote: Compressing objects: 100% (41715/41715), done.
+remote: Total 141630 (delta 89896), reused 135418 (delta 84468)
+Receiving objects: 100% (141630/141630), 21.11 MiB | 14.19 MiB/s, done.
+Resolving deltas: 100% (89896/89896), done.
+
+real    0m9.090s
+user    0m2.152s
+sys     0m1.776s
+</code></pre>
+
+<p>It takes less than 10 seconds to clone the Symfony sources into my local
+computer (once I previously cloned it in Gitpod).</p>
+
+<p>To use this git repository with into your project, just add the corresponding
+repository section into your <code>composer.json</code>:</p>
+
+<pre><code class="json">{
+    "require": {
+        "symfony/symfony": "dev-master"
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url":  "git://gp@gp-server/symfony.git"
+        }
+    ]
+}
+</code></pre>
+
+<p>Now the <code>php composer.phar install</code> command will directly clone your local
+repository instead of fetching GitHub.</p>
+
+<p>Not to end up with lots of unmeaningful repositories in your <code>composer.json</code>,
+you can use <a href="http://getcomposer.org/doc/articles/handling-private-packages-with-satis.md">Satis</a> to reference all of your local proxies. Satis is usefull
+when you want to declare private repositories for your project, but in this
+case you can use it to <strong>overload</strong> any public repository with your proxy.
+Then you only have to add the Satis URI in your <code>composer.json</code>:</p>
+
+<pre><code class="json">{
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "http://packages.example.org/"
+        }
+    ],
+    "require": {
+        "symfony/symfony": "2.1.*"
+    }
+}
+</code></pre>
+
+<h2 id="using-broker">Using Broker</h2>
+
+<p>I recently discovered <a href="https://github.com/researchgate/broker">Broker</a>, a PHP application which creates a full
+repository proxy for Composer.</p>
+
+<p>Like the previous method, you have to initialize your proxy with the desired
+vendors before running a <code>composer install</code> in your project. However Broker
+has the advantage to directly take your <code>composer.json</code> as the reference, and
+download all your vendors <strong>as Composer do</strong>. So it not only works for git
+repositories, but also with archives (and everything Composer can manage).
+Finally, it operates like Packagist or Satis, by providing a <code>packages.json</code>
+with just the libraries you need.</p>
+
+<p>To make it work, the <a href="https://github.com/researchgate/broker#readme">README</a>
+is really clear:</p>
+
+<pre><code>$ git clone git://github.com/researchgate/broker.git
+$ cd broker
+$ curl -s https://getcomposer.org/installer | php
+$ php composer.phar install
+$ php broker.php broker:add project_name path/to/project/composer.json
+</code></pre>
+
+<p>This will download all your vendors into the <code>repositories/project_name</code>
+folder. Once you've set up your server to point on the root directory of
+Broker, you could had it to your <code>composer.json</code> file:</p>
+
+<pre><code class="json">{
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "http://broker-server/repositories/project_name"
+        }
+    ],
+    "require": {
+        "symfony/symfony": "2.1.*"
+    }
+}
+</code></pre>
+
+<p>I would recommend this method which is much easier than the previous one, and
+also much more powerfull as it is provided for Composer. However, keep in mind
+to update your proxy repositories first before running a <code>composer update</code>.</p>
+
+<h2 id="the-missing-option">The missing option</h2>
+
+<p>Both of the previous methods work, but they have the same major incovenient:
+you have to modify the <code>composer.json</code> to use the proxy. In the case of
+a private project for your company it is not a real problem as every developer
+will use the company proxy. But it can be more problematic on an open source
+project as the file will <strong>no longer be shareable.</strong></p>
+
+<p>In my opinion, that would be a nice option for Composer to use a local proxy:</p>
+
+<pre><code>$ php composer.php install --proxy http://composer-proxy.local/
+</code></pre>
+
+<p>Or event use a local folder to download the vendors before copying them to
+your project:</p>
+
+<pre><code>$ php composer.php install --proxy /path/to/cache
+</code></pre>
+
+<p>In that case, Composer will explicitly tell the proxy what vendors to
+clone/download, and then it will download/copy the needed ones in your
+project. Thereby, every developer using the same proxy will save time and
+bandwidth, and even you, if you are working on several projects on your
+machine, will be able to download vendors only once.</p>
+
+<p>What do you think about that?</p>
+
+    </div>
+
+    <p class="BlogPostFooter Layout">
+      <a class="Button twitter js-twitter-share" title="Share this post" href="https://twitter.com/share?text=Proxify+Composer+for+PHP&url=https%3A%2F%2Fmoquet.net%2Fblog%2Fproxify-composer-php&via=MattKetmo&related=MattKetmo" target="_blank">
+        <i class="icon-twitter"></i>
+        <span>Share this post</span>
+      </a>
+    </p>
+
+    <section class="Comments Layout">
+  <div id="disqus_thread"></div>
+  <script type="text/javascript">
+    var disqus_shortname = 'mattketmo';
+
+    (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+</section>
+  </div>
+</article>
+
+<section class="Footer">
+  <div class="Layout">
+    <div class="Footer-column">
+      <i class="icon-logo"></i>
+      <a href="/">
+        Matthieu Moquet
+      </a>
+      —
+      <a href="https://twitter.com/MattKetmo" title="Twitter">
+        @MattKetmo
+      </a>
+    </div>
+
+    <div class="Footer-column">
+      <a href="https://twitter.com/MattKetmo" title="Twitter">
+        <i class="icon-twitter"></i>
+      </a>
+      <a href="https://github.com/MattKetmo" title="GitHub">
+        <i class="icon-github"></i>
+      </a>
+      <!--
+      <a href="https://plus.google.com/u/0/112952330011857430726" title="Google+" class="google" rel="author">
+        <i class="icon-googleplus"></i>
+      </a>
+      -->
+      <a href="http://fr.linkedin.com/in/matthieumoquet" title="LinkedIn">
+        <i class="icon-linkedin"></i>
+      </a>
+    </div>
+  </div>
+</section>
+
+
+    <script src="/assets/dist/js/main.js"></script>
+  
+  <script>
+  var _gaq=[['_setAccount','UA-23657373-1'],['_trackPageview']];
+  (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+  g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+  s.parentNode.insertBefore(g,s)}(document,'script'));
+</script>
+</body>
+</html>
