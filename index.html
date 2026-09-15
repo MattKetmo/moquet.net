@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f5f3ee" />
+    <meta
+      name="description"
+      content="Matthieu Moquet — Independent software developer. Creator of Zapkube and visual artist as Ketmo."
+    />
+    <title>Matthieu Moquet — Independent software developer</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --paper: #f5f3ee;
+        --ink: #292b26;
+        --muted: #6c6d63;
+        --line: #d6d6cb;
+        --accent: #626947;
+      }
+
+      * { box-sizing: border-box; }
+
+      body {
+        margin: 0;
+        background: var(--paper);
+        color: var(--ink);
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      ::selection { background: #dde0cd; }
+
+      .page {
+        width: min(100% - 112px, 960px);
+        min-height: 100svh;
+        margin: 0 auto;
+        padding: 44px 0 36px;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .masthead {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        color: var(--muted);
+      }
+
+      .monogram {
+        color: var(--ink);
+        font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Palatino, serif;
+        font-size: 23px;
+        letter-spacing: -2px;
+      }
+
+      .eyebrow {
+        margin: 0;
+        font-size: 10px;
+        font-weight: 500;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+      }
+
+      main { padding: 110px 0 100px; }
+
+      h1 {
+        margin: 0 0 23px -4px;
+        font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Palatino, serif;
+        font-size: clamp(56px, 7.5vw, 88px);
+        font-weight: 400;
+        line-height: 1.08;
+        letter-spacing: -4px;
+      }
+
+      .intro {
+        margin: 0;
+        color: var(--muted);
+        font-size: 17px;
+        line-height: 1.6;
+      }
+
+      .projects { margin-top: 90px; }
+      .projects h2 { margin-bottom: 25px; color: var(--muted); }
+      .project-list { margin: 0; padding: 0; list-style: none; }
+      .project-list li { border-top: 1px solid var(--line); }
+      .project-list li:last-child { border-bottom: 1px solid var(--line); }
+
+      .project {
+        display: grid;
+        grid-template-columns: 46px 1fr auto;
+        align-items: center;
+        gap: 16px;
+        padding: 29px 0;
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .number { color: var(--muted); font-size: 11px; font-variant-numeric: tabular-nums; }
+      .project-copy { display: flex; align-items: baseline; gap: 28px; }
+      .project-name { min-width: 102px; font-size: 20px; font-weight: 500; letter-spacing: -.4px; }
+      .project-description { color: var(--muted); font-size: 14px; line-height: 1.6; }
+      .arrow { color: var(--accent); width: 20px; height: 20px; transition: transform 180ms ease; }
+      .project:hover .arrow { transform: translate(3px, -3px); }
+      .project:hover .project-name { color: var(--accent); }
+      a:focus-visible { outline: 2px solid var(--accent); outline-offset: 6px; border-radius: 2px; }
+
+      footer {
+        margin-top: auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+      }
+
+      footer .eyebrow { color: var(--muted); }
+      .email { color: var(--ink); font-size: 14px; text-decoration-thickness: 1px; text-underline-offset: 5px; text-decoration-color: var(--line); }
+      .email:hover { text-decoration-color: var(--ink); }
+
+      @media (max-width: 640px) {
+        .page { width: calc(100% - 48px); padding: 28px 0; }
+        main { padding: 85px 0 75px; }
+        h1 { max-width: 390px; margin-left: -2px; font-size: clamp(49px, 11vw, 68px); letter-spacing: -2.5px; }
+        .intro { font-size: 15px; }
+        .projects { margin-top: 68px; }
+        .project { grid-template-columns: 22px 1fr 20px; gap: 12px; padding: 25px 0; }
+        .project-copy { flex-direction: column; gap: 7px; }
+        .project-description { font-size: 13px; }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .arrow { transition: none; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <header class="masthead">
+        <span class="monogram" aria-hidden="true">mm.</span>
+        <span class="eyebrow">Software &amp; Art</span>
+      </header>
+
+      <main>
+        <h1>Matthieu Moquet</h1>
+        <p class="intro">Independent software developer</p>
+
+        <section class="projects" aria-labelledby="projects-heading">
+          <h2 class="eyebrow" id="projects-heading">Projects</h2>
+          <ol class="project-list">
+            <li>
+              <a class="project" href="https://zapkube.com">
+                <span class="number" aria-hidden="true">01</span>
+                <span class="project-copy">
+                  <span class="project-name">Zapkube</span>
+                  <span class="project-description">The fastest Kubernetes desktop client</span>
+                </span>
+                <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" aria-hidden="true"><path d="M5 19 19 5M5 5h14v14" /></svg>
+              </a>
+            </li>
+            <li>
+              <a class="project" href="https://ketmo.art">
+                <span class="number" aria-hidden="true">02</span>
+                <span class="project-copy">
+                  <span class="project-name">Ketmo.art</span>
+                  <span class="project-description">Visual Artist</span>
+                </span>
+                <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" aria-hidden="true"><path d="M5 19 19 5M5 5h14v14" /></svg>
+              </a>
+            </li>
+          </ol>
+        </section>
+      </main>
+
+      <footer>
+        <span class="eyebrow">Contact</span>
+        <a class="email" href="mailto:matthieu@moquet.net">matthieu@moquet.net</a>
+      </footer>
+    </div>
+  </body>
+</html>
