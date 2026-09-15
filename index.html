@@ -114,8 +114,9 @@
       }
 
       footer .eyebrow { color: var(--muted); }
-      .email { color: var(--ink); font-size: 14px; text-decoration-thickness: 1px; text-underline-offset: 5px; text-decoration-color: var(--line); }
-      .email:hover { text-decoration-color: var(--ink); }
+      .social { display: flex; gap: 24px; }
+      .link { color: var(--ink); font-size: 14px; text-decoration-thickness: 1px; text-underline-offset: 5px; text-decoration-color: var(--line); }
+      .link:hover { text-decoration-color: var(--ink); }
 
       @media (max-width: 640px) {
         .page { width: calc(100% - 48px); padding: 28px 0; }
@@ -173,7 +174,10 @@
 
       <footer>
         <span class="eyebrow">Contact</span>
-        <a class="email" href="mailto:matthieu@moquet.net">matthieu@moquet.net</a>
+        <nav class="social" aria-label="Contact">
+          <a class="link" href="https://github.com/MattKetmo">GitHub</a>
+          <a class="link" href="https://www.linkedin.com/in/matthieumoquet/">LinkedIn</a>
+        </nav>
       </footer>
     </div>
   </body>
