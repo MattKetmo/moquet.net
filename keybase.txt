@@ -1,0 +1,65 @@
+==================================================================
+https://keybase.io/mattketmo
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of http://moquet.net
+  * I am mattketmo (https://keybase.io/mattketmo) on keybase.
+  * I have a public key with fingerprint 424B F919 11AE DED7 28C9  2274 37F5 2D5E 96F8 5E4F
+
+To claim this, I am signing this object:
+
+{
+    "body": {
+        "key": {
+            "fingerprint": "424bf91911aeded728c9227437f52d5e96f85e4f",
+            "host": "keybase.io",
+            "key_id": "37f52d5e96f85e4f",
+            "uid": "612281a129a06eab1e8effcc5cfc9900",
+            "username": "mattketmo"
+        },
+        "service": {
+            "hostname": "moquet.net",
+            "protocol": "http:"
+        },
+        "type": "web_service_binding",
+        "version": 1
+    },
+    "ctime": 1411112536,
+    "expire_in": 157680000,
+    "prev": "7779f3460539613f5bcd261199427a392bec91deade641b21f9c423163c2e5aa",
+    "seqno": 3,
+    "tag": "signature"
+}
+
+with the aforementioned key, yielding the PGP signature:
+
+-----BEGIN PGP MESSAGE-----
+Version: Keybase OpenPGP v1.0.5
+Comment: https://keybase.io/crypto
+
+yMHlAnicbZFbSBRRGMd387IoaGKKWCZyDDUQ2XPmtrOE2s2gemuRbrTO5cw6rM6s
+s7OrZruW2IY+pNSDD4IPSoliBVH4FJptsLmkkUJpZFIU1PZgRlm4RTNSb52Xw/mf
+3///fR9fNCvFkmn90ZK/VCIP89b49FrA4tq1crID8KrYDpwdwIu3LklWPFjzabKi
+AycgEclLLGQh5LCIRQY5BBYhhiQYiUIihVlaclCYlEAlaFT9psOI4Tk/rpJVQzMe
+blk01P/wga0PGiLkgBxELGenMcdD7MCSJAiUIAksa7eboB9rCteMDbqZ03Uv1ptV
+EKoEhhyUBWw2bdb+h6gtAaxXKVg3rD5N1VVBbTL0Rl33OU2b3u4zuVbMu/8muHlZ
+EY2xDUMQa35ZVYATGqSgy2YkJKFxEEXQlQC3+WQNu2WToBjaYTeOWQYHjUiGYViJ
+IGk7RbA0JCSKF0REQ8iyJGI4gkU8FlgoYk7ENAl5BCVWIBEBaUJAmOI4YM7UoqjA
+SRhtch4j0i97FE4PaBiEZqbPplqsmZb0tG3m4iyZGTn/1pnz0pbMPtB6rnpevxde
+yHUHV4ufpraXJDsHGz5emRqZzC14+OwnOd+bvjGxWL/c9GTuU3Qx3n0kuu/rm9OK
+Hux3OG/tHvl8rI88zLcVCHUpWZthFLi7+TrP+210NuyKZL8TdsZW0h7s+RWLXBjv
+sT1yLcgvejP2jv0eXCzacbmstLACqOWlZc7j0aLO2u+Fy7GphttXT108tH89UV8R
+sXXPxkcnTwiemwfHn2+EqhPh5IeJmpWZeF0iVq72OcYGhvKPjp33uqSa9YLHw4nx
+pe2hgdX7rLJ2xwe+WHu61rrWNyMblp5+m1yXlzhj7331Fry/cSlvLl48dP1avb/W
+m9T+ADmXGFQ=
+=AMde
+-----END PGP MESSAGE-----
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/mattketmo
+
+==================================================================
